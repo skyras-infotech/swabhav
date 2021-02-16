@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditBasedSelectionApp", "CreditBasedSelectionApp\CreditBasedSelectionApp.csproj", "{6ED73D78-CC0E-44F0-9D75-0BE6EA225CA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandidateApp.Tests", "CandidateApp.Tests\CandidateApp.Tests.csproj", "{1D56FEC6-E212-4355-AD35-E3C5124D11A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6ED73D78-CC0E-44F0-9D75-0BE6EA225CA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ED73D78-CC0E-44F0-9D75-0BE6EA225CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ED73D78-CC0E-44F0-9D75-0BE6EA225CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ED73D78-CC0E-44F0-9D75-0BE6EA225CA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D56FEC6-E212-4355-AD35-E3C5124D11A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D56FEC6-E212-4355-AD35-E3C5124D11A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D56FEC6-E212-4355-AD35-E3C5124D11A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D56FEC6-E212-4355-AD35-E3C5124D11A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45CEBD31-F9EC-49C1-8521-04045B7A4D2C}
+	EndGlobalSection
+EndGlobal

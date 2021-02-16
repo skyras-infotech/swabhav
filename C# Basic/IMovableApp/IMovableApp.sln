@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMovableApp", "IMovableApp\IMovableApp.csproj", "{3DDAE3EE-58AD-4D4F-ABE0-D0ABA20192BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DDAE3EE-58AD-4D4F-ABE0-D0ABA20192BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDAE3EE-58AD-4D4F-ABE0-D0ABA20192BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDAE3EE-58AD-4D4F-ABE0-D0ABA20192BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDAE3EE-58AD-4D4F-ABE0-D0ABA20192BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59F42A1B-34A7-46FC-AC96-82F8919FB203}
+	EndGlobalSection
+EndGlobal
