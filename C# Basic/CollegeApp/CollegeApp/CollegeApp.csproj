@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9CD0DBDF-011B-455E-BA90-E0FD106664DA}</ProjectGuid>
+    <ProjectGuid>{7597EBFC-B52F-4EDA-B510-E496C8DD9A74}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>OOADChapter2</RootNamespace>
-    <AssemblyName>OOADChapter2</AssemblyName>
+    <RootNamespace>CollegeApp</RootNamespace>
+    <AssemblyName>CollegeApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,11 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BarkRecognizer.cs" />
-    <Compile Include="DogDoor.cs" />
-    <Compile Include="DogDoorSimulator.cs" />
+    <Compile Include="Model\College.cs" />
+    <Compile Include="Model\Students.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Remote.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

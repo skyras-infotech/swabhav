@@ -8,9 +8,11 @@ namespace OOADChapter2
         static void Main(string[] args)
         {
             DogDoor door = new DogDoor();
-            Remote remote = new Remote(door);
+            BarkRecognizer recognizer = new BarkRecognizer(door);
+            //Remote remote = new Remote(door);
             Console.WriteLine();
-            remote.PressButton();
+            Console.WriteLine("Fido starts barking...");
+            recognizer.recognize("Woof");
             Console.WriteLine("\nFido has gone outside...");
             Console.WriteLine("\nFido’s all done...");
             try
@@ -23,8 +25,7 @@ namespace OOADChapter2
 
             Console.WriteLine("...but he's stuck outside!");
             Console.WriteLine("\nFido starts barking...");
-            Console.WriteLine("...so Gina grabs the remote control.");
-            remote.PressButton();
+            recognizer.recognize("Woof");
             Console.WriteLine("\nFido’s back inside...");
         }
     }

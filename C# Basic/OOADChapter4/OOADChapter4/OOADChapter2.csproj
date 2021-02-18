@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bark.cs" />
     <Compile Include="BarkRecognizer.cs" />
     <Compile Include="DogDoor.cs" />
     <Compile Include="DogDoorSimulator.cs" />
