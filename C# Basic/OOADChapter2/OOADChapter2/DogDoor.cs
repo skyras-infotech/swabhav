@@ -16,6 +16,11 @@ namespace OOADChapter2
             timer.Elapsed += (s, args) => StopTimer(timer);
             timer.Start();
         }
+        private void StopTimer(Timer timer)
+        {
+            timer.Stop();
+            Close();
+        }
        
         public void Close()
         {
@@ -25,11 +30,6 @@ namespace OOADChapter2
         public bool IsOpen()
         {
             return open;
-        }
-        private void StopTimer(Timer timer)
-        {
-            timer.Stop();
-            Close();
         }
     }
 }
