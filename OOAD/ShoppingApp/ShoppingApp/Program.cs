@@ -20,11 +20,13 @@ namespace ShoppingApp
 
             Order order1 = new Order(Guid.NewGuid(), new DateTime(2021, 01, 15));
             order1.AddItem(new LineItem(Guid.NewGuid(), 5, Mouse));
-            order1.AddItem(new LineItem(Guid.NewGuid(), 2, Laptop));
+            order1.AddItem(new LineItem(Guid.NewGuid(), 3, Laptop));
+            order1.AddItem(new LineItem(Guid.NewGuid(), 7, Keyboard));
+            order1.AddItem(new LineItem(Guid.NewGuid(), 6, Keyboard));
 
             Order order2 = new Order(Guid.NewGuid(), new DateTime(2020, 12, 03));
-            order1.AddItem(new LineItem(Guid.NewGuid(), 5, Keyboard));
-            order1.AddItem(new LineItem(Guid.NewGuid(), 2, Mouse));
+            order2.AddItem(new LineItem(Guid.NewGuid(), 3, Keyboard));
+            order2.AddItem(new LineItem(Guid.NewGuid(), 1, Mouse));
 
             customer.AddOrder(order1);
             customer.AddOrder(order2);

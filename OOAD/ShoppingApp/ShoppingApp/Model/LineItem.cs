@@ -39,7 +39,7 @@ namespace ShoppingApp.Model
 
         public override string ToString()
         {
-            return "\t\tLine item ID : " + LI_ID + ", Products : " + GetProduct + ", Quantity : " +
+            return "\n\t\tLine item ID : " + LI_ID + ", Products : " + GetProduct + ", Quantity : " +
                 "" + Quantity + ", Item Cost : " + CalculateItemCost();
         }
     }

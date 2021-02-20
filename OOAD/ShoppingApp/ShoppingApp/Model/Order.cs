@@ -33,7 +33,6 @@ namespace ShoppingApp.Model
                     _items.Add(item);
                 }
             }
-            _items.Add(item);
         }
         public double CheckoutCost() {
             double totalPrice = 0;
