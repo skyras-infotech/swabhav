@@ -2,7 +2,7 @@
 
 namespace ShoppingApp.Model
 {
-    class LineItem
+    public class LineItem
     {
         private Guid _id;
         private int _quantity;

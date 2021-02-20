@@ -2,7 +2,7 @@
 
 namespace ShoppingApp.Model
 {
-    class Product
+    public class Product
     {
         private Guid _id;
         private string _name;

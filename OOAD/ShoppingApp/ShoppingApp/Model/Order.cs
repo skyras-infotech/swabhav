@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ShoppingApp.Model
 {
-    class Order
+    public class Order
     {
         private Guid _id;
         private DateTime _dateTime;
