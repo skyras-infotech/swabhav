@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTaeGameAppUsingOOAD.Model
 {
-    class Player
+    public class Player
     {
         private string _name;
         private Mark _mark;

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TicTaeGameAppUsingOOAD.Model
 {
-    public enum Mark
+    public class CellAlreadyOccupiedException : Exception
     {
-        X, O, N,
+        public CellAlreadyOccupiedException(string message) : base(message) { }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTaeGameAppUsingOOAD.Model
 {
-    class Board
+    public class Board
     {
         private Cell[] _cells;
         private int _size;
@@ -32,7 +32,17 @@ namespace TicTaeGameAppUsingOOAD.Model
         }
 
         public void SetMarkInPosition(Player player, int position) {
-            _cells[position].Mark = player.PlayerMark;
+            try
+            {
+                if (position > _cells.Length) {
+                    throw new OutOfCellException("sorry! you entered wrong position. position should be 0 to " + (_cells.Length - 1));
+                }
+                _cells[position].Mark = player.PlayerMark;
+            }
+            catch (CellAlreadyOccupiedException e) {
+
+                throw new CellAlreadyOccupiedException(e.Message);
+            }
         }
 
         public string PrintBoard() {

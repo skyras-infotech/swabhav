@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTaeGameAppUsingOOAD.Model
 {
-    enum Result
+    public enum Result
     {
         Win,Draw,InProgress
     }

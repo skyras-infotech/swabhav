@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTaeGameAppUsingOOAD.Model
 {
-    class Cell
+    public class Cell
     {
         private Mark _mark;
 
@@ -22,6 +22,9 @@ namespace TicTaeGameAppUsingOOAD.Model
                 if (_mark.Equals(Mark.N))
                 {
                     _mark = value;
+                }
+                else {
+                    throw new CellAlreadyOccupiedException("Mark is already set");
                 }
             }
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTaeGameAppUsingOOAD.Model
 {
-    class ResultAnalyzer
+    public class ResultAnalyzer
     {
         private Board _board;
 

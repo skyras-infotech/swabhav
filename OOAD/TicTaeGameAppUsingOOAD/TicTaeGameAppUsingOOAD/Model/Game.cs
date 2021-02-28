@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTaeGameAppUsingOOAD.Model
 {
-    class Game
+    public class Game
     {
         private ResultAnalyzer _resultAnalyzer;
         private Player[] _players;
@@ -27,7 +27,7 @@ namespace TicTaeGameAppUsingOOAD.Model
             get { return _totalMoves; }
         }
 
-        public int Play(int pos) 
+        public Result Play(int pos) 
         {
             Player player;
             int size = _resultAnalyzer.GetBoard.Size;
@@ -37,27 +37,39 @@ namespace TicTaeGameAppUsingOOAD.Model
             else
                 player = _players[1];
 
-            _resultAnalyzer.GetBoard.SetMarkInPosition(player, pos);
+            try
+            {
+                _resultAnalyzer.GetBoard.SetMarkInPosition(player, pos);
+            }
+            catch (OutOfCellException e)
+            {
+                throw new OutOfCellException(e.Message);
+            }
+            catch (CellAlreadyOccupiedException e) 
+            {
+                throw new CellAlreadyOccupiedException(e.Message);
+            }
+
 
             if (_totalMoves >= (2 * (size - 1))) {
                 Result result = _resultAnalyzer.GameResult(player.PlayerMark, pos);
 
                 if (result.Equals(Result.Win))
                 {
-                    return 1;
+                    return Result.Win;
                 }
                 else if (result.Equals(Result.Draw))
                 {
-                    return -1;
+                    return Result.Draw;
                 }
                 else {
                     _totalMoves++;
-                    return 0;
+                    return Result.InProgress;
                 }
             }
 
             _totalMoves++;
-            return 0;
+            return Result.InProgress;
         }
     }
 }

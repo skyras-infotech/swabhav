@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TicTaeGameAppUsingOOAD.Model
 {
-    public enum Mark
+    public class OutOfCellException : Exception
     {
-        X, O, N,
+        public OutOfCellException(string message): base(message) { }
     }
 }

@@ -50,24 +50,27 @@ namespace TicTaeGameAppUsingOOAD
                     }
                 }
             }
-
         }
         private static bool TurnPlayer(string player, Game game,int size) {
-            
+
             reselect: Console.Write(player + ", Enter the position where you place the mark ==> ");
             int pos = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine();
-            if (game.ResultAnalyzer.GetBoard.GetCells[pos].Mark != Mark.N) {
-                Console.WriteLine("This cell is already marked! please choose another");
+            Result result;
+            try { 
+                 result = game.Play(pos);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
                 goto reselect;
             }
-            int result = game.Play(pos);
-            if (result.Equals(1))
+            Console.WriteLine();
+            if (result.Equals(Result.Win))
             {
                 Console.WriteLine("Congratulations! "+player + ", you won this game");
                 return true;
             }
-            else if (result.Equals(-1))
+            else if (result.Equals(Result.Draw))
             {
                 Console.WriteLine("Sorry! the game is draw");
                 return true;
