@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2DD2FC61-FAE9-41EC-8826-E54D603CFD99}</ProjectGuid>
+    <ProjectGuid>{57D7D2A1-2030-432A-85E1-CBC40A6A6C67}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SingletonPatternDemoApp</RootNamespace>
-    <AssemblyName>SingletonPatternDemoApp</AssemblyName>
+    <RootNamespace>TemplatePatternDemo1App</RootNamespace>
+    <AssemblyName>TemplatePatternDemo1App</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Cricket.cs" />
+    <Compile Include="Model\Football.cs" />
+    <Compile Include="Model\Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\DataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

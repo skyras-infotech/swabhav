@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2DD2FC61-FAE9-41EC-8826-E54D603CFD99}</ProjectGuid>
+    <ProjectGuid>{AA0E7CB5-6696-4C85-BE47-6374E51D5C62}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SingletonPatternDemoApp</RootNamespace>
-    <AssemblyName>SingletonPatternDemoApp</AssemblyName>
+    <RootNamespace>BoxingAndUnBoxingDemoApp</RootNamespace>
+    <AssemblyName>BoxingAndUnBoxingDemoApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\DataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

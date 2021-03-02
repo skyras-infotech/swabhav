@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2DD2FC61-FAE9-41EC-8826-E54D603CFD99}</ProjectGuid>
+    <ProjectGuid>{104DE383-C182-4E07-B2FD-03E421E30271}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SingletonPatternDemoApp</RootNamespace>
-    <AssemblyName>SingletonPatternDemoApp</AssemblyName>
+    <RootNamespace>TemplatePatternDemo2App</RootNamespace>
+    <AssemblyName>TemplatePatternDemo2App</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\GTU.cs" />
+    <Compile Include="Model\MU.cs" />
+    <Compile Include="Model\University.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\DataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

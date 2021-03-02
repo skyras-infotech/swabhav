@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SingletonPatternDemoApp.Model;
 
 namespace SingletonPatternDemoApp
 {
@@ -10,10 +11,14 @@ namespace SingletonPatternDemoApp
     {
         static void Main(string[] args)
         {
-            SingletonDemo s1 = SingletonDemo.GetInstance;
-            SingletonDemo s2 = SingletonDemo.GetInstance;
-            Console.WriteLine("Hascode of s1 is " + s1.GetHashCode());
-            Console.WriteLine("Hascode of s2 is " + s2.GetHashCode());
+
+            DataService d1 = DataService.GetInstance;
+            DataService d2 = DataService.GetInstance;
+            Console.WriteLine("Hascode of d1 is " + d1.GetHashCode());
+            Console.WriteLine("Hascode of d2 is " + d2.GetHashCode());
+            d1.ProcessData();
+            d2.ProcessData();
+
         }
     }
 }
