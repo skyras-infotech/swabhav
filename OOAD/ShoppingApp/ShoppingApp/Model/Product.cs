@@ -37,14 +37,14 @@ namespace ShoppingApp.Model
             get { return _name; }
         }
 
-        public Guid PID
+        public Guid ProductID
         {
             get { return _id; }
         }
 
         public override string ToString()
         {
-            return "\n\t\t\tProduct ID : " + PID+", Name : "+ProductName+", Base Price : " +
+            return "\n\t\t\tProduct ID : " + ProductID + ", Name : "+ProductName+", Base Price : " +
                 ""+Price+", Discount Percentage : "+DiscountPrice+", Total Cost : "+TotalCost();
         }
     }

@@ -32,14 +32,14 @@ namespace ShoppingApp.Model
         }
 
 
-        public Guid LI_ID
+        public Guid LineItemID
         {
             get { return _id; }
         }
 
         public override string ToString()
         {
-            return "\n\t\tLine item ID : " + LI_ID + ", Products : " + GetProduct + ", Quantity : " +
+            return "\n\t\tLine item ID : " + LineItemID + ", Products : " + GetProduct + ", Quantity : " +
                 "" + Quantity + ", Item Cost : " + CalculateItemCost();
         }
     }

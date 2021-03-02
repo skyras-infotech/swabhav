@@ -40,7 +40,7 @@ namespace ShoppingApp.Model
         }
 
 
-        public Guid CID
+        public Guid CustomerID
         {
             get { return _id; }
         }

@@ -12,7 +12,7 @@ namespace PigGameUsingOOADApp.Model
         }
 
         public void Roll() {
-            _value = new Random().Next(1, 6);
+            _value = new Random().Next(1, 7);
         }
 
     }

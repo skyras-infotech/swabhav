@@ -17,14 +17,13 @@ namespace ShoppingApp
             Product Laptop = new Product(Guid.NewGuid(), "Laptop", 34000, 20.0f);
             Product Keyboard = new Product(Guid.NewGuid(), "KeyBoard", 500, 8.0f);
 
-
-            Order order1 = new Order(Guid.NewGuid(), new DateTime(2021, 01, 15));
+            Order order1 = new Order(Guid.NewGuid(), DateTime.Now);
             order1.AddItem(new LineItem(Guid.NewGuid(), 5, Mouse));
             order1.AddItem(new LineItem(Guid.NewGuid(), 3, Laptop));
             order1.AddItem(new LineItem(Guid.NewGuid(), 7, Keyboard));
             order1.AddItem(new LineItem(Guid.NewGuid(), 6, Keyboard));
 
-            Order order2 = new Order(Guid.NewGuid(), new DateTime(2020, 12, 03));
+            Order order2 = new Order(Guid.NewGuid(), DateTime.Now);
             order2.AddItem(new LineItem(Guid.NewGuid(), 3, Keyboard));
             order2.AddItem(new LineItem(Guid.NewGuid(), 1, Mouse));
 
@@ -37,7 +36,7 @@ namespace ShoppingApp
 
         private static void PrintInfo(Customer customer)
         {
-            Console.WriteLine("Customer Details : "+customer.CID+", "+customer.CustomerName+", "+customer.Address);
+            Console.WriteLine("Customer Details : "+customer.CustomerID+", "+customer.CustomerName+", "+customer.Address);
             customer.GetOrders.ForEach(Console.WriteLine);
         }
     }

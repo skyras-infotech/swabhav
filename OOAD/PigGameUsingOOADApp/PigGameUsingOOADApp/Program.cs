@@ -16,22 +16,23 @@ namespace PigGameUsingOOADApp
         private static void DisplayRules()
         {
             Console.WriteLine("*See how many turns it takes you to get to 20." +
-                "\n*Turn ends when you hold or roll a 1. " +
+                "\n*TurnScore ends when you hold or roll a 1. " +
                 "\n*If you roll a 1, you lose all points for the turn." +
                 "\n*If you hold, you save all points for the turn.");
         }
 
         private static void PlayGame(Game game)
         {
+            string ch;
             while (!game.IsGameOver) 
             {
                 game.IsTurnOver = false;
-                game.Turn = 0;
-                Console.WriteLine("\nTurn " + game.SwitchTurn);
+                game.TurnScore = 0;
+                Console.WriteLine("\nTurn " + game.TotalTurn);
                 while (!game.IsTurnOver)
                 {
                     Console.Write("Roll or hold? (r/h) ==> ");
-                    string ch = Console.ReadLine();
+                    ch = Console.ReadLine();
 
                     if (ch.Equals("r"))
                     {
@@ -42,11 +43,11 @@ namespace PigGameUsingOOADApp
                         HoldTurn(game);
                     }
                 }
-                game.Score += game.Turn;
+                game.Score += game.TurnScore;
                 Console.WriteLine("Total Score is " + game.Score);
                 if (game.HasWon())
                 {
-                    Console.WriteLine("\nCongratulation You won in " + game.SwitchTurn + " turn! Game Over...\n");
+                    Console.WriteLine("\nCongratulation You won in " + game.TotalTurn + " turn! Game Over...\n");
                     game.IsGameOver = true;
                 }
                 TakeTurn(game);
@@ -56,7 +57,7 @@ namespace PigGameUsingOOADApp
         private static void HoldTurn(Game game)
         {
             game.IsTurnOver = true;
-            Console.WriteLine("Turn Score is " + game.Turn);
+            Console.WriteLine("TurnScore Score is " + game.TurnScore);
         }
 
         private static void RollDie(Game game)
@@ -64,20 +65,20 @@ namespace PigGameUsingOOADApp
             game.GetDie.Roll();
             if (game.GetDie.Value.Equals(1))
             {
-                game.Turn = 0;
+                game.TurnScore = 0;
                 Console.WriteLine("Die : " + game.GetDie.Value);
-                Console.WriteLine("Turn Over. No Score!");
+                Console.WriteLine("TurnScore Over. No Score!");
             }
             else
             {
                 Console.WriteLine("Die : " + game.GetDie.Value);
-                game.Turn += game.GetDie.Value;
+                game.TurnScore += game.GetDie.Value;
             }
         }
 
         private static void TakeTurn(Game game)
         {
-            game.SwitchTurn++;
+            game.TotalTurn++;
         }
 
     }

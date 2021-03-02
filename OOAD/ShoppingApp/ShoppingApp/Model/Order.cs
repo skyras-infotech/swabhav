@@ -54,14 +54,14 @@ namespace ShoppingApp.Model
             get { return _dateTime; }
         }
 
-        public Guid OID
+        public Guid OrderID
         {
             get { return _id; }
         }
 
         public override string ToString()
         {
-            return "\nOrder ID : " + OID + ", Booking Time : " + GetDateTime + ", Line Item List : " +
+            return "\nOrder ID : " + OrderID + ", Booking Time : " + GetDateTime + ", Line Item List : " +
                 "" + string.Join(",",GetLineItems);
         }
     }

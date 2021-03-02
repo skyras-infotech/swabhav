@@ -8,7 +8,7 @@
         private int _score;
         private bool _isTurnOver;
         private bool _isGameOver;
-        private int _switchTurn;
+        private int _totalTurn;
 
         public Game(Die die)
         {
@@ -17,13 +17,13 @@
             _score = 0;
             _isTurnOver = false;
             _isGameOver = false;
-            _switchTurn = 1;
+            _totalTurn = 1;
         }
 
-        public int SwitchTurn
+        public int TotalTurn
         {
-            get { return _switchTurn; }
-            set { _switchTurn = value; }
+            get { return _totalTurn; }
+            set { _totalTurn = value; }
         }
 
 
@@ -55,7 +55,7 @@
         }
 
 
-        public int Turn
+        public int TurnScore
         {
             get { return _turn; }
             set { _turn = value; }
