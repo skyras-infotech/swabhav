@@ -67,7 +67,7 @@ namespace PigGameUsingOOADApp
             {
                 game.TurnScore = 0;
                 Console.WriteLine("Die : " + game.GetDie.Value);
-                Console.WriteLine("TurnScore Over. No Score!");
+                Console.WriteLine("TurnScore Over. No Score!\n");
             }
             else
             {

@@ -44,7 +44,7 @@ namespace ContactApp
                             mobileNo = Convert.ToInt64(Console.ReadLine());
                             Console.Write("Enter address    ==> ");
                             address = Console.ReadLine();
-                            if (!CheckUserIsExist(listOfContacts, mobileNo,out index))
+                            if (!CheckUserIsExist(listOfContacts, mobileNo, out index))
                             {
                                 listOfContacts.Add(new Contact(fname, lname, address, mobileNo, email));
                                 SerializeListOfContacts(path, listOfContacts);
