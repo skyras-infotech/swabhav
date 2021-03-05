@@ -10,7 +10,7 @@ namespace DelegateDemoApp
     public delegate void DSayAnything(string name);
     class Program
     {
-        public static void SayHello(string name) 
+        private static void SayHello(string name) 
         {
             Console.WriteLine("Hello "+name);
         }
@@ -23,6 +23,12 @@ namespace DelegateDemoApp
         public static void TakeDelegateAsParameter(DSayAnything obj4) {
             Console.Write("Call the method in another method : ");
             obj4("Raju");
+        }
+
+        public static void TakeDelegateAsAnonymouseMethod(DSayAnything obj)
+        {
+            Console.Write("Call the anonymous method in another method : ");
+            obj("Dipak");
         }
 
         static void Main(string[] args)
@@ -61,11 +67,10 @@ namespace DelegateDemoApp
             // ===== case 4 (Anonymous Method)==========
 
             Console.WriteLine("===== case 4 (Anonymous Method)==========");
-            DSayAnything obj5 = delegate (string name)
+            TakeDelegateAsAnonymouseMethod(delegate (string name)
             {
                 Console.WriteLine("Good morning! "+name+"\n");
-            };
-            obj5("Suresh");
+            });
 
 
             // ===== case 5 (Lambda Expression for anonymous method)==========
@@ -75,5 +80,7 @@ namespace DelegateDemoApp
             obj6("Paresh");
 
         }
+
+        
     }
 }
