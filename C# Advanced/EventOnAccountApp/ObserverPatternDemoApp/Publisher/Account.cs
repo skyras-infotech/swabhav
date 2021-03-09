@@ -7,11 +7,12 @@ using EventOnAccountApp.Subscriber;
 
 namespace EventOnAccountApp.Publisher
 {
-    public delegate void DTransactionPerformed(String ano, double balance, bool isWithdraw);
+   // public delegate void DTransactionPerformed(String ano, double balance, bool isWithdraw);
 
     class Account
     {
-        public event DTransactionPerformed NotifyOnTransactionPerformed;
+        public event Action<Account> NotifyOnTransactionPerformed;
+        //public event Action<string,double,bool> NotifyOnTransactionPerformed;
         private string _accountNo;
         private string _accountName;
         private double _balance;
@@ -61,13 +62,13 @@ namespace EventOnAccountApp.Publisher
             }
         }
 
-        public void AddListner(IListner listner) {
+        /*public void AddListner(IListner listner) {
             _listners.Add(listner);
-        }
+        }*/
 
         public void NotifyListner() 
         {
-             NotifyOnTransactionPerformed?.Invoke(AccountNo,Balance,IsWithdraw);
+             NotifyOnTransactionPerformed?.Invoke(this);
         }
     }
 }

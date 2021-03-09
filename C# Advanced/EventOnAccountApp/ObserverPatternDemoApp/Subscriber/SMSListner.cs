@@ -13,10 +13,10 @@ namespace EventOnAccountApp.Subscriber
         {
             account.NotifyOnTransactionPerformed += Update;
         }
-        public void Update(String ano, double balance, bool isWithdraw)
+        public void Update(Account account)
         {
-            string str = isWithdraw ? "debited" : "credited";
-            Console.WriteLine("SMS! Your account no XX" + ano[2] + ano[3] + " is "+ str +" with " + balance);
+            string str = account.IsWithdraw ? "debited" : "credited";
+            Console.WriteLine("SMS! Your account no XX" + account.AccountNo[2] + account.AccountNo[3] + " is " + str + " with " + account.Balance);
         }
     }
 }

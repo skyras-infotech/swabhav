@@ -15,9 +15,15 @@ namespace DelegateDemoApp
             Console.WriteLine("Hello "+name);
         }
 
-        public static void SayGoodBye(string name)
+        public static void SayGoodBye(string name,string lname)
         {
-            Console.WriteLine("Good Bye! "+name+"\n");
+            Console.WriteLine("Good Bye! "+name+" "+lname+"\n");
+        }
+
+        public static bool SaySomething(string name)
+        {
+            Console.WriteLine(name + " say something");
+            return true;
         }
 
         public static void TakeDelegateAsParameter(DSayAnything obj4) {
@@ -43,18 +49,25 @@ namespace DelegateDemoApp
             obj("Sumit");
 
             // instantiate the delegate (or this way)
-            DSayAnything obj2 = SayGoodBye;
+            //DSayAnything obj2 = SayGoodBye;
 
             // invoke/call using invoke() method
-            obj2.Invoke("Yogesh");
+           // obj2.Invoke("Yogesh");
+
+            Action<string,string> obj8 = SayGoodBye;
+            obj8("Sehwag","Virendra");
+
+            // case 6
+            Func<string, bool> f1 = SaySomething;
+            Console.WriteLine(f1("Mika"));
 
 
             // ===== case 2 (Multicast Delegate)==========
 
-            Console.WriteLine("===== case 2 (Multicast Delegate)==========");
+           /* Console.WriteLine("===== case 2 (Multicast Delegate)==========");
             DSayAnything obj3 = SayHello;
             obj3 += SayGoodBye;
-            obj3.Invoke("Ramesh");
+            obj3.Invoke("Ramesh");*/
 
 
             // ===== case 3 (Pass delegate as a parameter)==========

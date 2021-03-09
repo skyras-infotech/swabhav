@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeFormColorApp", "ChangeFormColorApp\ChangeFormColorApp.csproj", "{CC776C8F-A330-48ED-BD00-FAB66292C927}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC776C8F-A330-48ED-BD00-FAB66292C927}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC776C8F-A330-48ED-BD00-FAB66292C927}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC776C8F-A330-48ED-BD00-FAB66292C927}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC776C8F-A330-48ED-BD00-FAB66292C927}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {786413EC-5769-4FCE-A7D2-338033F3F0B9}
+	EndGlobalSection
+EndGlobal

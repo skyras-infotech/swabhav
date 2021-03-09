@@ -20,9 +20,10 @@ namespace PredefineDelegatesDemoApp
                 Console.Write(item + "\t");
             }
 
+
             Console.WriteLine("\n\n======== Predicate Demo ========-");
             Predicate<int> even = IsEven;
-            Console.WriteLine("10 Even is "+ even(10));
+            Console.WriteLine("10 is Even "+ even(10));
 
             Console.WriteLine("\n======== Action Demo ========-");
             Action<int, int> oddnumbers = PrintOddNumbersOnlyFromGivenRange;

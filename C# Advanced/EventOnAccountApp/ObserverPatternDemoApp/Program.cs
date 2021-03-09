@@ -14,8 +14,10 @@ namespace EventOnAccountApp
         {
             
             Account a1 = new Account("1578","John Doe", 963.23);
-            a1.AddListner(new SMSListner(a1));
-            a1.AddListner(new EmailListner(a1));
+            new SMSListner(a1);
+            new EmailListner(a1);
+          //  a1.AddListner(new SMSListner(a1));
+          //  a1.AddListner(new EmailListner(a1));
             a1.Deposit(1000);
             a1.Withdraw(500);
             a1.Withdraw(800);
