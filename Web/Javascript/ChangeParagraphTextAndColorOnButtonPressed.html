@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 id="demo">Click the button to change the text in this paragraph.</h2>
+    
+    <button onclick="changeColorAndText()">Try it</button>
+    
+    <script>
+        function changeColorAndText() {
+            var x = document.getElementById("demo");
+            x.innerHTML = "Hello World";
+            x.style.color = "blue";
+        }
+    </script>
+    
+</body>
+</html>
+    
