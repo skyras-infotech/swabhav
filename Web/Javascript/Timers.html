@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timers Demo</title>
+</head>
+<body>
+    <button onclick="setTimeout(showAlert,3000)">Click to display alert after 3 sec</button>
+    <button onclick="setInterval(showAlert1,3000)">Click to display alert after every 3 sec</button>
+    <script>
+        function showAlert() {
+            alert("Display after 3 second")
+        }
+        function showAlert1() {
+            alert("Display after every 3 second")
+        }
+    </script>
+</body>
+</html>

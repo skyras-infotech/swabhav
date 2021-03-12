@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hidden Paragraph When Button is Clicked</title>
+</head>
+<body>
+    <button id="btn" onclick="hideParagraph()">Hide</button>
+    <p id="demo">This is a paragraph with little content</p>
+    <script>
+        function hideParagraph(){
+            var btnContent = document.getElementById("btn").innerHTML;
+            if(btnContent == "Hide"){
+                document.getElementById("demo").innerHTML = "";
+                document.getElementById("btn").innerHTML = "Show";
+            }else{
+                document.getElementById("demo").innerHTML = "This is a paragraph with little content";
+                document.getElementById("btn").innerHTML = "Hide";
+            }
+        }
+    </script>
+</body>
+</html>

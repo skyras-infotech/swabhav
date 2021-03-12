@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dropdown List of HTML</title>
+</head>
+<body id="body">
+    <select id="colors" name="colors" onchange="changeBackgroundColor()">
+        <option value="red">Red</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        <option value="yellow">Yellow</option>
+      </select><br><br>
+
+      <script>
+          function changeBackgroundColor() {
+              var x = document.getElementById("colors").value;
+              document.getElementById("body").style.backgroundColor = x;
+          }
+      </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closure</title>
+</head>
+<body>
+    <script>
+        function stopWatch() {
+            var startTime = Date.now();
+            document.writeln(startTime);
+            function getDelay() {
+                var elaspedTime = Date.now() - startTime;
+                document.writeln("Elasped Time "+startTime);
+                alert(elaspedTime);
+            }
+            return getDelay;
+        }
+
+
+        var timer = stopWatch();
+
+        // take sometimes 
+        for (let index = 0; index < 1000000; index++) {
+            var foo = Math.random() * 100;
+        }
+
+        timer();
+    </script>
+</body>
+</html>
