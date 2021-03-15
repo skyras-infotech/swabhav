@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIFE Demo</title>
+</head>
+
+<body>
+    <script>
+        function f1(){
+            for (i = 0; i < 10; i++) {
+                console.log(i);                
+            }
+            console.log("inside loop "+i);
+        }
+        f1();
+        console.log("Outside funcion "+i);
+
+        f2()
+        function f2() {
+            console.log("Inside f2");
+        }
+        f2()
+
+        //f3()
+        var f3 = function () {
+            console.log("Inside f3");
+        }
+        f3()
+
+
+    </script>
+</body>
+
+</html>
