@@ -11,15 +11,14 @@
     <br><br>
     <button id="btnPrintTime" onclick="printTime()">Print Time</button>
     <p id="demo"></p>
-    <script>
+    <script>s
         function printHello(){
             alert("Print Hello");
         }
         function printTime(){
-            let start = new Date().getTime();
-            while(new Date().getTime() - start < 3000) {
+            setTimeout(function(){
                 document.getElementById("demo").innerHTML += new Date().getTime() + "<br>";
-            }
+            },3000);
         }
     </script>
 </body>

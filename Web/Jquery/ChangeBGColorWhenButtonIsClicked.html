@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change BG Colors</title>
+</head>
+<body id="body">
+    <script src="jquery-3.4.1.min.js"></script>
+        <button id="redBtn" value="red">Red</button>
+        <button id="blueBtn" value="blue">Blue</button>
+    <script>
+        $("#redBtn").click(function(){
+            $("#body").css("background-color","red");
+        });
+        $("#blueBtn").click(function(){
+            $("#body").css("background-color","blue");
+        });
+        // document.querySelectorAll("button").forEach(item => {
+        //     item .addEventListener("click", function() {
+        //         item.style.backgroundColor = item.value;
+        //     })
+        // });
+    </script>
+</body>
+</html>

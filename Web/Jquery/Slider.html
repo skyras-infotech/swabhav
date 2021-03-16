@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
+    <style>
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#range").on("input", function () {
+                $("#demo").html($("#range").val());
+            });
+
+            $("#range").change(function () {
+                $("#demo1").html("");
+                for (let index = 1; index <= $("#range").val(); index++) {
+                    $("#demo1").append("<button>" + index + "</button>");
+                }
+            });
+        });
+    </script>
+    <input type="range" min="1" max="100" class="slider" value="20" id="range">
+    <p>Number = <span id="demo"></span></p>
+    <p id="demo1"></p>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Using Local Storage</title>
+</head>
+
+<body>
+    <button id="btnCount" onclick="incrementCounter()">Count</button>
+    <p id="demo">Count : 0</p>
+    <script>
+        var count = Number(localStorage.getItem("count"));
+        function incrementCounter() {
+            count++;
+            document.getElementById("demo").innerHTML = "Count : "+count;
+            localStorage.setItem("count", count);
+        }
+    </script>
+</body>
+
+</html>
