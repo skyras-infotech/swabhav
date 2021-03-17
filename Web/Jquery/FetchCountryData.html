@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Country Data</title>
+</head>
+
+<body>
+    <button>Get Country</button>
+    <br><br>
+    <table border="2" cellpadding="10">
+        <tr>
+            <td>Country Name</td>
+            <td>Country Capital</td>
+            <td>Flag</td>
+        </tr>
+    </table>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            var btn = $("button").click(function () {
+                $.get("https://restcountries.eu/rest/v2/all", function (data, textStatus, jqXHR) {
+                    data.forEach(element => {
+                        $("table").append(
+                            "<tr><td>" + element.name + "</td><td>" + element.capital+ "</td><td><img src="+element.flag+" width='200px' height='200px'></td></tr>"
+                        );
+                    });
+                });
+            });
+        });
+
+    </script>
+</body>
+
+</html>

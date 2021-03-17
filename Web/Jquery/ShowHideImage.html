@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        img {
+            height: 250px;
+            width: 250px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Hide Image</title>
+</head>
+
+<body>
+    <div>
+        <img src="https://scontent.fstv5-1.fna.fbcdn.net/v/t1.0-9/53150391_2074006349556730_591556291038543872_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=174925&_nc_ohc=dSxsMdSmo5cAX-dh4zP&_nc_ht=scontent.fstv5-1.fna&oh=c9a1fcf71e8f20b43d91f712a7c8680e&oe=606DE270"
+            alt="sorry image is not available" srcset="">
+        <form>
+            <input type="checkbox" value="show" id="imgHide" />
+            <label for="imgHide" id="content">Click to hide image</label><br>
+        </form>
+        <script src="jquery-3.4.1.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                console.log($("#imgHide").val());
+                console.log($("#imgHide").prop('checked',false));
+                if ($("#imgHide").val() == "show") {
+                    $("#imgHide").change(function () {
+                        $("img").hide(1000);
+                        $("#imgHide").val("hide");
+                        $("#content").html("Unclick to show image")
+                        console.log($("#imgHide").val());
+                    });
+                } else {
+                    $("#imgHide").change(function () {
+                        $("img").show(1000);
+                        $("#imgHide").val("show");
+                        console.log($("#imgHide").val());
+                    });
+                }
+            });
+        </script>
+    </div>
+</body>
+
+</html>

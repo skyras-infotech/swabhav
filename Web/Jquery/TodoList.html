@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+
+<body>
+    Enter Task : <input type="text" value="" id="task" /><br><br>
+    <button>Add</button>
+    <br><br>
+    <table border="2" cellpadding="10">
+        <tr>
+            <td>ID</td>
+            <td>Task</td>
+            <td>DateTime</td>
+        </tr>
+    </table>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            let taskData = [];
+            let data = JSON.parse(localStorage.getItem("task"));
+            if (data !== null) {
+                data.forEach(element => {
+                    $("table").append(
+                        "<tr><td>" + element.id + "</td><td>" + element.task + "</td><td>" + element.date + "</td></tr>"
+                    );
+                });
+
+                count = data[data.length - 1].id;
+                taskData.push(...data);
+            } else {
+                count = 0;
+            }
+
+            const val = $("#task");
+            const btn = $("button");
+
+            btn.click(function () {
+                count = ++count;
+                taskData.push({
+                    "id": count,
+                    "task": val.val(),
+                    "date": new Date(),
+                })
+                localStorage.setItem("task", JSON.stringify(taskData));
+                $("table").append(
+                    "<tr><td>" + count + "</td><td>" + val.val() + "</td><td>" + new Date() + "</td></tr>"
+                );
+            });
+        });
+
+    </script>
+</body>
+
+</html>

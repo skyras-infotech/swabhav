@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Facts</title>
+</head>
+
+<body>
+    Enter Number : <input type="number" value="" id="facts" />
+    <button>Get Facts</button>
+    <br><br>
+    <p></p>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+        
+        $(document).ready(function () {
+            var btn = $("button").click(function(){
+                let num = Number($("#facts").val());
+                console.log(num);
+                $.get("http://numbersapi.com/"+num,function(data, textStatus, jqXHR){
+                    console.log(textStatus);
+                    console.log(jqXHR);
+                    $("p").append(data+"<br><br>");
+                });
+            });
+        });
+        
+    </script>
+</body>
+
+</html>

@@ -7,18 +7,20 @@
     <title>Synchrnous Demo</title>
 </head>
 <body>
-    <button id="btnPrintHello" onclick="printHello()">Print Hello</button>
+    <button id="btnClick" onclick="clickMe()">Click Me</button>
     <br><br>
-    <button id="btnPrintTime" onclick="printTime()">Print Time</button>
-    <p id="demo"></p>
-    <script>s
-        function printHello(){
-            alert("Print Hello");
+    <button id="btnTry" onclick="tryToClickMe()">Try to Click Me</button>
+    <h2 id="random"></h2>
+    <h2 id="output"></h2>
+    <script>
+        function clickMe(){
+            const myWorker = new Worker("Worker.js");
+            
+            document.getElementById("output").innerHTML = final;
         }
-        function printTime(){
-            setTimeout(function(){
-                document.getElementById("demo").innerHTML += new Date().getTime() + "<br>";
-            },3000);
+
+        function tryToClickMe(){
+            document.getElementById("random").innerHTML = "random";
         }
     </script>
 </body>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student CRUD</title>
+</head>
+
+<body>
+    <center>
+        <h2>Student CRUD Operations</h2>
+        <!-- <button id="displayAddForm">Add Data</button> -->
+        <button id="viewData">View Data</button>
+    </center>
+    <br>
+    <form>
+        <table cellpadding="10" align="center" border="2" id="addData">
+            <tr>
+                <td>Roll No :</td>
+                <td><input type="text" value="" id="rollNo" placeholder="Enter Roll No" required></td>
+            </tr>
+            <tr>
+                <td>Name :</td>
+                <td><input type="text" value="" id="name" placeholder="Enter Student Name" required></td>
+            </tr>
+            <tr>
+                <td>Age :</td>
+                <td><input type="number" value="" id="age" placeholder="Enter Age" required></td>
+            </tr>
+            <tr>
+                <td>Date of Birth :</td>
+                <td><input type="date" value="" id="dob" placeholder="Enter Date of birth" required></td>
+            </tr>
+            <tr>
+                <td>Email :</td>
+                <td><input type="text" value="" id="email" placeholder="Enter Email id" required></td>
+            </tr>
+            <tr>
+                <td>Gender :</td>
+                <td><input type="checkbox" id="email" onchange="getGender(this)">is_Male (Tick only if male)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><button id="btnAdd">Add</button></td>
+            </tr>
+        </table>
+    </form>
+    <br><br>
+    <table border="2" cellpadding="10" id="tblStudentData" align="center">
+        <tr>
+            <td>Roll No</td>
+            <td>Name</td>
+            <td>Age</td>
+            <td>Email</td>
+            <td>Date of Birth</td>
+            <td>Gender</td>
+            <td>Actions</td>
+        </tr>
+    </table>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+
+        // $("#addData").hide(500);
+        // $("#tblStudentData").hide(500);
+
+        let isGender = false;
+        function getGender(gender) {
+            if (gender.checked) {
+                isGender = true;
+            } else {
+                isGender = false;
+            }
+        }
+
+        $(document).ready(function () {
+
+            // $("#displayAddForm").click(function () {
+            //     $("#addData").show(500);
+            // });
+
+            $("#viewData").click(function () {
+                getStudentData();
+            });
+
+            $("#btnAdd").click(function () {
+                let data = {
+                    rollNo: $("#rollNo").val(),
+                    name: $("#name").val(),
+                    age: $("#age").val(),
+                    email: $("#email").val(),
+                    date: $("#dob").val(),
+                    isMale: isGender,
+                }
+                $.post("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students", data, function (data, textStatus, jqXHR) {
+                    if (textStatus == "success") {
+                        console.log("data added sucessfully...")
+                        getStudentData();
+                    }
+                });
+            });
+
+            function getStudentData() {
+                $.get("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students", function (data, textStatus, jqXHR) {
+                    // $("#tblStudentData").show(500);
+                    let gender = ""
+                    data.forEach(element => {
+                        if (element.isMale) {
+                            gender = "Male"
+                        } else {
+                            gender = "Female"
+                        }
+                        $("#tblStudentData").append(
+                            "<tr id=" + element.id + "><td>" + element.rollNo + "</td><td>" + element.name + "</td><td>" +
+                            element.age + "</td><td>" + element.email + "</td><td>" +
+                            element.date + "</td><td>" + gender + "</td><td><button value=" + element.id + " id=" + "update" + element.id + " onclick=\"editData(this)\">Update</button>&nbsp&nbsp&nbsp<button>Delete</button></td></tr>"
+                        );
+                    });
+
+                });
+            }
+
+        });
+        function editData(data) {
+            console.log(data.value);
+            $.get("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + data.value,
+                function (data, textStatus, jqXHR) {
+                    $("#" + data[0].id).click(function () {
+                        $(this).closest('tr').children().each(function () {
+                            $(this).wrapInner('<input type="text" value = ' + $(this).text() + '></input>');
+                        });
+                    });
+                    console.log(data[0].name);
+                });
+        }
+
+
+    </script>
+</body>
+
+</html>
