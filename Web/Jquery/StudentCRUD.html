@@ -8,11 +8,9 @@
     <title>Student CRUD</title>
 </head>
 
-<body>
+<body onload="getStudentData()">
     <center>
         <h2>Student CRUD Operations</h2>
-        <!-- <button id="displayAddForm">Add Data</button> -->
-        <button id="viewData">View Data</button>
     </center>
     <br>
     <form>
@@ -39,14 +37,16 @@
             </tr>
             <tr>
                 <td>Gender :</td>
-                <td><input type="checkbox" id="email" onchange="getGender(this)">is_Male (Tick only if male)
+                <td><input type="checkbox" id="gender" onchange="getGender(this)">is_Male (Tick only if male)
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td colspan="2" align="center"><button id="btnAdd">Add</button></td>
-            </tr>
+            </tr> -->
         </table>
-    </form>
+    </form><br>
+    <center><button id="btnAdd">Add</button></td>
+    </center>
     <br><br>
     <table border="2" cellpadding="10" id="tblStudentData" align="center">
         <tr>
@@ -60,10 +60,8 @@
         </tr>
     </table>
     <script src="jquery-3.4.1.min.js"></script>
+    <script src="jquery-dateformat.min.js"></script>
     <script>
-
-        // $("#addData").hide(500);
-        // $("#tblStudentData").hide(500);
 
         let isGender = false;
         function getGender(gender) {
@@ -74,17 +72,12 @@
             }
         }
 
+        let id = "";
+
         $(document).ready(function () {
 
-            // $("#displayAddForm").click(function () {
-            //     $("#addData").show(500);
-            // });
-
-            $("#viewData").click(function () {
-                getStudentData();
-            });
-
             $("#btnAdd").click(function () {
+
                 let data = {
                     rollNo: $("#rollNo").val(),
                     name: $("#name").val(),
@@ -93,46 +86,86 @@
                     date: $("#dob").val(),
                     isMale: isGender,
                 }
-                $.post("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students", data, function (data, textStatus, jqXHR) {
-                    if (textStatus == "success") {
-                        console.log("data added sucessfully...")
-                        getStudentData();
-                    }
-                });
-            });
+                if ($("#btnAdd").text() == "Add") {
 
-            function getStudentData() {
-                $.get("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students", function (data, textStatus, jqXHR) {
-                    // $("#tblStudentData").show(500);
-                    let gender = ""
-                    data.forEach(element => {
-                        if (element.isMale) {
-                            gender = "Male"
-                        } else {
-                            gender = "Female"
+                    $.post("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students", data, function (data, textStatus, jqXHR) {
+                        if (textStatus == "success") {
+                            location.reload();
                         }
-                        $("#tblStudentData").append(
-                            "<tr id=" + element.id + "><td>" + element.rollNo + "</td><td>" + element.name + "</td><td>" +
-                            element.age + "</td><td>" + element.email + "</td><td>" +
-                            element.date + "</td><td>" + gender + "</td><td><button value=" + element.id + " id=" + "update" + element.id + " onclick=\"editData(this)\">Update</button>&nbsp&nbsp&nbsp<button>Delete</button></td></tr>"
-                        );
                     });
-
-                });
-            }
-
+                } else {
+                    $.ajax({
+                        url: 'http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/' + id,
+                        type: "PUT",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(data),
+                        success: function (data, textStatus, jqXHR) {
+                            if (textStatus == "success") {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
         });
+
+        function getStudentData() {
+            $.get("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students", function (data, textStatus, jqXHR) {
+                let gender = ""
+                data.forEach(element => {
+                    if (element.isMale) {
+                        gender = "Male"
+                    } else {
+                        gender = "Female"
+                    }
+                    $("#tblStudentData").append(
+                        "<tr><td>" + element.rollNo + "</td><td>" + element.name + "</td><td>" +
+                        element.age + "</td><td>" + element.email + "</td><td>" +
+                        element.date + "</td><td>" + gender + "</td><td><button value=" + element.id + " id=" + "update" + element.id + " onclick=\"editData(this)\">Update</button>&nbsp&nbsp&nbsp<button value=" + element.id + " id=" + "update" + element.id + " onclick=\"deleteData(this)\">Delete</button></td></tr>"
+                    );
+                });
+
+            });
+        }
+
+        function deleteData(data) {
+            $.ajax({
+                url: 'http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/' + data.value,
+                type: "DELETE",
+                success: function (data, textStatus, jqXHR) {
+                    if (textStatus == "success") {
+
+                        location.reload();
+                    }
+                }
+            });
+        }
+
         function editData(data) {
-            console.log(data.value);
+            id = data.value;
             $.get("http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/" + data.value,
                 function (data, textStatus, jqXHR) {
-                    $("#" + data[0].id).click(function () {
-                        $(this).closest('tr').children().each(function () {
-                            $(this).wrapInner('<input type="text" value = ' + $(this).text() + '></input>');
-                        });
-                    });
-                    console.log(data[0].name);
+
+                    $("#rollNo").val(data[0].rollNo);
+                    $("#name").val(data[0].name);
+                    $("#age").val(data[0].age);
+                    $("#email").val(data[0].email);
+                    var getdate = data[0].date.split("-");
+                    var now = new Date(getdate[2], getdate[1] - 1, getdate[0]);
+                    var day = ("0" + now.getDate()).slice(-2);
+                    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                    $("#dob").val(today);
+                    $("#btnAdd").text("Update");
+                    if (data[0].isMale) {
+                        $("#gender").prop('checked', true);
+                    }
                 });
+
+            // $(this).closest('tr').children().each(function () {
+            //     
+            //     $(this).wrapInner('<input type="text" value = ' + $(this).text() + '></input>');
+            // });
         }
 
 
