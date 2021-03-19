@@ -85,7 +85,6 @@ select * from EMP where DEPTNO = (select DEPTNO from emp where ENAME = 'scott');
 select DEPT.DNAME, EMP.ENAME from DEPT left join EMP on emp.DEPTNO = DEPT.DEPTNO;
 
 /*display all depatments which have no emp*/
-
 select DEPT.DNAME from DEPT where DEPT.DEPTNO not in(select DEPTNO from EMP); 
 
 /*DISPLAY THE DEPTWISE, HEADCOUNT*/
@@ -112,4 +111,12 @@ select DNAME,JOB, COUNT(*) AS 'No of Employee' from EMP inner join DEPT on EMP.D
 /*DISPLAY THE DEPTWISE EMPLOYEES WHOSE COUNT GREATER THAN 2 
 AND WHO ARE IN DEPT 10 ,20.SORTY THE RESULT BY DESCENDING ORDER OF COUNT*/
 
-select DNAME, COUNT(*) AS 'No of Employee' from DEPT inner join EMP on EMP.DEPTNO = DEPT.DEPTNO group by DNAME;
+select DEPT.DNAME, COUNT(*) AS 'No of Employee' from DEPT left join EMP on EMP.DEPTNO = DEPT.DEPTNO 
+group by DEPT.DEPTNO,DEPT.DNAME having COUNT(*) > 2 AND DEPT.DEPTNO in (10,20) order by [No of Employee] DESC;
+
+
+INSERT INTO EMP VALUES (7980,'JOHN','CLERK',7782,'23-JAN-82',1300,NULL,10);
+
+INSERT INTO EMP VALUES (7981,'Rohan','CLERK',7782,'23-JAN-82',1300,NULL,10);
+
+
