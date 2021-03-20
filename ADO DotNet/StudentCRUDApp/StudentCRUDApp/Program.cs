@@ -20,14 +20,14 @@ namespace StudentCRUDApp
                 FetchData(sqlCommand, conn);
 
                 // insert data
-                string insertData = "insert into students values('Ramesh',50)";
+                string insertData = "insert into students values('Sumit',50);";
                 Console.WriteLine(insertData+"\n");
                 sqlCommand = new SqlCommand(insertData, conn);
                 sqlCommand.ExecuteNonQuery();
                 FetchData(sqlCommand, conn);
 
                 // update data
-                string updateData = "update students set name='Sumit Gupta' where id=" + 1;
+                string updateData = "update students set name='Sumit Gupta' where id=" + 7;
                 Console.WriteLine(updateData+"\n");
                 sqlCommand = new SqlCommand(updateData, conn);
                 sqlCommand.ExecuteNonQuery();
