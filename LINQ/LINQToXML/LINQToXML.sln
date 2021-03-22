@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQToXML", "LINQToXML\LINQToXML.csproj", "{5A8CA4FA-3F5B-4907-8F63-BA7AA45E9456}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A8CA4FA-3F5B-4907-8F63-BA7AA45E9456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A8CA4FA-3F5B-4907-8F63-BA7AA45E9456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A8CA4FA-3F5B-4907-8F63-BA7AA45E9456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A8CA4FA-3F5B-4907-8F63-BA7AA45E9456}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05902421-FEB6-4CF1-ADAD-20E4B39F5645}
+	EndGlobalSection
+EndGlobal

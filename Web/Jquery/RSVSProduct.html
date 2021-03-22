@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVS Product System</title>
+</head>
+
+<body>
+    <table align="center" cellpadding="10" border="5">
+        <tr>
+            <td colspan="2" align="center">
+                <h3>Welcome to RSVS Product System</h3>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">Select Product :</td>
+            <td><select name="productsList" id="products">
+                    <option value="select">--- Select Product ---</option>
+                    <option value="Mouse">Mouse --- 10000</option>
+                    <option value="Keyboard">KeyBoard --- 20000</option>
+                    <option value="Laptop">Laptop --- 40000</option>
+                </select></td>
+        </tr>
+        <tr>
+            <td>Enter Quantity :</td>
+            <td><input type="text" id="qty" value="" placeholder="enter qty here" /><br>
+                <b>Note :</b><br>
+                If qty is 2 then 5% discount is applicable<br>
+                If qty is 3 then 10% discount is applicable<br>
+                If qty is more than 4 then 20% discount is applicable
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><button id="btnAdd">Submit</button></td>
+        </tr>
+    </table>
+    <br>
+    <table border="2" cellpadding="10" align="center" id="details">
+        <tr>
+            <td>ID</td>
+            <td>Product Name</td>
+            <td>QTY</td>
+            <td>Price</td>
+            <td>Discount Applicable</td>
+            <td>Total Price</td>
+        </tr>
+    </table>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let productData = [];
+            let data = JSON.parse(localStorage.getItem("productsData"));
+            if (data !== null) {
+                data.forEach(element => {
+                    $("#details").append(
+                        "<tr><td>" + element.id + "</td><td>" + element.productName + "</td><td>" + element.qty
+                        + "</td><td>" + element.price + "</td><td>" + element.dis + "%" + "</td><td>" +
+                        element.totalPrice + "</td></tr>"
+                    );
+                });
+
+                count = data[data.length - 1].id;
+                productData.push(...data);
+            } else {
+                count = 0;
+            }
+            $("#btnAdd").click(function () {
+                if ($('#products').find(":selected").text() == "--- Select Product ---") {
+                    alert("Please Choose the Product")
+                } else if ($("#qty").val() == "") {
+                    alert("Please Enter quantity")
+                } else {
+                    count = ++count;
+                    let product = $('#products').find(":selected").text();
+                    let splitPrice = product.split("---");
+                    let productName = splitPrice[0].trim();
+                    let price = Number(splitPrice[1].trim());
+                    let qty = Number($("#qty").val());
+                    console.log(price + " " + qty)
+                    let totalPrice = Number(0);
+                    totalPrice = price;
+                    let dis = Number(0);
+                    if (qty == 2) {
+                        dis = 5;
+                        totalPrice -= ((price * qty) * 5) / 100;
+                    } else if (qty == 3) {
+                        dis = 10;
+                        totalPrice -= ((price * qty) * 10) / 100;
+                    } else if (qty > 3) {
+                        dis = 20;
+                        totalPrice -= ((price * qty) * 20) / 100;
+                    }
+                    productData.push({
+                        "id": count,
+                        "productName": productName,
+                        "qty": qty,
+                        "price": price,
+                        "dis": dis,
+                        "totalPrice": totalPrice
+                    });
+                    localStorage.setItem("productsData", JSON.stringify(productData));
+                    console.log(totalPrice);
+                    $("#details").append(
+                        "<tr><td>" + count + "</td><td>" + productName + "</td><td>" + qty + "</td><td>" + price + "</td><td>" + dis + "%" + "</td><td>" + totalPrice + "</td></tr>"
+                    );
+                }
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>
