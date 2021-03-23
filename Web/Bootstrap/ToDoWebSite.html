@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap-4.6.0-dist/css/bootstrap.min.css">
+
+    <title>To-Do App</title>
+</head>
+
+<body style="background-color: cadetblue;">
+
+    <div class="container">
+        <div class="jumbotron" style="margin-top: 100px;">
+            <h1 class="display-4">Welcome to the To-Do List</h1>
+            <p class="lead">This is the list where you can save your day to day activity</p>
+            <!-- <hr class="my-4">
+                    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                    <button type="button" class="btn btn-outline-primary">Primary Outline Button</button>
+                    <button type="button" class="btn btn-primary btn-lg">Large button</button> -->
+        </div>
+        <div class="card ">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Enter Task</label>
+                    <input type="text" class="form-control" id="task" value=""
+                        placeholder="enter any type of task like singing, playing cricket etc">
+                </div>
+
+                <button type="button" class="btn btn-outline-primary">Add</button>
+                <br><br>
+                <div>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Task</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="body">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="../Jquery/jquery-3.4.1.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            let taskData = [];
+            let data = JSON.parse(localStorage.getItem("task"));
+            if (data !== null) {
+                data.forEach(element => {
+                    $("#body").append(
+                        "<tr><th scope=\"row\">" + element.id + "</th><td>" + element.task + "</td><td>" + element.date + "</td></tr>"
+                    );
+                });
+
+                count = data[data.length - 1].id;
+                taskData.push(...data);
+            } else {
+                count = 0;
+            }
+
+            const val = $("#task");
+            const btn = $("button");
+
+            btn.click(function () {
+                count = ++count;
+                taskData.push({
+                    "id": count,
+                    "task": val.val(),
+                    "date": new Date(),
+                })
+                localStorage.setItem("task", JSON.stringify(taskData));
+                $("#body").append(
+                    "<tr><th scope=\"row\">" + count + "</th><td>" + val.val() + "</td><td>" + new Date() + "</td></tr>"
+                );
+            });
+        });
+
+    </script>
+    <script src="bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+    <script src="bootstrap-4.6.0-dist/js/jquery-3.6.0.js"></script>
+</body>
+
+</html>
