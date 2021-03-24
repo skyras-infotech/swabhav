@@ -12,9 +12,9 @@ namespace SimpleEntityFrameworkDemoApp
         public static DemoDBContext db = new DemoDBContext();
         static void Main(string[] args)
         {
-            CreateEmployee();
-            AddEmployee();
-            DeleteEmployee();
+            //CreateEmployee();
+            //AddEmployee();
+            //DeleteEmployee();
             UpdateEmployee();
         }
 

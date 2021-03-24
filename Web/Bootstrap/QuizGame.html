@@ -2,6 +2,25 @@
 <html lang="en">
 
 <head>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+        .bg {
+            /* The image used */
+            background-image: url("quizbg.jpg");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,11 +31,240 @@
     <title>Quiz Game</title>
 </head>
 
-<body>
+<body class="bg">
+    <div style="width: 100%;">
+        <div style="width: 40%; height: 100px; float: left" class="container mx-4">
+            <h1 style="color: white;">Quiz Game</h1>
+        </div>
+        <div style="margin-left: 45%; height: 100px;">
+            <div class="container my-5 mr-10">
+                <div class="jumbotron">
+                    <h1 class="display-8"><b>Quiz App by SK Gupta</b></h1>
+                    <p class="lead">This is quiz app! where you can understand your basic knowlege when give this quiz's
+                        answer
+                    </p>
+                    <hr class="my-2">
+                    <p>And trust me it increse your knowlege</p>
+                    <a class="btn btn-danger btn-lg" id="btnStart" role="button">Start Quiz</a>
+                </div>
 
-    <script src="bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+                <div class="card text-white bg-dark mb-3" style="max-width: 100rem;" id="queBox">
+                    <div class="card-header bg-transparent">
+                        <h4 id="question">Q-1</h4>
+                    </div>
+                    <div class="card-body text-light" id="opt">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input bg-warning" id="opt0" value="0" name="opt">
+                            <label class="custom-control-label" for="opt0" id="opt0Text"></label>
+                        </div>
+                        <hr class="my-3">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="opt1" value="1" name="opt">
+                            <label class="custom-control-label" for="opt1" id="opt1Text"></label>
+                        </div>
+                        <hr class="my-3">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="opt2" value="2" name="opt">
+                            <label class="custom-control-label" for="opt2" id="opt2Text"></label>
+                        </div>
+                        <hr class="my-3">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="opt3" value="3" name="opt">
+                            <label class="custom-control-label" for="opt3" id="opt3Text"></label>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <button type="button" id="btnPrev" class="btn btn-outline-light">Previous</button>
+                        <button type="button" id="btnNext" class="btn btn-outline-light">Next</button>
+                        <button type="button" class="btn btn-outline-warning float-right" id="btnSubmit"
+                            data-toggle="modal" data-target="#exampleModal">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Quiz Result</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="charts" style="max-width: 100rem; min-height: 30rem;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="location.reload()"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="bootstrap-4.6.0-dist/js/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script>
+
+        $(document).ready(function () {
+            localStorage.removeItem("quiz-answers")
+            function generateChart(answered, unAnswered, wrongAnswered) {
+
+                google.load("visualization", "1", { packages: ["corechart"] });
+                google.setOnLoadCallback(drawBikePieChart);
+                function drawBikePieChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Bike Name', 'Sale Per Year'],
+                        ['Answered', answered],
+                        ['Unanswered', unAnswered],
+                        ['Wrong', wrongAnswered],
+                    ]);
+
+                    var options = {
+                        title: 'Quiz Result'
+                    };
+
+                    var bikeChart = new google.visualization.PieChart(document.getElementById('charts'));
+                    bikeChart.draw(data, options);
+                }
+            }
+
+            $("#queBox").hide();
+            $("#btnPrev").prop('disabled', true);
+            $("#btnSubmit").prop('disabled', true);
+
+            $("#btnStart").click(function () {
+                $("#queBox").show(1000);
+                $.getJSON("Quiz.json", function (data) {
+                    let len = Number(data.questions.length);
+                    let que = data.questions;
+                    let qno = Number(0);
+                    let qindex = Number(0);
+                    let selectedAnswer = Number(-1);
+                    let selectedAnswerList = [];
+                    let resultArray = [];
+                    if (qno == 0) {
+                        setFirstQuestion(que, qindex, qno)
+                        qindex++;
+                    }
+
+                    $("#btnSubmit").click(function () {
+                        let data = JSON.parse(localStorage.getItem("quiz-answers"));
+                        for (let i = 0; i < len; i++) {
+                            if (que[i].correctIndex === data[i].answer) {
+                                resultArray.push(1);
+                            } else if (data[i].answer === -1) {
+                                resultArray.push(-1);
+                            } else {
+                                resultArray.push(0);
+                            }
+                        }
+
+                        let answered = Number(0);
+                        let wrongAnswered = Number(0);
+                        let unAnswered = Number(0);
+
+                        for (let i = 0; i < len; i++) {
+                            if (resultArray[i] == 1) {
+                                answered++;
+                            } else if (resultArray[i] == 0) {
+                                wrongAnswered++;
+                            } else {
+                                unAnswered++;
+                            }
+                        }
+                        generateChart(answered, unAnswered, wrongAnswered)
+
+                    });
+
+                    $("#opt").click(function () {
+                        selectedAnswer = Number($('input[name="opt"]:checked').val());
+                    });
+
+                    $("#btnNext").click(function () {
+                        $("#btnPrev").prop('disabled', false);
+                        $('input[name="opt"]').prop('checked', false);
+
+                        let data = JSON.parse(localStorage.getItem("quiz-answers"));
+                        let c = 0;
+                        if (data != null) {
+                            data.forEach(element => {
+                                if (element.qno === qno) {
+                                    element["answer"] = selectedAnswer
+                                    c++;
+                                    localStorage.setItem("quiz-answers", JSON.stringify(data));
+                                }
+                            });
+                        }
+                        if (c == 0) {
+                            selectedAnswerList.push({
+                                "qno": qno,
+                                "answer": selectedAnswer
+                            });
+                            selectedAnswer = -1;
+                            localStorage.setItem("quiz-answers", JSON.stringify(selectedAnswerList));
+                        }
+
+                        if (qno < len - 1) {
+                            qno++;
+                            let answerIndex = Number(0);
+                            $("#question").text("Q-" + (++qindex) + ") " + que[qno].question)
+                            que[qno].answers.forEach(element => {
+                                $("#opt" + answerIndex + "Text").text(element);
+                                answerIndex++;
+                            });
+
+                        } else {
+                            $("#btnSubmit").prop('disabled', false);
+                            $("#btnNext").prop('disabled', true);
+
+                        }
+                    });
+
+                    $("#btnPrev").click(function () {
+                        let data = JSON.parse(localStorage.getItem("quiz-answers"));
+                        if (qno > 0) {
+                            $("#btnNext").prop('disabled', false);
+                            $("#btnSubmit").prop('disabled', true);
+                            --qno;
+                            let answerIndex = Number(0);
+                            $("#question").text("Q-" + (--qindex) + ") " + que[qno].question)
+                            que[qno].answers.forEach(element => {
+                                $("#opt" + answerIndex + "Text").text(element);
+                                answerIndex++;
+                            });
+                            if (qno == 0) {
+                                $("#btnPrev").prop('disabled', true);
+                            }
+                        } else {
+                            console.log("start again")
+                        }
+
+                        if (data != null) {
+                            if(data[qno].answer !== -1){
+                                $("input[name=\"opt\"][value=" + data[qno].answer + "]").prop('checked', true);
+                            }
+                        }
+                    });
+                });
+            });
+
+            function setFirstQuestion(que, qindex, qno) {
+                let answerIndex = Number(0);
+                $("#question").text("Q-" + (++qindex) + ") " + que[qno].question)
+                que[qno].answers.forEach(element => {
+                    $("#opt" + answerIndex + "Text").text(element);
+                    answerIndex++;
+                });
+            }
+        });
+    </script>
+    <script src="bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
 
 </body>
-
 </html>
