@@ -12,10 +12,10 @@ namespace CustomerOrderOneToManyApp
         public static CustomerDbContext db = new CustomerDbContext();
         static void Main(string[] args)
         {
-            //CreateAndLoadDataInCustomerAndOrder();
-            GetNoOfCustomersOrder();
-            GetTotalPriceOfEachCustomerOrder();
-            DisplayCustomerOrderBy();
+            CreateAndLoadDataInCustomerAndOrder();
+            //GetNoOfCustomersOrder();
+            //GetTotalPriceOfEachCustomerOrder();
+            //DisplayCustomerOrderBy();
             //GetCustomerWhoseOrderIsMaximum();
         }
 
@@ -87,14 +87,18 @@ namespace CustomerOrderOneToManyApp
             var o2 = new Order { OID = 202, OrderName = "Key-Board", Price = 2500 };
             var o3 = new Order { OID = 203, OrderName = "Laptop", Price = 20000 };
             var o4 = new Order { OID = 204, OrderName = "RAM", Price = 1500 };
+            /*var o5 = (Order) o1.Clone();
+            var o6 = (Order) o2.Clone();
+            var o7 = (Order) o3.Clone();*/
+
 
             c1.Orders.Add(o1);
-            c1.Orders.Add(o4);
-            c2.Orders.Add(o2);
+            c1.Orders.Add(o2);
             c2.Orders.Add(o3);
-            c3.Orders.Add(o3);
-            c3.Orders.Add(o1);
-            c3.Orders.Add(o2);
+            c2.Orders.Add(o4);
+            c3.Orders.Add(o5);
+            c3.Orders.Add(o6);
+            c3.Orders.Add(o7);
 
             db.Customers.Add(c1);
             db.Customers.Add(c2);

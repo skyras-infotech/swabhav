@@ -16,7 +16,7 @@ namespace OneToManyApp.Model
         public string DeptName { get; set; }
         public string Location { get; set; }
 
-        public virtual List<Emp> DeptEmployees { get; }
+        public virtual List<Emp> DeptEmployees { get; set; }
 
         public Dept()
         {

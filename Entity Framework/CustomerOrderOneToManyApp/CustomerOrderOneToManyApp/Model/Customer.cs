@@ -14,7 +14,7 @@ namespace CustomerOrderOneToManyApp.Model
         public int ID { get; set; }
         public string Name { get; set; }
         public long MobileNo { get; set; }
-        public virtual List<Order> Orders { get; }
+        public virtual List<Order> Orders { get; set; }
 
         public Customer() {
             Orders = new List<Order>();

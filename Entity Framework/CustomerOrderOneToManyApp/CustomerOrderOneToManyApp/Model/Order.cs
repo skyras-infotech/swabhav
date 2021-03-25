@@ -16,5 +16,10 @@ namespace CustomerOrderOneToManyApp.Model
         public string OrderName { get; set; }
         public double Price { get; set; }
         public virtual Customer Customer { get; set; }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }
