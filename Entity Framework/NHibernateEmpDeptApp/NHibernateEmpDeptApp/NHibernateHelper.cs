@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OneToManyInNHibernateApp.Model;
+using NHibernateEmpDeptApp.Model;
 
-namespace OneToManyInNHibernateApp
+namespace NHibernateEmpDeptApp
 {
     class NHibernateHelper
     {
@@ -29,8 +29,8 @@ namespace OneToManyInNHibernateApp
         private static void InitializeFactory()
         {
             _sessionFactory = Fluently.Configure()
-                                      .Database(MsSqlConfiguration.MsSql2012.ConnectionString("server=.\\SQLExpress; Database=EmpAddrNHibernate; User Id=sa; Password=root;"))
-                                      .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Employee>())
+                                      .Database(MsSqlConfiguration.MsSql2012.ConnectionString("server=.\\SQLExpress; Database=NHibernateEmpDept; User Id=sa; Password=root;"))
+                                      .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Dept>())
                                       .ExposeConfiguration(cfg => new SchemaExport(cfg).Create(true, false))
                                       .BuildSessionFactory();
         }

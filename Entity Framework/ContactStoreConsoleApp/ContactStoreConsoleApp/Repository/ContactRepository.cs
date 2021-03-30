@@ -51,14 +51,7 @@ namespace ContactStoreConsoleApp.Repository
 
         public Contact GetContactByID(int id)
         {
-            foreach (var contact in db.Contacts)
-            {
-                if (contact.ID == id)
-                {
-                    return contact;
-                }
-            }
-            return null;
+            return db.Contacts.Where(x => x.ID == id).SingleOrDefault();
         }
 
         public List<Contact> GetContacts()
