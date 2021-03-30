@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PrintNameFromTextbox5Times</title>
+</head>
+<body>
+    <div>
+        <form>
+            Username : <input type="text" name="username" /><br /><br />
+            <button type="submit">Submit</button>
+        </form>
+        <h1>
+            @for (int i = 0; i < 5; i++)
+            {
+                @("Hello " + ViewBag.username) <br><br>
+            }
+        </h1>
+    </div>
+</body>
+</html>

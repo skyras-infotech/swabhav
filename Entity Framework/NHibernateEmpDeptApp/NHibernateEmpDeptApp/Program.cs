@@ -62,7 +62,7 @@ namespace NHibernateEmpDeptApp
 
         private static void Query3(ISession session)
         {
-            Console.WriteLine("Display employee who arre working mumbai\n");
+            Console.WriteLine("Display employee who are working mumbai\n");
             var empdept = session.Query<Emp>().Join(
                 session.Query<Dept>(),
                 e => e.Dept.ID,

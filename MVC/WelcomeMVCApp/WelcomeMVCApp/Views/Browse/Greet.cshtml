@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Greet</title>
+</head>
+<body>
+    <div> 
+        <h1>
+            @{ 
+                if (ViewBag.currentTime <= 12)
+                {
+                    @("Good Morning")
+                }
+                else if (ViewBag.currentTime > 12 && ViewBag.currentTime <= 16)
+                {
+                    @("Good Afternoon")
+                }
+                else if (ViewBag.currentTime > 16 && ViewBag.currentTime <= 20)
+                {
+                    @("Good Evening")
+                }
+                else
+                {
+                    @("Good Night")
+                }
+            }
+        </h1> 
+    </div>
+</body>
+</html>

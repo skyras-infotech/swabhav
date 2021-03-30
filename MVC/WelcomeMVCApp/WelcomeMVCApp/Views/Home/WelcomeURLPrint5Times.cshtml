@@ -1,0 +1,21 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>WelcomeURLPrint5Times</title>
+</head>
+<body>
+    <h1>
+        @for (int i = 0; i < 5; i++)
+        {
+            @("Hello " + ViewBag.msg) <br><br>
+        }
+    </h1>
+</body>
+</html>

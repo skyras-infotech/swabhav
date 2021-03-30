@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PrintNameFromTextbox</title>
+</head>
+<body>
+    <div> 
+        <form>
+            Username : <input type="text" name="username" /><br /><br />
+            <button type="submit">Submit</button>
+        </form>
+        <h1>Hello @ViewBag.username</h1>
+    </div>
+</body>
+</html>
