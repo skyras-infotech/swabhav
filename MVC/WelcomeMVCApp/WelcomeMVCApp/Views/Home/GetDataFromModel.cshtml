@@ -1,0 +1,23 @@
+﻿@model WelcomeMVCApp.Models.Users
+
+<h2>Get Data From the TextBox</h2>
+
+<div>
+    @using (Html.BeginForm("PrintDetailsOfUser","Home"))
+    {
+        <div>
+            @Html.LabelFor(x => x.ID)
+            @Html.TextBoxFor(x => x.ID)
+        </div>
+        <br />
+        <div>
+            @Html.LabelFor(x => x.Name)
+            @Html.TextBoxFor(x => x.Name)
+        </div>
+        <br />
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    }
+</div>
+

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WelcomeMVCApp.Models;
 
 namespace WelcomeMVCApp.Controllers
 {
@@ -61,8 +62,21 @@ namespace WelcomeMVCApp.Controllers
 
         public ActionResult FetchDeptNoFromDropdown(FormCollection collection)
         {
-            ViewData["Department"]= collection[0];
+            if (collection.Count != 0)
+            {
+                ViewData["Department"] = collection[0];
+            }
             return View();
+        }
+
+        public ActionResult GetDataFromModel()
+        {
+            return View();
+        }
+
+        public ActionResult PrintDetailsOfUser(Users users)
+        {
+            return View(users);
         }
     }
 }

@@ -7,16 +7,16 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3694EC7A-E5E0-4616-9012-B1843E8DD2BC}</ProjectGuid>
+    <ProjectGuid>{51EEDC17-E819-4E8C-BA19-E850BD0B9DBE}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WelcomeMVCApp</RootNamespace>
-    <AssemblyName>WelcomeMVCApp</AssemblyName>
+    <RootNamespace>LoginDemoApp</RootNamespace>
+    <AssemblyName>LoginDemoApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44306</IISExpressSSLPort>
+    <IISExpressSSLPort>44331</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -93,30 +93,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\BrowseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
-    <Content Include="Views\Home\Hello.cshtml" />
-    <Content Include="Views\Index.cshtml" />
-    <Content Include="Views\Home\WelcomeURL.cshtml" />
-    <Content Include="Views\Home\WelcomeURLPrint5Times.cshtml" />
-    <Content Include="Views\Home\PrintNameFromTextbox.cshtml" />
-    <Content Include="Views\Home\PrintNameFromTextbox5Times.cshtml" />
-    <Content Include="Views\Browse\Greet.cshtml" />
-    <Content Include="Views\Home\TwoTextBox.cshtml" />
-    <Content Include="Views\Home\FetchColorFromDropdown.cshtml" />
-    <Content Include="Views\Home\FetchDeptNoFromDropdown.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\GetDataFromModel.cshtml" />
-    <Content Include="Views\Home\PrintDetailsOfUser.cshtml" />
+    <Content Include="Views\Home\HomePage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -140,9 +128,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>64261</DevelopmentServerPort>
+          <DevelopmentServerPort>50474</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44306/</IISUrl>
+          <IISUrl>https://localhost:44331/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
