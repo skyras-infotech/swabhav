@@ -12,9 +12,9 @@ namespace WelcomeMVCApp.Controllers
         { 
         }
 
-        public string Index() 
+        public ActionResult Index() 
         {
-             return "Hello";
+            return View();
         }
 
         public ActionResult Hello() 
@@ -50,6 +50,18 @@ namespace WelcomeMVCApp.Controllers
         {
             ViewBag.username = username;
             ViewBag.id = id;
+            return View();
+        }
+
+        public ActionResult FetchColorFromDropdown(string colors)
+        {
+            ViewBag.colors = colors;
+            return View();
+        }
+
+        public ActionResult FetchDeptNoFromDropdown(FormCollection collection)
+        {
+            ViewData["Department"]= collection[0];
             return View();
         }
     }

@@ -1,0 +1,19 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("FetchDeptNoFromDropdown", "Home", FormMethod.Post))
+{
+    <div>
+
+        @Html.DropDownList("Departments", new List<SelectListItem> { new SelectListItem { Text = "IT", Value = "1" },
+   new SelectListItem { Text = "HR", Value = "2" },
+   new SelectListItem { Text = "Marketing", Value = "3" },
+   new SelectListItem { Text = "Sales", Value = "4" }
+}, "Select Departments")
+
+        </div> 
+        <div><input type="submit" value="Submit" /></div>
+
+}
