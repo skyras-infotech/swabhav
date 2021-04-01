@@ -3,7 +3,7 @@
 <h2>Get Data From the TextBox</h2>
 
 <div>
-    @using (Html.BeginForm("PrintDetailsOfUser","Home"))
+    @using (Html.BeginForm("PrintDetailsOfUser","Home",FormMethod.Get))
     {
         <div>
             @Html.LabelFor(x => x.ID)

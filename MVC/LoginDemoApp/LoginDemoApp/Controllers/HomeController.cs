@@ -4,26 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LoginDemoApp.Models;
+using LoginDemoApp.Service;
 
 namespace LoginDemoApp.Controllers
 {
     public class HomeController : Controller
     {
-        List<Employee> employees = new List<Employee>()
-        {
-            new Employee { Username = "sumit",Password="sumit"},
-            new Employee { Username = "yogesh",Password="yogesh"},
-            new Employee { Username = "niyati",Password="niyati"},
-            new Employee { Username = "admin",Password="admin"}
-        };
+
 
         [HttpGet]
-        public ActionResult Index(string err)
+        public ActionResult Index()
         {
-            if (err != null)
-            {
-                Response.Write(err);
-            }
             return View();
         }
 
@@ -32,7 +23,7 @@ namespace LoginDemoApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (var emp in employees)
+                foreach (var emp in EmployeeService.GetEmployees())
                 {
                     if (employee.Username == emp.Username && employee.Password == emp.Password)
                     {
