@@ -1,0 +1,26 @@
+﻿@model MVCEntityDemoApp.ViewModels.AllContactVM
+
+<h2 align="center">Contact Details</h2>
+@using (Html.BeginForm())
+{
+    <table cellpadding="10" align="center" border="1">
+      
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Mobile Number</th>
+            <th>Address</th>
+        </tr>
+        @foreach (var contact in Model.Contacts)
+        {
+            <tr>
+                <td>@contact.ID</td>
+                <td>@contact.FirstName</td>
+                <td>@contact.LastName</td>
+                <td>@contact.MobileNumber</td>
+                <td>@contact.Address</td>
+            </tr>
+        }
+    </table>
+}

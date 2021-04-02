@@ -1,25 +1,27 @@
-﻿@model  IEnumerable<EmployeeMVCApp.Models.Employee>
+﻿@model EmployeeMVCApp.ViewModels.EmployeeVM
 
 <h2 align="center">Employee Details</h2>
-@using (Html.BeginForm("AddEmployee","Employee"))
+@using (Html.BeginForm("AddEmployee", "Employee"))
 {
     <table cellpadding="10" align="center" border="1">
         <tr align="center">
-            <td colspan="4">@Html.ActionLink("Add New Employee", "AddEmployee","Employee")</td>
+            <td colspan="5">@Html.ActionLink("Add New Employee", "AddEmployee", "Employee")</td>
         </tr>
         <tr>
             <th>Employee ID</th>
             <th>Name</th>
             <th>Designation</th>
             <th>Salary</th>
+            <th>Actions</th>
         </tr>
-        @foreach (var emp in Model)
+        @foreach (var emp in Model.Employees)
         {
             <tr>
                 <td>@emp.ID</td>
                 <td>@emp.Name</td>
                 <td>@emp.Designation</td>
                 <td>@emp.Salary</td>
+                <td>@Html.ActionLink("Edit", "EditEmployee", "Employee", new { id = emp.ID })</td>
             </tr>
         }
     </table>

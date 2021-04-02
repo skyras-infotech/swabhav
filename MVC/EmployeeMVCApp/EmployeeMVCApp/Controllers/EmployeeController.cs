@@ -5,49 +5,48 @@ using System.Web;
 using System.Web.Mvc;
 using EmployeeMVCApp.Models;
 using EmployeeMVCApp.Service;
+using EmployeeMVCApp.ViewModels;
 
 namespace EmployeeMVCApp.Controllers
 {
     public class EmployeeController : Controller
     {
-        EmployeeService employeeService = new EmployeeService();
+        EmployeeService employeeService = EmployeeService.GetInstance;
+
         public ActionResult Index()
         {
-            List<Employee> employees;
-
-            if (TempData["listOfEmployee"] == null)
-            {
-                employees = employeeService.GetEmployees();
-                TempData["listOfEmployee"] = employees;
-            }
-            else 
-            {
-                employees = (List<Employee>) TempData["listOfEmployee"];
-                TempData.Keep();
-            }
-            return View(employees);
+            EmployeeVM employeeVM = new EmployeeVM();
+            employeeVM.Employees = employeeService.GetEmployees();
+            return View(employeeVM);
         }
 
         [HttpGet]
         public ActionResult AddEmployee()
         {
-            return View();
+            AddEmployeeVM addEmployeeVM = new AddEmployeeVM();
+            return View(addEmployeeVM);
         }
 
         [HttpPost]
-        public ActionResult AddEmployee(Employee employee)
+        public ActionResult AddEmployee(AddEmployeeVM vm)
         {
-            List<Employee> employees;
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
-                employees = (List<Employee>)TempData["listOfEmployee"];
-                Employee emp = new Employee { ID = employee.ID, Name = employee.Name, Designation = employee.Designation, Salary = employee.Salary};
-                employees.Add(emp);
-                TempData.Keep();
+                Employee emp = new Employee { ID = vm.ID, Name = vm.Name, Designation = vm.Designation, Salary = vm.Salary };
+                employeeService.AddEmployee(emp);
                 return RedirectToAction("Index");
             }
-            TempData.Keep();
-            return View();
+            return View(vm);
         }
+
+        [HttpGet]
+        public ActionResult EditEmployee(int id)
+        {
+
+            AddEmployeeVM addEmployeeVM = new AddEmployeeVM();
+            addEmployeeVM = employeeService.GetEmployees().Where(x => x.ID == id).SingleOrDefault();
+            return View(addEmployeeVM);
+        }
+
     }
 }
