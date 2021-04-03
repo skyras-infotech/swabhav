@@ -42,11 +42,29 @@ namespace EmployeeMVCApp.Controllers
         [HttpGet]
         public ActionResult EditEmployee(int id)
         {
-
-            AddEmployeeVM addEmployeeVM = new AddEmployeeVM();
-            addEmployeeVM = employeeService.GetEmployees().Where(x => x.ID == id).SingleOrDefault();
-            return View(addEmployeeVM);
+            EditEmployeeVM editEmployeeVM = new EditEmployeeVM();
+            editEmployeeVM.Employee = employeeService.GetEmployees().Where(x => x.ID == id).SingleOrDefault();
+            return View(editEmployeeVM);
         }
 
+        [HttpPost]
+        public ActionResult EditEmployee(EditEmployeeVM  editEmployeeVM)
+        {
+            if (ModelState.IsValid)
+            {
+                Employee emp = editEmployeeVM.Employee;
+                employeeService.EditEmployee(emp);
+                return RedirectToAction("Index");
+            }
+            return View(editEmployeeVM);
+        }
+
+
+        [HttpGet]
+        public ActionResult DeleteEmployee(int id)
+        {
+            employeeService.GetEmployees().Remove(employeeService.GetEmployees().Where(x => x.ID == id).SingleOrDefault());
+            return RedirectToAction("Index");
+        }
     }
 }

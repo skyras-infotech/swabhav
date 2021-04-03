@@ -9,7 +9,7 @@ namespace EmployeeMVCApp.Service
     public class EmployeeService
     {
         private static EmployeeService _employeeService;
-        private static List<Employee> _employees = new List<Employee>();
+        private List<Employee> _employees = new List<Employee>();
 
         public static EmployeeService GetInstance {
 
@@ -35,6 +35,14 @@ namespace EmployeeMVCApp.Service
         public void AddEmployee(Employee employee) 
         {
             _employees.Add(employee);
+        }
+
+        public void EditEmployee(Employee employee) 
+        {
+            Employee emp = _employees.Where(x => x.ID == employee.ID).SingleOrDefault();
+            emp.Name = employee.Name;
+            emp.Salary = employee.Salary;
+            emp.Designation = employee.Designation;
         }
     }
 }

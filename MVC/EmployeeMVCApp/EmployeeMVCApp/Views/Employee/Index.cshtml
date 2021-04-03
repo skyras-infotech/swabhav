@@ -21,7 +21,11 @@
                 <td>@emp.Name</td>
                 <td>@emp.Designation</td>
                 <td>@emp.Salary</td>
-                <td>@Html.ActionLink("Edit", "EditEmployee", "Employee", new { id = emp.ID })</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditEmployee", "Employee", new { id = emp.ID }, null)
+                    &nbsp;&nbsp;
+                    @Html.ActionLink("Delete", "DeleteEmployee", "Employee", new { id = emp.ID }, null)
+                </td>
             </tr>
         }
     </table>
