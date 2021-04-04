@@ -105,17 +105,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104040856225_CreateContactTable.cs" />
+    <Compile Include="Migrations\202104040856225_CreateContactTable.designer.cs">
+      <DependentUpon>202104040856225_CreateContactTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Repository\IContactRepository.cs" />
     <Compile Include="Services\ContactService.cs" />
+    <Compile Include="ViewModels\EditContactVM.cs" />
+    <Compile Include="ViewModels\AddContactVM.cs" />
     <Compile Include="ViewModels\AllContactVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Contact\AddContact.cshtml" />
+    <Content Include="Views\Contact\UpdateContact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -125,6 +134,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202104040856225_CreateContactTable.resx">
+      <DependentUpon>202104040856225_CreateContactTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

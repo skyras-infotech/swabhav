@@ -3,20 +3,55 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MVCEntityDemoApp.Models;
+using MVCEntityDemoApp.Repository;
 
 namespace MVCEntityDemoApp.Services
 {
     public class ContactService
     {
+        private static ContactService _contactService;
+        private ContactRepository repository = new ContactRepository(new ContactDBContext());
+
+        public static ContactService GetInstance
+        {
+            get
+            {
+                if (_contactService == null)
+                {
+                    _contactService = new ContactService();
+                }
+                return _contactService;
+            }
+        }
+
+        public void AddContact(Contact contact) 
+        {
+            repository.AddContact(contact);
+        }
+
+        public void DeleteContact(int id) 
+        {
+            repository.DeleteContact(id);
+        }
+
         public List<Contact> GetContacts() 
         {
-            List<Contact> contacts = new List<Contact>() 
-            {
-                new Contact(){ID = 101,FirstName="Sumit",LastName="Gupta",MobileNumber=9664695915,Address="Navsari"},
-                new Contact(){ID = 102,FirstName="Yogesh",LastName="Patel",MobileNumber=9874563215,Address="Valsad"},
-                new Contact(){ID = 103,FirstName="Karan",LastName="Patel",MobileNumber=9632587415,Address="Surat"}
-            };
-            return contacts;
+            return repository.GetContacts();
+        }
+
+        public Contact GetContactByID(int id) 
+        {
+            return repository.GetContactByID(id);
+        }
+
+        public void UpdateContact(Contact contact)
+        {
+            repository.EditContact(contact);
+        }
+
+        public List<Contact> SearchContact(string name)
+        {
+            return repository.SearchContact(name);
         }
     }
 }

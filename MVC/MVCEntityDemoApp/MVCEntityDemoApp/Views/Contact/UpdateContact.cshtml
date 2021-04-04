@@ -1,0 +1,44 @@
+﻿@model MVCEntityDemoApp.ViewModels.EditContactVM
+
+<h2 align="center">Edit Contact</h2>
+@using (Html.BeginForm())
+{
+    <table cellpadding="10" align="center" border="1">
+        @Html.HiddenFor(x => x.Contact.ID)
+        <tr>
+            <th>Enter First Name :</th>
+            <td>
+                @Html.EditorFor(x => x.Contact.FirstName)
+                <br />
+                @Html.ValidationMessageFor(x => x.Contact.FirstName, "", new { style = "color:red;" })
+            </td>
+        </tr>
+        <tr>
+            <th>Enter Last Name :</th>
+            <td>
+                @Html.EditorFor(x => x.Contact.LastName)
+                <br />
+                @Html.ValidationMessageFor(x => x.Contact.LastName, "", new { style = "color:red;" })
+            </td>
+        </tr>
+        <tr>
+            <th>Enter Mobile Number :</th>
+            <td>
+                @Html.EditorFor(x => x.Contact.MobileNumber)
+                <br />
+                @Html.ValidationMessageFor(x => x.Contact.MobileNumber, "", new { style = "color:red;" })
+            </td>
+        </tr>
+        <tr>
+            <th>Enter Address :</th>
+            <td>
+                @Html.EditorFor(x => x.Contact.Address)
+                <br />
+                @Html.ValidationMessageFor(x => x.Contact.Address, "", new { style = "color:red;" })
+            </td>
+        </tr>
+        <tr align="center">
+            <td colspan="2"><input type="submit" value="Update" /></td>
+        </tr>
+    </table>
+}

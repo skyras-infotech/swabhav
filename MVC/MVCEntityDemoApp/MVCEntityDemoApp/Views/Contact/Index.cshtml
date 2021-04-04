@@ -1,26 +1,52 @@
 ﻿@model MVCEntityDemoApp.ViewModels.AllContactVM
 
+@using (Html.BeginForm())
+{
+    <div align="right">
+       <input type="text" name="search"/>
+       <button type="submit">Search</button>
+    </div>
+}
 <h2 align="center">Contact Details</h2>
 @using (Html.BeginForm())
 {
     <table cellpadding="10" align="center" border="1">
-      
+        <tr align="center">
+            <td colspan="6">@Html.ActionLink("Add New Contact", "AddContact", "Contact")</td>
+        </tr>
         <tr>
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Mobile Number</th>
             <th>Address</th>
+            <th>Actions</th>
         </tr>
-        @foreach (var contact in Model.Contacts)
-        {
-            <tr>
-                <td>@contact.ID</td>
-                <td>@contact.FirstName</td>
-                <td>@contact.LastName</td>
-                <td>@contact.MobileNumber</td>
-                <td>@contact.Address</td>
-            </tr>
+        @{
+            if (Model.Contacts.Count == 0)
+            {
+                <tr>
+                    <td colspan="6">Sorry there is no contact! Please add contact</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var contact in Model.Contacts)
+                {
+                    <tr>
+                        <td>@contact.ID</td>
+                        <td>@contact.FirstName</td>
+                        <td>@contact.LastName</td>
+                        <td>@contact.MobileNumber</td>
+                        <td>@contact.Address</td>
+                        <td>
+                            @Html.ActionLink("Edit", "UpdateContact", new { id = contact.ID })
+                            &nbsp;&nbsp;
+                            @Html.ActionLink("Delete", "DeleteContact", new { id = contact.ID })
+                        </td>
+                    </tr>
+                }
+            }
         }
     </table>
 }

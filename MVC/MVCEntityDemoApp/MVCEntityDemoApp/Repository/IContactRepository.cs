@@ -10,9 +10,10 @@ namespace MVCEntityDemoApp.Repository
     interface IContactRepository
     {
         List<Contact> GetContacts();
-       
+        List<Contact> SearchContact(string name);
         void AddContact(Contact contact);
-    
-        void AddContacts();
+        void EditContact(Contact c);
+        void DeleteContact(int id);
+        Contact GetContactByID(int id);
     }
 }
