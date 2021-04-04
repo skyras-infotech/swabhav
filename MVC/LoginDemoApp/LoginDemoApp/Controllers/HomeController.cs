@@ -26,7 +26,6 @@ namespace LoginDemoApp.Controllers
         [HttpPost]
         public ActionResult Index(Employee employee)
         {
-           
             if (ModelState.IsValid)
             {
                 foreach (var emp in EmployeeService.GetEmployees())
