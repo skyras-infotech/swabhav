@@ -1,0 +1,26 @@
+﻿@using ToDoListMVCApp.ViewModels
+
+@model TasksVM
+
+@{
+    ViewBag.Title = "Add Task";
+}
+
+<h2 align="center">Add New Task</h2>
+<div>
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <label for="TaskName">Task Name</label>
+            @Html.TextBoxFor(x => x.TaskName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="Status">Select Status</label>
+            @Html.DropDownListFor(x => x.Status, new SelectList(Enum.GetValues(typeof(Status))), "-- Select Status --", new { @class = "form-control" })
+        </div>
+        <div align="center">
+            <button type="submit" class="btn btn-outline-primary">Add Task</button>
+        </div>
+    }
+</div>
+

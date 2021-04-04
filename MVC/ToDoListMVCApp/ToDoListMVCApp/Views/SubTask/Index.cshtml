@@ -1,0 +1,60 @@
+﻿@model ToDoListMVCApp.ViewModels.AllSubTasksVM
+
+@{
+    ViewBag.Title = "Sub Tasks";
+}
+
+<div align="right">
+    <button type="submit" class="btn btn-primary">
+        @Html.ActionLink("Add New Sub Task", "AddSubTask",new { id = Model.TaskID}, new { style = "text-decoration:none;color:white" })
+    </button>
+</div>
+<h2 align="center">Sub Tasks List</h2>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Sub Task Name</th>
+                <th>Creation Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.SubTasks.Count == 0)
+                {
+                    <tr>
+                        <td colspan="5">Sorry there is no sub task! Please add sub task</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var task in Model.SubTasks)
+                    {
+                        <tr>
+                            <td>@task.ID</td>
+                            <td>@task.SubTaskName</td>
+                            <td>@task.CreationDate</td>
+                            <td>@task.Status</td>
+                            <td>
+                                <button type="submit" class="btn btn-success">
+                                    @Html.ActionLink("Edit", "UpdateSubTask", new { id = task.ID, taskid = task.TasksID }, new { style = "text-decoration:none;color:white" })
+                                </button>
+                                &nbsp;&nbsp;
+                                <button type="submit" class="btn btn-danger">
+                                    @Html.ActionLink("Delete", "DeleteSubTask", new { id = task.ID, taskid = task.TasksID }, new { style = "text-decoration:none;color:white" })
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}
+
+
+

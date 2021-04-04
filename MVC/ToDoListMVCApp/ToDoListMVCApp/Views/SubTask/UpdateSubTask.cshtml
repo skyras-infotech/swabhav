@@ -1,0 +1,27 @@
+﻿@using ToDoListMVCApp.ViewModels
+    
+@model UpdateSubTaskVM
+
+@{
+    ViewBag.Title = "Update Sub Task";
+}
+
+<h2 align="center">Update Task</h2>
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(x => x.SubTask.ID);
+        <div class="form-group">
+            <label for="SubTaskName">Sub Task Name</label>
+            @Html.TextBoxFor(x => x.SubTask.SubTaskName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="Status">Select Status</label>
+            @Html.DropDownListFor(x => x.SubTask.Status, new SelectList(Enum.GetValues(typeof(Status))), "-- Select Status --", new { @class = "form-control" })
+        </div>
+        <div align="center">
+            <button type="submit" class="btn btn-outline-primary">Update Sub Task</button>
+        </div>
+    }
+</div>
+

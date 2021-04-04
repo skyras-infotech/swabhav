@@ -1,0 +1,64 @@
+﻿@model ToDoListMVCApp.ViewModels.AllTasksVM
+
+@{
+    ViewBag.Title = "Task List";
+}
+
+<div align="right">
+    <button type="submit" class="btn btn-primary">
+        @Html.ActionLink("Add New Task", "AddTask",null, new { style = "text-decoration:none;color:white" })
+    </button>
+</div>
+<h2 align="center">Tasks List</h2>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Task Name</th>
+                <th>Creation Date</th>
+                <th>Status</th>
+                <th>SubTask</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Tasks.Count == 0)
+                {
+                    <tr>
+                        <td colspan="6">Sorry there is no task! Please add task</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var task in Model.Tasks)
+                    {
+                        <tr>
+                            <td>@task.ID</td>
+                            <td>@task.TaskName</td>
+                            <td>@task.CreationDate</td>
+                            <td>@task.Status</td>
+                            <td>
+                                <button type="submit" class="btn btn-info">
+                                    @Html.ActionLink("Sub Task", "Index", "SubTask", new { id = task.ID }, new { style = "text-decoration:none;color:white" })
+                                </button>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-success">
+                                    @Html.ActionLink("Edit", "UpdateTask", new { id = task.ID }, new { style = "text-decoration:none;color:white" })
+                                </button>
+                                &nbsp;&nbsp;
+                                <button type="submit" class="btn btn-danger">
+                                    @Html.ActionLink("Delete", "DeleteTask", new { id = task.ID }, new { style = "text-decoration:none;color:white" })
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}
+
