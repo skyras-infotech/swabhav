@@ -15,14 +15,56 @@ namespace EmployeeMVCApp.Controllers
 
         public ActionResult Index()
         {
+            if (Session["CurrentSession"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             EmployeeVM employeeVM = new EmployeeVM();
             employeeVM.Employees = employeeService.GetEmployees();
             return View(employeeVM);
         }
 
+        public ActionResult Login() 
+        {
+            if (Session["CurrentSession"] == null)
+            {
+                return View();
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Logout()
+        {
+            Session["CurrentSession"] = null;
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginVM loginVM)
+        {
+            if (ModelState.IsValid)
+            {
+                if (loginVM.Username == "admin" && loginVM.Password == "admin")
+                {
+                    Session["CurrentSession"] = loginVM;
+                    return RedirectToAction("Index");
+                }
+                else 
+                { 
+                     Response.Write("username and password is incorrect");
+                }
+            }
+            return View(loginVM);
+        }
+
+
         [HttpGet]
         public ActionResult AddEmployee()
         {
+            if (Session["CurrentSession"] == null) 
+            {
+                return RedirectToAction("Login");
+            }
             AddEmployeeVM addEmployeeVM = new AddEmployeeVM();
             return View(addEmployeeVM);
         }
@@ -42,6 +84,10 @@ namespace EmployeeMVCApp.Controllers
         [HttpGet]
         public ActionResult EditEmployee(int id)
         {
+            if (Session["CurrentSession"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             EditEmployeeVM editEmployeeVM = new EditEmployeeVM();
             editEmployeeVM.Employee = employeeService.GetEmployees().Where(x => x.ID == id).SingleOrDefault();
             return View(editEmployeeVM);
@@ -63,6 +109,10 @@ namespace EmployeeMVCApp.Controllers
         [HttpGet]
         public ActionResult DeleteEmployee(int id)
         {
+            if (Session["CurrentSession"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             employeeService.GetEmployees().Remove(employeeService.GetEmployees().Where(x => x.ID == id).SingleOrDefault());
             return RedirectToAction("Index");
         }

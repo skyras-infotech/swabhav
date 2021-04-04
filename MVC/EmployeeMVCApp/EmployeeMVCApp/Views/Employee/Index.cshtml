@@ -1,5 +1,6 @@
 ﻿@model EmployeeMVCApp.ViewModels.EmployeeVM
 
+<h3 align="right">@Html.ActionLink("Logout", "Logout", "Employee")</h3>
 <h2 align="center">Employee Details</h2>
 @using (Html.BeginForm("AddEmployee", "Employee"))
 {

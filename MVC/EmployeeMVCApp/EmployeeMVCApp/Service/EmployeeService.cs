@@ -14,7 +14,8 @@ namespace EmployeeMVCApp.Service
         public static EmployeeService GetInstance {
 
             get {
-                if (_employeeService == null) {
+                if (_employeeService == null) 
+                {
                     _employeeService = new EmployeeService();
                 }
                 return _employeeService;
@@ -44,5 +45,6 @@ namespace EmployeeMVCApp.Service
             emp.Salary = employee.Salary;
             emp.Designation = employee.Designation;
         }
+
     }
 }

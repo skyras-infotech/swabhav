@@ -7,16 +7,16 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0A8EF5F7-E047-46A4-B906-6CF5593B8FF1}</ProjectGuid>
+    <ProjectGuid>{3405829B-F05B-430E-841E-1751A983B207}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EmployeeMVCApp</RootNamespace>
-    <AssemblyName>EmployeeMVCApp</AssemblyName>
+    <RootNamespace>SeesionApp</RootNamespace>
+    <AssemblyName>SeesionApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44371</IISExpressSSLPort>
+    <IISExpressSSLPort>44345</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -93,25 +93,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\Home1Controller.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\EmployeeService.cs" />
-    <Compile Include="ViewModels\AddEmployeeVM.cs" />
-    <Compile Include="ViewModels\EditEmployeeVM.cs" />
-    <Compile Include="ViewModels\EmployeeVM.cs" />
-    <Compile Include="ViewModels\LoginVM.cs" />
+    <Compile Include="ViewModels\SessionStateModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
-    <Content Include="Views\Employee\AddEmployee.cshtml" />
-    <Content Include="Views\Employee\Index.cshtml" />
-    <Content Include="Views\Employee\EditEmployee.cshtml" />
-    <Content Include="Views\Employee\Login.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home1\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -121,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -135,9 +130,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62540</DevelopmentServerPort>
+          <DevelopmentServerPort>57452</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44371/</IISUrl>
+          <IISUrl>https://localhost:44345/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
