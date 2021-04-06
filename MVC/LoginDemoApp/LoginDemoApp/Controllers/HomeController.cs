@@ -8,19 +8,19 @@ using LoginDemoApp.Service;
 
 namespace LoginDemoApp.Controllers
 {
+    
     public class HomeController : Controller
     {
-
-
         [HttpGet]
         public ActionResult Index()
         {
-            if (Session["CurrentSession"] == null)
-            {
-                return View();
-            }
+            /*  if (Session["CurrentSession"] == null)
+             {
+                 return View();
+             }
             Employee employee = (Employee)Session["CurrentSession"];
-            return RedirectToAction("HomePage",employee);
+            return RedirectToAction("HomePage",employee);*/
+            return View();
         }
 
         [HttpPost]
@@ -36,17 +36,17 @@ namespace LoginDemoApp.Controllers
                         return RedirectToAction("HomePage", new Employee { Username = employee.Username, Password = employee.Password });
                     }
                 }
-                Response.Write("username and password is incorrect");
             }
             return View(employee);
         }
 
+        [AuthUsers]
         public ActionResult HomePage(Employee employee)
         {
-            if (Session["CurrentSession"] == null) 
+            /*if (Session["CurrentSession"] == null) 
             {
                 return RedirectToAction("Index");
-            }
+            }*/
             return View(employee);
         }
     }
