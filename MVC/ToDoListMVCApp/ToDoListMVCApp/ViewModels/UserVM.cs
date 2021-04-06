@@ -7,10 +7,8 @@ using ToDoListMVCApp.Models;
 
 namespace ToDoListMVCApp.ViewModels
 {
-    public class SubTasksVM
+    public class UserVM
     {
-        public SubTask SubTask { get; set; }
-        public int TaskID { get; set; }
-        public int UserID { get; set; }
+        public Users User { get; set; }
     }
 }

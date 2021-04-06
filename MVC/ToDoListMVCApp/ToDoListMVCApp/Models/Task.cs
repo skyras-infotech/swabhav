@@ -15,6 +15,8 @@ namespace ToDoListMVCApp.Models
         public DateTime CreationDate { get; set; }
         public string Status { get; set; }
         public List<SubTask> SubTasks { get; set; }
+        public int UsersID { get; set; }
+        public Users Users { get; set; }
         public Tasks() 
         {
             SubTasks = new List<SubTask>();

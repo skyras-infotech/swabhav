@@ -6,7 +6,7 @@
 
 <div align="right">
     <button type="submit" class="btn btn-primary">
-        @Html.ActionLink("Add New Sub Task", "AddSubTask",new { id = Model.TaskID}, new { style = "text-decoration:none;color:white" })
+        @Html.ActionLink("Add New Sub Task", "AddSubTask", new { id = Model.TaskID, userid = Model.UserID }, new { style = "text-decoration:none;color:white" })
     </button>
 </div>
 <h2 align="center">Sub Tasks List</h2>
@@ -41,11 +41,11 @@
                             <td>@task.Status</td>
                             <td>
                                 <button type="submit" class="btn btn-success">
-                                    @Html.ActionLink("Edit", "UpdateSubTask", new { id = task.ID, taskid = task.TasksID }, new { style = "text-decoration:none;color:white" })
+                                    @Html.ActionLink("Edit", "UpdateSubTask", new { id = task.ID, taskid = task.TasksID, userid = Model.UserID }, new { style = "text-decoration:none;color:white" })
                                 </button>
                                 &nbsp;&nbsp;
                                 <button type="submit" class="btn btn-danger">
-                                    @Html.ActionLink("Delete", "DeleteSubTask", new { id = task.ID, taskid = task.TasksID }, new { style = "text-decoration:none;color:white" })
+                                    @Html.ActionLink("Delete", "DeleteSubTask", new { id = task.ID, taskid = task.TasksID, userid = Model.UserID }, new { style = "text-decoration:none;color:white" })
                                 </button>
                             </td>
                         </tr>
@@ -54,6 +54,9 @@
             }
         </tbody>
     </table>
+    <div>
+        @Html.ActionLink("<- Back To Task List", "Index", "Tasks", new { id = Model.UserID }, null)
+    </div>
 }
 
 

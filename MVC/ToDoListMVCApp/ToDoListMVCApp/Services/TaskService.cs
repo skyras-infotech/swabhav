@@ -39,6 +39,11 @@ namespace ToDoListMVCApp.Services
             return repository.GetTasks();
         }
 
+        public List<Tasks> GetTasksByUser(int id)
+        {
+            return repository.GetTasksByUser(id);
+        }
+
         public Tasks GetTaskByID(int id)
         {
             return repository.GetTaskByID(id);

@@ -22,6 +22,9 @@
         <div align="center">
             <button type="submit" class="btn btn-outline-primary">Update Task</button>
         </div>
+        <div>
+            @Html.ActionLink("<- Back To List", "Index", "Tasks", new { id = Model.UserID }, null)
+        </div>
     }
 </div>
 

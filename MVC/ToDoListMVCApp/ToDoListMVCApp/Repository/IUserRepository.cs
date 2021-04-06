@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ToDoListMVCApp.Models;
+
+namespace ToDoListMVCApp.Repository
+{
+    interface IUserRepository
+    {
+        List<Users> GetUsers();
+        void AddUser(Users users);
+        void EditUser(Users users);
+        void DeleteUser(int id);
+        Users GetUserByID(int id);
+    }
+}

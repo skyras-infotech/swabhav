@@ -7,10 +7,12 @@ using ToDoListMVCApp.Models;
 
 namespace ToDoListMVCApp.ViewModels
 {
-    public class SubTasksVM
+    public class LoginVM
     {
-        public SubTask SubTask { get; set; }
-        public int TaskID { get; set; }
-        public int UserID { get; set; }
+        [Required]
+        public string Username { get; set; }
+        [Required]
+        public string Password { get; set; }
+        public bool RememberMe { get; set; }
     }
 }

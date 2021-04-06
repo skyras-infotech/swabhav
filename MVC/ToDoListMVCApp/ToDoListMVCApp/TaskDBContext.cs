@@ -11,5 +11,6 @@ namespace ToDoListMVCApp
     {
         public DbSet<Tasks> Tasks { get; set; }
         public DbSet<SubTask> SubTasks { get; set; }
+        public DbSet<Users> Users { get; set; }
     }
 }

@@ -38,6 +38,11 @@ namespace ToDoListMVCApp.Repository
             db.SaveChanges();
         }
 
+        public List<Tasks> GetTasksByUser(int id)
+        {
+            return db.Tasks.Where(x => x.UsersID == id).ToList();
+        }
+
         public Tasks GetTaskByID(int id)
         {
             return db.Tasks.Where(x => x.ID == id).SingleOrDefault();

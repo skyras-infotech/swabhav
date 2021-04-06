@@ -1,0 +1,47 @@
+﻿@model ToDoListMVCApp.ViewModels.AllUsersVM
+
+@{
+    ViewBag.Title = "All User List";
+}
+
+<h2>Users List</h2>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Users.Count == 0)
+                {
+                    <tr>
+                        <td colspan="6">Sorry there no users!</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@user.ID</td>
+                            <td>@user.Username</td>
+                            <td>@user.Role</td>
+                            <td>
+                                <button type="submit" class="btn btn-danger">
+                                    @Html.ActionLink("Delete", "DeleteUser", new { id = user.ID }, new { style = "text-decoration:none;color:white" })
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}
+

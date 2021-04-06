@@ -9,23 +9,26 @@ using ToDoListMVCApp.Models;
 
 namespace ToDoListMVCApp.Controllers
 {
+    [Authorize]
     public class TasksController : Controller
     {
         TaskService taskService = TaskService.GetInstance;
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
             AllTasksVM allTasksVM = new AllTasksVM();
-            allTasksVM.Tasks = taskService.GetTasks();
+            allTasksVM.Tasks = taskService.GetTasksByUser(id);
+            allTasksVM.UserID = id;
             return View(allTasksVM);
         }
 
-        public ActionResult AddTask()
+        public ActionResult AddTask(int id, TasksVM tasksVM)
         {
-            return View();
+            tasksVM.UserID = id;
+            return View(tasksVM);
         }
 
         [HttpPost]
-        public ActionResult AddTask(TasksVM tasksVM)
+        public ActionResult AddTask(TasksVM tasksVM,int id)
         {
             if (ModelState.IsValid)
             {
@@ -33,17 +36,19 @@ namespace ToDoListMVCApp.Controllers
                 {
                     TaskName = tasksVM.TaskName,
                     CreationDate = DateTime.Now,
-                    Status = tasksVM.Status
+                    Status = tasksVM.Status,
+                    UsersID = id
                 });
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = id });
             }
             return View(tasksVM);
         }
 
-        public ActionResult UpdateTask(int id)
+        public ActionResult UpdateTask(int id, int userid)
         {
             UpdateTaskVM taskVM = new UpdateTaskVM();
             taskVM.Tasks = taskService.GetTaskByID(id);
+            taskVM.UserID = userid;
             return View(taskVM);
         }
 
@@ -53,15 +58,15 @@ namespace ToDoListMVCApp.Controllers
             if (ModelState.IsValid)
             {
                 taskService.UpdateTask(taskVM.Tasks);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = taskVM.UserID });
             }
             return View(taskVM);
         }
 
-        public ActionResult DeleteTask(int id)
+        public ActionResult DeleteTask(int id,int userid)
         {
             taskService.DeleteTask(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = userid });
         }
     }
 }

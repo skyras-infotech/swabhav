@@ -13,7 +13,23 @@
     <div>
         <nav class="fixed-top navbar navbar-expand-lg navbar navbar-dark bg-dark">
             @Html.ActionLink("To-Do List", "Index", "Tasks", new { area = "" }, new { @class = "navbar-brand" })
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div align="right">
+                    <h3 style="color:red">Welcome @User.Identity.Name</h3>
+                </div>
+
+            }
         </nav>
+        @if (User.Identity.IsAuthenticated)
+        {
+            using (Html.BeginForm("Logout", "User"))
+            {
+                <div align="right">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+                </div>
+            }
+        }
     </div>
     <div class="container body-content">
         @RenderBody()

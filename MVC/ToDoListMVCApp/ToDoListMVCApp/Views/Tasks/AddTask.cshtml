@@ -8,7 +8,7 @@
 
 <h2 align="center">Add New Task</h2>
 <div>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm(new { id = Model.UserID }))
     {
         <div class="form-group">
             <label for="TaskName">Task Name</label>
@@ -20,6 +20,9 @@
         </div>
         <div align="center">
             <button type="submit" class="btn btn-outline-primary">Add Task</button>
+        </div>
+        <div>
+            @Html.ActionLink("<- Back To List", "Index", "Tasks",new { id = Model.UserID },null)
         </div>
     }
 </div>

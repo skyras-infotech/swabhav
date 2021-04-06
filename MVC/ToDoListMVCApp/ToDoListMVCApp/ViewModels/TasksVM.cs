@@ -15,6 +15,7 @@ namespace ToDoListMVCApp.ViewModels
         public DateTime CreationDate { get; set; }
         [Required]
         public string Status { get; set; }
+        public int UserID { get; set; }
     }
 
     public enum Status
