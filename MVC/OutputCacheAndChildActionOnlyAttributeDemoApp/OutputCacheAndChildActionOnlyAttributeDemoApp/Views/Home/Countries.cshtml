@@ -1,0 +1,18 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Countries";
+}
+
+<h2>Countries</h2>
+
+<ul>
+    @foreach (var country in Model)
+    {
+        <li>
+            <b>
+                @country
+            </b>
+        </li>
+    }
+</ul>
