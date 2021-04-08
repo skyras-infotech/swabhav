@@ -5,12 +5,19 @@ using System.Web;
 using System.Web.Mvc;
 using LoginDemoApp.Models;
 using LoginDemoApp.Service;
+using System.Diagnostics;
 
 namespace LoginDemoApp.Controllers
 {
     
     public class HomeController : Controller
     {
+
+        public HomeController() 
+        {
+            Debug.WriteLine("Controller is Running");
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -33,21 +40,13 @@ namespace LoginDemoApp.Controllers
                     if (employee.Username == emp.Username && employee.Password == emp.Password)
                     {
                         Session["CurrentSession"] = employee;
-                        return RedirectToAction("HomePage", new Employee { Username = employee.Username, Password = employee.Password });
+                        return RedirectToAction("HomePage","Account", new Employee { Username = employee.Username, Password = employee.Password });
                     }
                 }
             }
             return View(employee);
         }
 
-        [AuthUsers]
-        public ActionResult HomePage(Employee employee)
-        {
-            /*if (Session["CurrentSession"] == null) 
-            {
-                return RedirectToAction("Index");
-            }*/
-            return View(employee);
-        }
+       
     }
 }
