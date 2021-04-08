@@ -1,0 +1,28 @@
+﻿@model ContactAddressMVCWithEFDemoApp.ViewModels.ContactVM
+
+@{
+    ViewBag.Title = "Add Contact";
+}
+
+<h2 align="center">Add New Contact</h2>
+<div>
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <label for="Name">Name</label>
+            @Html.TextBoxFor(x => x.Contact.Name, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="Mob">Mobile Number</label>
+            @Html.TextBoxFor(x => x.Contact.MobileNumber, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="Name">Address (Enter no of address by entering comma)</label>
+            @Html.TextBoxFor(x => x.Address.City, new { @class = "form-control" })
+        </div>
+        <div align="center">
+            <button type="submit" class="btn btn-outline-primary">Add Contact</button>
+        </div>
+    }
+</div>
+

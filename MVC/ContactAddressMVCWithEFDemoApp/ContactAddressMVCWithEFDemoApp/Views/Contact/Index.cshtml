@@ -1,0 +1,67 @@
+﻿@model ContactAddressMVCWithEFDemoApp.ViewModels.AllContactVM
+
+@{
+    ViewBag.Title = "Contact List";
+}
+
+<div align="right">
+    <button type="submit" class="btn btn-primary">
+        @Html.ActionLink("Add New Contact", "AddContact", null,new { style = "text-decoration:none;color:white" })
+    </button>
+</div>
+<h2 align="center">Contacts List</h2>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Contact Name</th>
+                <th>Mobile Number</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Contacts.Count == 0)
+                {
+                    <tr>
+                        <td colspan="5">Sorry there is no contact! Please add contact</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var contact in Model.Contacts)
+                    {
+                        <tr>
+                            <td>@contact.ID</td>
+                            <td>@contact.Name</td>
+                            <td>@contact.MobileNumber</td>
+                            <td>
+                                @foreach (var addr in Model.Addresses)
+                                {
+                                    if (contact.ID == addr.ContactID)
+                                    {
+                                        @addr.City <br />
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-success">
+                                    @Html.ActionLink("Edit", "UpdateContact", new { id = contact.ID }, new { style = "text-decoration:none;color:white" })
+                                </button>
+                                &nbsp;&nbsp;
+                                <button type="submit" class="btn btn-danger">
+                                    @Html.ActionLink("Delete", "DeleteContact", new { id = contact.ID }, new { style = "text-decoration:none;color:white" })
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}
+
+
