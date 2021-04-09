@@ -48,7 +48,7 @@ namespace ContactAddressMVCWithEFDemoApp.Controllers
                     MobileNumber = contactVM.Contact.MobileNumber,
                     Addresses = addresses
                 });
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");   
             }
             return View(contactVM);
         }

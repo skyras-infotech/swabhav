@@ -13,7 +13,7 @@ namespace ContactAddressMVCWithEFDemoApp.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202104080911260_CreateContactAndAddressTable"; }
+            get { return "202104081041532_CreateContactAndAddressTable"; }
         }
         
         string IMigrationMetadata.Source
