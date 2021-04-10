@@ -5,11 +5,11 @@ using System.Web;
 
 namespace NinjectWebAPIDemoApp.Models
 {
-    public class Employee : IEmployee
+    public class Employee
     {
-        public int GetNoOfEmployee()
-        {
-            return 10;
-        }
+        public int ID { get; set; }
+        public string EmployeeName { get; set; }
+        public double Salary { get; set; }
+        public string Department { get; set; }
     }
 }

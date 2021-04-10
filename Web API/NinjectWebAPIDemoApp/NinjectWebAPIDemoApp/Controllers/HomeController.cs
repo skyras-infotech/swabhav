@@ -4,23 +4,37 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using NinjectWebAPIDemoApp.Service;
 using NinjectWebAPIDemoApp.Models;
 
 namespace NinjectWebAPIDemoApp.Controllers
 {
     public class HomeController : ApiController
     {
-        IEmployee employee = null;
-        public HomeController(IEmployee emp) 
+        IEmployeeService empService = null;
+        public HomeController(IEmployeeService service) 
         {
-            employee = emp;
+            empService = service;
         }
 
         [HttpGet]
-        public IHttpActionResult Index() 
+        public IEnumerable<Employee> GetEmployees() 
         {
-            int n = employee.GetNoOfEmployee();
-            return Ok("No of employee is "+n);
+            return empService.GetEmployees();
         }
+
+        /*[HttpPost]
+        public IHttpActionResult PostEmployee([FromBody] Employee employee)
+        {
+            Employee emp = new Employee()
+            {
+                ID = employee.ID,
+                EmployeeName = employee.EmployeeName,
+                Department = employee.Department,
+                Salary = employee.Salary
+            };
+            empService.AddEmployee(emp);
+            return Ok("Employee Added Sucessfully " + employee.EmployeeName);
+        }*/
     }
 }

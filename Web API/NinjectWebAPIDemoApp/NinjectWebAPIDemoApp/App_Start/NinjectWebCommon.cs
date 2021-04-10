@@ -13,7 +13,7 @@ namespace NinjectWebAPIDemoApp.App_Start
     using Ninject.Web.Common.WebHost;
     using Ninject.Web.WebApi;
     using System.Web.Http;
-    using NinjectWebAPIDemoApp.Models;
+    using NinjectWebAPIDemoApp.Service;
 
     public static class NinjectWebCommon 
     {
@@ -65,7 +65,7 @@ namespace NinjectWebAPIDemoApp.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IEmployee>().To<Employee>();
+            kernel.Bind<IEmployeeService>().To<EmployeeService>();
         }
     }
 }
