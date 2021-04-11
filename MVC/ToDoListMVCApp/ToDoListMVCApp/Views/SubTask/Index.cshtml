@@ -15,11 +15,12 @@
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th>ID</th>
+                <th>Index</th>
                 <th>Sub Task Name</th>
                 <th>Creation Date</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -32,10 +33,11 @@
                 }
                 else
                 {
+                    int i = 1;
                     foreach (var task in Model.SubTasks)
                     {
                         <tr>
-                            <td>@task.ID</td>
+                            <td>@(i++)</td>
                             <td>@task.SubTaskName</td>
                             <td>@task.CreationDate</td>
                             <td>@task.Status</td>
@@ -43,7 +45,8 @@
                                 <button type="submit" class="btn btn-success">
                                     @Html.ActionLink("Edit", "UpdateSubTask", new { id = task.ID, taskid = task.TasksID, userid = Model.UserID }, new { style = "text-decoration:none;color:white" })
                                 </button>
-                                &nbsp;&nbsp;
+                            </td>
+                            <td>
                                 <button type="submit" class="btn btn-danger">
                                     @Html.ActionLink("Delete", "DeleteSubTask", new { id = task.ID, taskid = task.TasksID, userid = Model.UserID }, new { style = "text-decoration:none;color:white" })
                                 </button>
