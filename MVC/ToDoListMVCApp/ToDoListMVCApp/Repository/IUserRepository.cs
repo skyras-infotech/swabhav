@@ -12,7 +12,7 @@ namespace ToDoListMVCApp.Repository
         List<Users> GetUsers();
         void AddUser(Users users);
         void EditUser(Users users);
-        void DeleteUser(int id);
-        Users GetUserByID(int id);
+        void DeleteUser(Guid id);
+        Users GetUserByID(Guid id);
     }
 }

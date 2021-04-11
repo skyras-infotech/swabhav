@@ -23,7 +23,7 @@ namespace ToDoListMVCApp.Repository
             db.SaveChanges();
         }
 
-        public void DeleteTasks(int id)
+        public void DeleteTasks(Guid id)
         {
             db.Tasks.Remove(db.Tasks.Where(x => x.ID == id).SingleOrDefault());
             db.SaveChanges();
@@ -38,12 +38,17 @@ namespace ToDoListMVCApp.Repository
             db.SaveChanges();
         }
 
-        public List<Tasks> GetTasksByUser(int id)
+        public List<Tasks> GetTasksByUser(Guid id)
         {
-            return db.Tasks.Where(x => x.UsersID == id).ToList();
+            List<Tasks> tasks = db.Tasks.Where(x => x.UsersID == id).ToList();
+            foreach (var item in tasks)
+            {
+                item.SubTasks = db.SubTasks.Where(x => x.TasksID == item.ID).ToList();
+            }
+            return tasks;
         }
 
-        public Tasks GetTaskByID(int id)
+        public Tasks GetTaskByID(Guid id)
         {
             return db.Tasks.Where(x => x.ID == id).SingleOrDefault();
         }

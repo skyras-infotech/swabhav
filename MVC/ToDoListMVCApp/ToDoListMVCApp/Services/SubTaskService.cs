@@ -29,17 +29,17 @@ namespace ToDoListMVCApp.Services
             repository.AddSubTasks(task);
         }
 
-        public void DeleteSubTask(int id)
+        public void DeleteSubTask(Guid id)
         {
             repository.DeleteSubTasks(id);
         }
 
-        public List<SubTask> GetSubTasks(int id)
+        public List<SubTask> GetSubTasks(Guid id)
         {
             return repository.GetSubTasks(id);
         }
 
-        public SubTask GetSubTaskByID(int id)
+        public SubTask GetSubTaskByID(Guid id)
         {
             return repository.GetSubTaskByID(id);
         }

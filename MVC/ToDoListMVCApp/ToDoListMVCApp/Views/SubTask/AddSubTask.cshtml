@@ -10,14 +10,16 @@
 <div>
     @using (Html.BeginForm(new { id = Model.TaskID, userid = Model.UserID}))
     {
-        <div class="form-group">
-            <label for="TaskName">Sub Task Name</label>
-            @Html.TextBoxFor(x => x.SubTask.SubTaskName, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            <label for="Status">Select Status</label>
-            @Html.DropDownListFor(x => x.SubTask.Status, new SelectList(Enum.GetValues(typeof(Status))), "-- Select Status --", new { @class = "form-control" })
-        </div>
+    <div class="form-group">
+        <label for="TaskName">Sub Task Name</label>
+        @Html.TextBoxFor(x => x.SubTask.SubTaskName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.SubTask.SubTaskName, "", new { style = "color:red" })
+    </div>
+    <div class="form-group">
+        <label for="Status">Select Status</label>
+        @Html.DropDownListFor(x => x.SubTask.Status, new SelectList(Enum.GetValues(typeof(Status))), "-- Select Status --", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.SubTask.Status, "", new { style = "color:red" })
+    </div>
         <div align="center">
             <button type="submit" class="btn btn-outline-primary">Add Sub Task</button>
         </div>

@@ -1,33 +1,60 @@
-﻿@model ToDoListMVCApp.ViewModels.LoginVM
+﻿@using ToDoListMVCApp.ViewModels
+@using CaptchaMvc.HtmlHelpers
+
+@model LoginVM
 
 @{
     ViewBag.Title = "Login";
 }
 
-<h2 align="center">Login</h2>
-<div>
-    @using (Html.BeginForm())
-    {
-        <div class="form-group">
-            <label for="username">Username</label>
-            @Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.Username, "", new { style = "color:red" })
+<div class="alert alert-dark">
+    <div class="row d-flex" style="margin-top:20px">
+        <div class="col-lg-6">
+            <div class="card1 pb-5">
+                <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="~/Images/LoginRegisBack.jpg" style="width: 360px; height: 360px;"> </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.Password, "", new { style = "color:red" })
-        </div>
-        <div class="form-group form-check">
-            @Html.CheckBoxFor(x => x.RememberMe, new { @class = "form-check-input" })
-            <label for="rememberme">Remember Me</label>
-        </div>
-        <div align="center">
-            <button type="submit" class="btn btn-outline-primary">Login</button>
-        </div>
-        <div>
-            Don't have an account! @Html.ActionLink("Click Here", "AddUser")
-        </div>
-    }
-</div>
+        <div class="col-lg-6">
+            <h2 align="center">Login</h2>
+            <div style="margin-top:15px">
+                @using (Html.BeginForm("LoginUser", "User", FormMethod.Post,
+                    new { @enctype = "multipart/form-data", @id = "fromCaptcha" }))
+                {
+                <div class="form-group">
+                    <label for="Status">Login As</label>
+                    @Html.DropDownListFor(x => x.LoginType, new SelectList(Enum.GetValues(typeof(LoginAs))),
+                   "-- Select Login Type --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.LoginType, "", new { style = "color:red" })
+                </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        @Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Username, "", new { style = "color:red" })
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Password, "", new { style = "color:red" })
+                    </div>
 
+                    <div class="form-group">
+                        <div>
+                            @Html.MathCaptcha()
+                            <p class="text-danger">@ViewBag.ErrorMessage </p>
+                        </div>
+                    </div>
+                    <div class="form-group form-check">
+                        @Html.CheckBoxFor(x => x.RememberMe, new { @class = "form-check-input" })
+                        <label for="rememberme">Remember Me</label>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-outline-primary">Login</button>
+                    </div>
+                    <div style="margin-top:15px">
+                        Don't have an account! @Html.ActionLink("Click Here", "AddUser")
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

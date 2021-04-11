@@ -9,13 +9,13 @@ namespace ToDoListMVCApp.ViewModels
 {
     public class TasksVM
     {
-        public int ID { get; set; }
+        public Guid ID { get; set; }
         [Required]
         public string TaskName { get; set; }
         public DateTime CreationDate { get; set; }
         [Required]
         public string Status { get; set; }
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
     }
 
     public enum Status

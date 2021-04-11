@@ -1,34 +1,51 @@
 ﻿@model ToDoListMVCApp.ViewModels.UserVM
+@using CaptchaMvc.HtmlHelpers
 
 @{
     ViewBag.Title = "Register";
 }
 
-<h2 align="center">Register</h2>
-<div>
-    @using (Html.BeginForm())
-    {
-        <div class="form-group">
-            <label for="TaskName">Username</label>
-            @Html.TextBoxFor(x => x.User.Username, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.User.Username, "", new { style = "color:red" })
+<div class="alert alert-success">
+    <div class="row d-flex" style="margin-top:20px">
+        <div class="col-lg-6">
+            <div class="card1 pb-5">
+                <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="~/Images/LoginRegisBack.jpg" style="width: 360px; height: 360px;"> </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="TaskName">Role</label>
-            @Html.TextBoxFor(x => x.User.Role, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.User.Role, "", new { style = "color:red" })
+        <div class="col-lg-6">
+            <h2 align="center">Register</h2>
+            <div style="margin-top:30px">
+                @using (Html.BeginForm())
+                {
+                    <div class="form-group">
+                        <label for="TaskName">Username</label>
+                        @Html.TextBoxFor(x => x.User.Username, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.User.Username, "", new { style = "color:red" })
+                    </div>
+                    <div class="form-group">
+                        <label for="TaskName">Role</label>
+                        @Html.TextBoxFor(x => x.User.Role, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.User.Role, "", new { style = "color:red" })
+                    </div>
+                    <div class="form-group">
+                        <label for="TaskName">Password</label>
+                        @Html.PasswordFor(x => x.User.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.User.Password, "", new { style = "color:red" })
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            @Html.MathCaptcha()
+                            <p class="text-danger">@ViewBag.ErrorMessage </p>
+                        </div>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-outline-primary">Sign Up</button>
+                    </div>
+                    <div style="margin-top:20px">
+                        Already have an account! @Html.ActionLink("Click Here", "LoginUser")
+                    </div>
+                }
+            </div>
         </div>
-        <div class="form-group">
-            <label for="TaskName">Password</label>
-            @Html.PasswordFor(x => x.User.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.User.Password, "", new { style = "color:red" })
-        </div>
-        <div align="center">
-            <button type="submit" class="btn btn-outline-primary">Register</button>
-        </div>
-        <div>
-            Already have an account! @Html.ActionLink("Click Here", "LoginUser")
-        </div>
-    }
+    </div>
 </div>
-

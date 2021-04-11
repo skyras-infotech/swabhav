@@ -20,7 +20,8 @@
                 <th>Creation Date</th>
                 <th>Status</th>
                 <th>SubTask</th>
-                <th>Actions</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -33,23 +34,33 @@
                 }
                 else
                 {
+                    int i = 1;
                     foreach (var task in Model.Tasks)
                     {
                         <tr>
-                            <td>@task.ID</td>
+                            <td>@(i++)</td>
                             <td>@task.TaskName</td>
                             <td>@task.CreationDate</td>
                             <td>@task.Status</td>
                             <td>
                                 <button type="submit" class="btn btn-info">
-                                    @Html.ActionLink("Sub Task", "Index", "SubTask", new { id = task.ID, userid = task.UsersID }, new { style = "text-decoration:none;color:white" })
+                                    @if (task.SubTasks.Count == 0)
+                                    {
+                                        @Html.ActionLink("Sub Task (" + 0 + ")", "Index", "SubTask", new { id = task.ID, userid = task.UsersID }, new { style = "text-decoration:none;color:white" })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Sub Task (" + task.SubTasks.Count + ")", "Index", "SubTask", new { id = task.ID, userid = task.UsersID }, new { style = "text-decoration:none;color:white" })
+
+                                    }
                                 </button>
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-success">
                                     @Html.ActionLink("Edit", "UpdateTask", new { id = task.ID, userid = task.UsersID }, new { style = "text-decoration:none;color:white" })
                                 </button>
-                                &nbsp;&nbsp;
+                                </td>
+                            <td>
                                 <button type="submit" class="btn btn-danger">
                                     @Html.ActionLink("Delete", "DeleteTask", new { id = task.ID, userid = task.UsersID }, new { style = "text-decoration:none;color:white" })
                                 </button>

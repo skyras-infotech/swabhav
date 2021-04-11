@@ -11,7 +11,8 @@ namespace ToDoListMVCApp.Models
     [Table("tblUser")]
     public class Users
     {
-        public int ID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid ID { get; set; }
         [Required]
         public string Username { get; set; }
         [Required]

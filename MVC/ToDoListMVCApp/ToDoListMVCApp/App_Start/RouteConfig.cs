@@ -16,7 +16,7 @@ namespace ToDoListMVCApp
             routes.MapRoute(
                    name: "Default",
                    url: "{controller}/{action}/{id}",
-                   defaults: new { controller = "User", action = "LoginUser", id = UrlParameter.Optional }
+                   defaults: new { controller = "User", action = "Start", id = UrlParameter.Optional }
                );
 /*
             if (!HttpContext.Current.User.Identity.IsAuthenticated)

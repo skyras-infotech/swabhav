@@ -10,7 +10,7 @@ namespace ToDoListMVCApp.ViewModels
     public class SubTasksVM
     {
         public SubTask SubTask { get; set; }
-        public int TaskID { get; set; }
-        public int UserID { get; set; }
+        public Guid TaskID { get; set; }
+        public Guid UserID { get; set; }
     }
 }

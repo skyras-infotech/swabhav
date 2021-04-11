@@ -10,10 +10,10 @@ namespace ToDoListMVCApp.Repository
     interface ITaskRepository
     {
         List<Tasks> GetTasks();
-        List<Tasks> GetTasksByUser(int id);
+        List<Tasks> GetTasksByUser(Guid id);
         void AddTasks(Tasks tasks);
         void EditTasks(Tasks tasks);
-        void DeleteTasks(int id);
-        Tasks GetTaskByID(int id);
+        void DeleteTasks(Guid id);
+        Tasks GetTaskByID(Guid id);
     }
 }

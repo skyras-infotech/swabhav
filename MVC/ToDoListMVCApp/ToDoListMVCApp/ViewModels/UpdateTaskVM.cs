@@ -10,6 +10,6 @@ namespace ToDoListMVCApp.ViewModels
     public class UpdateTaskVM
     {
         public Tasks Tasks { get; set; }
-        public int UserID { get; set; }
+        public Guid UserID { get; set; }
     }
 }

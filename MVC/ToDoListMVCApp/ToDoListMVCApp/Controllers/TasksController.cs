@@ -13,7 +13,13 @@ namespace ToDoListMVCApp.Controllers
     public class TasksController : Controller
     {
         TaskService taskService = TaskService.GetInstance;
-        public ActionResult Index(int id)
+
+        public ActionResult Home() 
+        {
+            return View();
+        }
+
+        public ActionResult Index(Guid id)
         {
             AllTasksVM allTasksVM = new AllTasksVM();
             allTasksVM.Tasks = taskService.GetTasksByUser(id);
@@ -21,14 +27,14 @@ namespace ToDoListMVCApp.Controllers
             return View(allTasksVM);
         }
 
-        public ActionResult AddTask(int id, TasksVM tasksVM)
+        public ActionResult AddTask(Guid id, TasksVM tasksVM)
         {
             tasksVM.UserID = id;
             return View(tasksVM);
         }
 
         [HttpPost]
-        public ActionResult AddTask(TasksVM tasksVM,int id)
+        public ActionResult AddTask(TasksVM tasksVM,Guid id)
         {
             if (ModelState.IsValid)
             {
@@ -44,7 +50,7 @@ namespace ToDoListMVCApp.Controllers
             return View(tasksVM);
         }
 
-        public ActionResult UpdateTask(int id, int userid)
+        public ActionResult UpdateTask(Guid id, Guid userid)
         {
             UpdateTaskVM taskVM = new UpdateTaskVM();
             taskVM.Tasks = taskService.GetTaskByID(id);
@@ -63,7 +69,7 @@ namespace ToDoListMVCApp.Controllers
             return View(taskVM);
         }
 
-        public ActionResult DeleteTask(int id,int userid)
+        public ActionResult DeleteTask(Guid id,Guid userid)
         {
             taskService.DeleteTask(id);
             return RedirectToAction("Index", new { id = userid });

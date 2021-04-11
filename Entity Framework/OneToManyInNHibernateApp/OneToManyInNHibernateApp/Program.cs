@@ -20,10 +20,23 @@ namespace OneToManyInNHibernateApp
                     //Query1(session);
                     //Query2(session);
                     //Query3(session);
-                    Query4(session);
+                    //Query4(session);
+                    Query5(session);
                     transaction.Commit();
                 }
             }
+        }
+
+        private static void Query5(ISession session)
+        {
+            Console.WriteLine("Count address of each employee\n");
+            var employees = session.Query<Employee>().Join(session.Query<Address>(),e => e.ID, a=> a.Employees.ID,(emp,addr) => new { Employee = emp, Address = addr}).GroupBy(x => x.Employee.EmpName).Select(x => x.Count());
+            foreach (var item in employees)
+            {
+                Console.WriteLine(item);
+
+            }
+            Console.WriteLine();
         }
 
         private static void Query4(ISession session)

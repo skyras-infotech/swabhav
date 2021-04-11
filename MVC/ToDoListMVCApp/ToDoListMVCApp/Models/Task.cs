@@ -10,12 +10,13 @@ namespace ToDoListMVCApp.Models
     [Table("tblTasks")]
     public class Tasks
     {
-        public int ID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid ID { get; set; }
         public string TaskName { get; set; }
         public DateTime CreationDate { get; set; }
         public string Status { get; set; }
         public List<SubTask> SubTasks { get; set; }
-        public int UsersID { get; set; }
+        public Guid UsersID { get; set; }
         public Users Users { get; set; }
         public Tasks() 
         {

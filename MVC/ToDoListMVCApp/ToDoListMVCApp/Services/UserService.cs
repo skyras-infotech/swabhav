@@ -29,7 +29,7 @@ namespace ToDoListMVCApp.Services
             repository.AddUser(user);
         }
 
-        public void DeleteUser(int id)
+        public void DeleteUser(Guid id)
         {
             repository.DeleteUser(id);
         }
@@ -39,7 +39,7 @@ namespace ToDoListMVCApp.Services
             return repository.GetUsers();
         }
 
-        public Users GetUserByID(int id)
+        public Users GetUserByID(Guid id)
         {
             return repository.GetUserByID(id);
         }

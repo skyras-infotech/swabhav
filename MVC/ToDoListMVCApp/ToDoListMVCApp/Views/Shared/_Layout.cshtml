@@ -7,29 +7,53 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 </head>
 <body class="m-3">
 
     <div>
-        <nav class="fixed-top navbar navbar-expand-lg navbar navbar-dark bg-dark">
-            @Html.ActionLink("To-Do List", "Index", "Tasks", new { area = "" }, new { @class = "navbar-brand" })
+        <nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-dark">
             @if (User.Identity.IsAuthenticated)
             {
-                <div align="right">
-                    <h3 style="color:red">Welcome @User.Identity.Name</h3>
-                </div>
-
+                @Html.ActionLink("To-Do List", "Home", "Tasks", null, new { @class = "navbar-brand" })
             }
-        </nav>
-        @if (User.Identity.IsAuthenticated)
-        {
-            using (Html.BeginForm("Logout", "User"))
+            else
             {
-                <div align="right">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
-                </div>
+                @Html.ActionLink("To-Do List", "Start", "User", null, new { @class = "navbar-brand" })
             }
-        }
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            @Html.ActionLink("See your Tasks", "Index", "Tasks", new { id = Guid.Parse(User.Identity.Name.Split(',')[1]) }, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                    <h5 style="color:antiquewhite;margin-right:20px">Welcome Mr. @User.Identity.Name.Split(',')[0]</h5>
+                    <form class="form-inline my-2 my-lg-0">
+                        <button class="btn btn-outline-info my-2 my-sm-0" type="submit" id="btnSignUp">
+                            @Html.ActionLink("Log Out", "Logout", "User", null, new { style = "text-decoration:none;color:white" })
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <ul class="navbar-nav mr-auto">
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <button class="btn btn-outline-warning mr-sm-2" type="submit" id="btnLogin">
+                            @Html.ActionLink("Login", "LoginUser", null, new { style = "text-decoration:none;color:white" })
+                        </button>
+                        <button class="btn btn-outline-info my-2 my-sm-0" type="submit" id="btnSignUp">
+                            @Html.ActionLink("Sign Up", "AddUser", null, new { style = "text-decoration:none;color:white" })
+                        </button>
+                    </form>
+                }
+            </div>
+        </nav>
+
     </div>
     <div class="container body-content">
         @RenderBody()
@@ -39,7 +63,6 @@
             <p class="text-white">&copy; @DateTime.Now.Year - My To-Do List</p>
         </footer>
     </div>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+   
 </body>
 </html>

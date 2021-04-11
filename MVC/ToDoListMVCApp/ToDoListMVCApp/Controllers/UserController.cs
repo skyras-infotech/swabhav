@@ -7,6 +7,7 @@ using ToDoListMVCApp.Services;
 using ToDoListMVCApp.ViewModels;
 using ToDoListMVCApp.Models;
 using System.Web.Security;
+using CaptchaMvc.HtmlHelpers;
 
 namespace ToDoListMVCApp.Controllers
 {
@@ -22,15 +23,28 @@ namespace ToDoListMVCApp.Controllers
             return View(allUsersVM);
         }
 
+        public ActionResult Start()
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Tasks");
+            }
+            return View();
+        }
+
         public ActionResult AddUser()
         {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Tasks");
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult AddUser(UserVM userVM)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && this.IsCaptchaValid(""))
             {
                 userService.AddUser(new Users
                 {
@@ -40,43 +54,55 @@ namespace ToDoListMVCApp.Controllers
                 });
                 return RedirectToAction("LoginUser");
             }
+            else
+            {
+                ViewBag.ErrorMessage = "Captcha is not valid";
+            }
             return View(userVM);
         }
 
         public ActionResult LoginUser()
         {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Tasks");
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult LoginUser(LoginVM loginVM)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && this.IsCaptchaValid(""))
             {
                 foreach (var user in userService.GetUsers())
                 {
                     if (loginVM.Username == user.Username && loginVM.Password == user.Password)
                     {
-                        FormsAuthentication.SetAuthCookie(loginVM.Username, loginVM.RememberMe);
-                        if (user.Role == "Admin")
+                        FormsAuthentication.SetAuthCookie(user.Username + "," + user.ID, loginVM.RememberMe);
+                        if (loginVM.LoginType == "Admin")
                         {
                             return RedirectToAction("Index");
                         }
-                        return RedirectToAction("Index", "Tasks", new { id = user.ID });
+                        return RedirectToAction("Home", "Tasks");
                     }
                 }
             }
-            ModelState.AddModelError("", "Invalid username and password");
+            else
+            {
+                ModelState.AddModelError("", "Invalid username and password");
+                ViewBag.ErrorMessage = "Captcha is not valid";
+            }
             return View(loginVM);
         }
 
-        public ActionResult DeleteUser(int id)
+        public ActionResult DeleteUser(Guid id)
         {
             userService.DeleteUser(id);
             return RedirectToAction("Index");
         }
 
-        public ActionResult Logout() 
+        public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("LoginUser");

@@ -7,13 +7,13 @@ namespace ToDoListMVCApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class CreateTablesAndMakeRelationShip : IMigrationMetadata
+    public sealed partial class CreateToDoListTables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateTablesAndMakeRelationShip));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateToDoListTables));
         
         string IMigrationMetadata.Id
         {
-            get { return "202104060643209_CreateTablesAndMakeRelationShip"; }
+            get { return "202104111123023_CreateToDoListTables"; }
         }
         
         string IMigrationMetadata.Source

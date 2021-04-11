@@ -22,7 +22,7 @@ namespace ToDoListMVCApp.Repository
             db.SaveChanges();
         }
 
-        public void DeleteUser(int id)
+        public void DeleteUser(Guid id)
         {
             db.Users.Remove(db.Users.Where(x => x.ID == id).SingleOrDefault());
             db.SaveChanges();
@@ -37,7 +37,7 @@ namespace ToDoListMVCApp.Repository
             db.SaveChanges();
         }
 
-        public Users GetUserByID(int id)
+        public Users GetUserByID(Guid id)
         {
             return db.Users.Where(x => x.ID == id).SingleOrDefault();
         }

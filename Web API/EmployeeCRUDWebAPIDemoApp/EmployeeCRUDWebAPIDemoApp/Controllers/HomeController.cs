@@ -28,15 +28,30 @@ namespace EmployeeCRUDWebAPIDemoApp.Controllers
         [HttpPost]
         public IHttpActionResult AddEmployee([FromBody]Employee employee)
         {
-            Employee emp = new Employee()
+            if (ModelState.IsValid)
             {
-                ID = employee.ID,
-                EmployeeName = employee.EmployeeName,
-                Department = employee.Department,
-                Salary = employee.Salary
-            };
-            empService.AddEmployee(emp);
-            return Ok("Employee Added Sucessfully");
+                Employee emp = new Employee()
+                {
+                    ID = employee.ID,
+                    EmployeeName = employee.EmployeeName,
+                    Department = employee.Department,
+                    Salary = employee.Salary
+                };
+                empService.AddEmployee(emp);
+                return Ok("Employee Added Sucessfully");
+            }
+            else 
+            {
+                List<string> str = new List<string>();
+                foreach (var item in ModelState.Keys)
+                {
+                    if (!ModelState.IsValidField(item)) 
+                    {
+                        str.Add(item);
+                    }
+                }
+                return BadRequest("Employee not added "+str[0]);
+            }
         }
 
         [HttpPut]

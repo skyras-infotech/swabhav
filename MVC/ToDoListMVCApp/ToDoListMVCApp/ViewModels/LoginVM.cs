@@ -14,5 +14,13 @@ namespace ToDoListMVCApp.ViewModels
         [Required]
         public string Password { get; set; }
         public bool RememberMe { get; set; }
+        [Required]
+        public string LoginType { get; set; }
+    }
+
+    public enum LoginAs 
+    { 
+        Admin,
+        User
     }
 }

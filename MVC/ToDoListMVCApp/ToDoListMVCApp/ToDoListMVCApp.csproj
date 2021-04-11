@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CaptchaMvc, Version=2.5.0.0, Culture=neutral, PublicKeyToken=fe46ad421dd3b0e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -105,6 +108,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\1.jpg" />
+    <Content Include="Images\2.jpg" />
+    <Content Include="Images\3.jpg" />
+    <Content Include="Images\LoginRegisBack.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -225,9 +232,9 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\SubTaskController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
-    <Compile Include="Migrations\202104060643209_CreateTablesAndMakeRelationShip.cs" />
-    <Compile Include="Migrations\202104060643209_CreateTablesAndMakeRelationShip.designer.cs">
-      <DependentUpon>202104060643209_CreateTablesAndMakeRelationShip.cs</DependentUpon>
+    <Compile Include="Migrations\202104111123023_CreateToDoListTables.cs" />
+    <Compile Include="Migrations\202104111123023_CreateToDoListTables.designer.cs">
+      <DependentUpon>202104111123023_CreateToDoListTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Users.cs" />
@@ -270,6 +277,8 @@
     <Content Include="Views\User\AddUser.cshtml" />
     <Content Include="Views\User\LoginUser.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Start.cshtml" />
+    <Content Include="Views\Tasks\Home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -287,8 +296,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202104060643209_CreateTablesAndMakeRelationShip.resx">
-      <DependentUpon>202104060643209_CreateTablesAndMakeRelationShip.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202104111123023_CreateToDoListTables.resx">
+      <DependentUpon>202104111123023_CreateToDoListTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

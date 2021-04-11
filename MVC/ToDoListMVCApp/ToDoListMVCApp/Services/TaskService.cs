@@ -29,7 +29,7 @@ namespace ToDoListMVCApp.Services
             repository.AddTasks(task);
         }
 
-        public void DeleteTask(int id)
+        public void DeleteTask(Guid id)
         {
             repository.DeleteTasks(id);
         }
@@ -39,12 +39,12 @@ namespace ToDoListMVCApp.Services
             return repository.GetTasks();
         }
 
-        public List<Tasks> GetTasksByUser(int id)
+        public List<Tasks> GetTasksByUser(Guid id)
         {
             return repository.GetTasksByUser(id);
         }
 
-        public Tasks GetTaskByID(int id)
+        public Tasks GetTaskByID(Guid id)
         {
             return repository.GetTaskByID(id);
         }

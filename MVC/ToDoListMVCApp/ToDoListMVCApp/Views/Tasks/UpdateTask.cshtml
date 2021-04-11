@@ -11,14 +11,16 @@
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(x => x.Tasks.ID);
-        <div class="form-group">
-            <label for="TaskName">Task Name</label>
-            @Html.TextBoxFor(x => x.Tasks.TaskName, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            <label for="Status">Select Status</label>
-            @Html.DropDownListFor(x => x.Tasks.Status, new SelectList(Enum.GetValues(typeof(Status))), "-- Select Status --", new { @class = "form-control" })
-        </div>
+    <div class="form-group">
+        <label for="TaskName">Task Name</label>
+        @Html.TextBoxFor(x => x.Tasks.TaskName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Tasks.TaskName, "", new { style = "color:red" })
+    </div>
+    <div class="form-group">
+        <label for="Status">Select Status</label>
+        @Html.DropDownListFor(x => x.Tasks.Status, new SelectList(Enum.GetValues(typeof(Status))), "-- Select Status --", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Tasks.Status, "", new { style = "color:red" })
+    </div>
         <div align="center">
             <button type="submit" class="btn btn-outline-primary">Update Task</button>
         </div>

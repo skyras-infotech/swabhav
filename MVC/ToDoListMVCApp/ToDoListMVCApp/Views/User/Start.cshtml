@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Start";
+}
+
+<div class="jumbotron">
+    <h1 class="display-4">To-Do List App</h1>
+    <p class="lead">
+        As its name implies, the To-do list on an article's talk page shows the list of improvements
+        suggested for the article. It is created and formatted using the To do template. The list
+        is maintained by editors, writers, reviewers or readers like you as a way to focus your
+        collaborative efforts. As such, they represent a tentative consensus that helps improve the
+        efficiency of the editing process.
+    </p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <button class="btn btn-primary btn-lg" type="submit">
+        @Html.ActionLink("Get Started", "LoginUser",null, new { style = "text-decoration:none;color:white" })
+    </button>
+</div>
+

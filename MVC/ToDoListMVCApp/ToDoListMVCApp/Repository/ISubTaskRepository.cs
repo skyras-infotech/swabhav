@@ -9,10 +9,10 @@ namespace ToDoListMVCApp.Repository
 {
     interface ISubTaskRepository
     {
-        List<SubTask> GetSubTasks(int id);
+        List<SubTask> GetSubTasks(Guid id);
         void AddSubTasks(SubTask tasks);
         void EditSubTasks(SubTask tasks);
-        void DeleteSubTasks(int id);
-        SubTask GetSubTaskByID(int id);
+        void DeleteSubTasks(Guid id);
+        SubTask GetSubTaskByID(Guid id);
     }
 }
