@@ -1,0 +1,28 @@
+﻿namespace ContactDynamicCore.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class CreateContactTable : DbMigration
+    {
+        public override void Up()
+        {
+            CreateTable(
+                "dbo.Contacts",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        MobileNumber = c.Long(nullable: false),
+                        Address = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+        }
+        
+        public override void Down()
+        {
+            DropTable("dbo.Contacts");
+        }
+    }
+}

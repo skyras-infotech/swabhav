@@ -1,0 +1,35 @@
+﻿@model ContactDynamicMVC.ViewModels.EditContactVM
+
+@{
+    ViewBag.Title = "Update Contact";
+}
+
+<h2 align="center">Update Contact</h2>
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(x => x.ID);
+        <div class="form-group">
+            <label for="Name">Contact Name</label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Name, "", new { style = "color:red" })
+        </div>
+        <div class="form-group">
+            <label for="MobileNumber">Mobile Number</label>
+            @Html.TextBoxFor(x => x.MobileNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.MobileNumber, "", new { style = "color:red" })
+        </div>
+        <div class="form-group">
+            <label for="Address">Address</label>
+            @Html.TextBoxFor(x => x.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Address, "", new { style = "color:red" })
+        </div>
+        <div align="center">
+            <button type="submit" class="btn btn-outline-primary">Update Contact</button>
+        </div>
+        <div>
+            @Html.ActionLink("<- Back To List", "Index", "Contact")
+        </div>
+    }
+</div>
+

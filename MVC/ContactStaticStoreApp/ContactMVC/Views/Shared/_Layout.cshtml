@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+</head>
+<body class="m-3">
+    <div>
+        <nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-dark">
+            @Html.ActionLink("Contact List", "Index", "Contact", null, new { @class = "navbar-brand" })
+        </nav>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()   
+    </div>
+    <div>
+        <footer class="card-footer bg-dark" style="margin-top:30px">
+            <p class="text-white">&copy; @DateTime.Now.Year - My Contact List App</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

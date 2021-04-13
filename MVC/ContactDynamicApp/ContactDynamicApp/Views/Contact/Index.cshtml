@@ -1,0 +1,62 @@
+﻿@using System.Collections.Generic
+@model  IEnumerable<ContactDynamicMVC.ViewModels.AllContactVM>
+
+@{
+    ViewBag.Title = "Contact List";
+}
+
+<div align="right">
+    <button type="submit" class="btn btn-primary">
+        @Html.ActionLink("Add New Contact", "AddContact", null, new { style = "text-decoration:none;color:white" })
+    </button>
+</div>
+<h2 align="center">Contacts List</h2>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Index</th>
+                <th>Name</th>
+                <th>Mobile Number</th>
+                <th>Address</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="6">Sorry there is no contact! Please add contact</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var contact in Model)
+                    {
+                        <tr>
+                            <td>@contact.ID</td>
+                            <td>@contact.Name</td>
+                            <td>@contact.MobileNumber</td>
+                            <td>@contact.Address</td>
+                            <td>
+                                <button type="submit" class="btn btn-success">
+                                    @Html.ActionLink("Edit", "UpdateContact", new { id = contact.ID }, new { style = "text-decoration:none;color:white" })
+                                </button>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-danger">
+                                    @Html.ActionLink("Delete", "DeleteContact", new { id = contact.ID }, new { style = "text-decoration:none;color:white" })
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}
+
+
