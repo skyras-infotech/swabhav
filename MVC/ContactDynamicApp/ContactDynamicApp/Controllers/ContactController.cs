@@ -15,7 +15,7 @@ namespace ContactDynamicMVC.Controllers
             IEnumerable<AllContactVM> allContacts = null;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44333/api/");
+                client.BaseAddress = new Uri("https://sumit-contactdynamicapi.azurewebsites.net/api/");
 
                 //Http Get
                 var responseTask = client.GetAsync("home");
@@ -49,7 +49,7 @@ namespace ContactDynamicMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:44333/api/");
+                    client.BaseAddress = new Uri("https://sumit-contactdynamicapi.azurewebsites.net/api/");
 
                     //HTTP POST
                     var postTask = client.PostAsJsonAsync<AddContactVM>("home", contactVM);
@@ -72,7 +72,7 @@ namespace ContactDynamicMVC.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44333/api/");
+                client.BaseAddress = new Uri("https://sumit-contactdynamicapi.azurewebsites.net/api/");
 
                 //HTTP GET
                 var responseTask = client.GetAsync("home/" + id.ToString());
@@ -97,7 +97,7 @@ namespace ContactDynamicMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:44333/api/");
+                    client.BaseAddress = new Uri("https://sumit-contactdynamicapi.azurewebsites.net/api/");
 
                     //HTTP PUT
                     var putTask = client.PutAsJsonAsync<EditContactVM>("home", contactVM);
@@ -118,7 +118,7 @@ namespace ContactDynamicMVC.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44333/api/");
+                client.BaseAddress = new Uri("https://sumit-contactdynamicapi.azurewebsites.net/api/");
 
                 //HTTP DELETE
                 var deleteTask = client.DeleteAsync("home/" + id.ToString());
