@@ -1,0 +1,5 @@
+<button (click)="loadStudent()">Load</button>
+
+<ul *ngFor = "let student of studentList">
+    <li>{{student.name}} {{student.mobile}} {{student.address}}</li>
+</ul>

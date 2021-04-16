@@ -1,0 +1,50 @@
+<h2 align="center">Product</h2>
+<table border="1" cellpadding="10" align="center">
+    <tr>
+        <th>ID</th>
+        <td><input type="text" [(ngModel)]="id" /></td>
+    </tr>
+    <tr>
+        <th>Product Name</th>
+        <td><input type="text" [(ngModel)]="pname" /></td>
+    </tr>
+    <tr>
+        <th>Rating</th>
+        <td>
+            <input type="radio" value="1" name="rating" [(ngModel)]="rate"> 1 <br>
+            <input type="radio" value="2" name="rating" [(ngModel)]="rate"> 2 <br>
+            <input type="radio" value="3" name="rating" [(ngModel)]="rate"> 3 <br>
+            <input type="radio" value="4" name="rating" [(ngModel)]="rate"> 4
+        </td>
+    </tr>
+    <tr>
+        <th>Cost</th>
+        <td><input type="text" [(ngModel)]="cost" /></td>
+    </tr>
+    <tr>
+        <th>Discount</th>
+        <td><input type="text" [(ngModel)]="discount" /></td>
+    </tr>
+    <tr align="center">
+        <td colspan="2"> <button (click)="loadProduct()">Add</button></td>
+    </tr>
+</table>
+<br><br>
+<table border="1" cellpadding="10" align="center">
+    <tr>
+        <th>ID</th>
+        <th>Product Name</th>
+        <th>Rating</th>
+        <th>Cost</th>
+        <th>Discount(%)</th>
+        <th>Total Cost</th>
+    </tr>
+    <tr *ngFor="let p of ProductList">
+        <td>{{p.id}}</td>
+        <td>{{p.pname}}</td>
+        <td>{{p.rating}}</td>
+        <td>{{p.cost}}</td>
+        <td>{{p.discount}} %</td>
+        <td>{{p.totalCost}}</td>
+    </tr>
+</table>

@@ -1,0 +1,1 @@
+export let myName:string = "Sumit Gupta";

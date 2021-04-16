@@ -1,0 +1,18 @@
+Name : <input type="text" [(ngModel)] = "name"/><br/>
+Mobile : <input type="text" [(ngModel)] = "mobile"/><br/>
+Salary : <input type="text" [(ngModel)] = "salary"/><br/>
+
+<button (click)="loadEmployee()">Add</button>
+
+<table border="1">
+<tr>
+    <th>Name</th>
+    <th>Mobile Number</th>
+    <th>Salary</th>
+</tr>
+<tr *ngFor = "let emp of EmployeeList">
+    <td>{{emp.name}}</td>
+    <td>{{emp.mobile}}</td>
+    <td>{{emp.salary}}</td>
+</tr>
+</table>

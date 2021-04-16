@@ -1,0 +1,7 @@
+<div [style.border] = "'1px solid red'" [style.padding.px] ="'20'">
+    <h1 [style.fontSize.px] = "'40'" [style.color] = "'red'">Price Calculator</h1>
+    Price : <input [(ngModel)]="price"/><br><br>
+    Discount Rate : <input [(ngModel)]="discount"/><br><br>
+    <button (click)="calculateCost()">Calculate</button>
+</div>
+Cost : <span [style.color] = "'blue'" [innerText] = "cost"></span>
