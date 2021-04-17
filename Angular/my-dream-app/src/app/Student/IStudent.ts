@@ -1,6 +1,6 @@
 export interface IStudent
 {
     name:string,
-    mobile:number,
-    address:string
+    cgpa:number,
+    image:string
 }

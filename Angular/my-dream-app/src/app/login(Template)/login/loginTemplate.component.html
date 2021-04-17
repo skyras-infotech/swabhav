@@ -1,0 +1,7 @@
+<form novalidate #f="ngForm">
+    USERNAME : <input type="text" name="username" [(ngModel)]="username" required>
+    <div style="color: red;" *ngIf="username.invalid"><p>Username is requied</p></div><br><br>
+    PASSWORD : <input type="password" name="password" [(ngModel)]="password" required>
+    <div style="color: red;" *ngIf="password.invalid"><p>Password is requied</p></div><br><br>
+    <button type="submit" (click)="login()">Submit</button>
+</form>

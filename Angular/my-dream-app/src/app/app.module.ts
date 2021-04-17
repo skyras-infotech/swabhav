@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,9 @@ import { EventComponent } from './Event/event.component';
 import { DiscountComponent } from './Discount/discount.component';
 import { PriceDiscountComponent } from './PriceDiscount/pricediscount.component';
 import { ProductComponent } from './ProductInfo/product.component';
+import { TwowayComponent } from './TwoWayCommunication/twoway/twoway.component';
+import { LoginComponent } from './login(Model)/login/login.component';
+import { LoginTemplateComponent } from './login(Template)/login/loginTemplate.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,16 @@ import { ProductComponent } from './ProductInfo/product.component';
     EventComponent,
     DiscountComponent,
     PriceDiscountComponent,
-    ProductComponent
+    ProductComponent,
+    TwowayComponent,
+    LoginComponent,
+    LoginTemplateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
