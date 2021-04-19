@@ -35,7 +35,7 @@ namespace ContactEFCoreApp
                 c => c.AddPolicy(MyAllowSpecificOrigins,
                 options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
                 );
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<ContactDBContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ContactConnection"))
                     .EnableSensitiveDataLogging()
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));

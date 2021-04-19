@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace ContactEFCoreApp.ModelDTO
 {
-    public class ContactDTO 
-    { 
-        public string Name { get; set; }
-        public long MobileNumber { get; set; }
+    public class UserDTO
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }

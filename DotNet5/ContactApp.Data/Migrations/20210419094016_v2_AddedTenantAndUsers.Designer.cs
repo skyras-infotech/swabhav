@@ -4,14 +4,16 @@ using ContactApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContactApp.Data.Migrations
 {
     [DbContext(typeof(ContactDBContext))]
-    partial class ContactDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210419094016_v2_AddedTenantAndUsers")]
+    partial class v2_AddedTenantAndUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,9 +81,6 @@ namespace ContactApp.Data.Migrations
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("TenantID")
                         .HasColumnType("uniqueidentifier");

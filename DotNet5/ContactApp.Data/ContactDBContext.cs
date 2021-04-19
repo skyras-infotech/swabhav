@@ -12,5 +12,7 @@ namespace ContactApp.Data
 
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Tenant> Tenants { get; set; }
     }
 }
