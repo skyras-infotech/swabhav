@@ -19,6 +19,7 @@ namespace ContactEFCoreApp
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,11 +31,15 @@ namespace ContactEFCoreApp
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors(
+                c => c.AddPolicy(MyAllowSpecificOrigins,
+                options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())
+                );
             services.AddControllers();
             services.AddDbContext<ContactDBContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ContactConnection"))
                     .EnableSensitiveDataLogging()
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
-            services.AddSingleton<IContactRepository,ContactRepository>();
+            services.AddTransient<IContactRepository, ContactRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ContactEFCoreApp", Version = "v1" });
@@ -54,6 +59,8 @@ namespace ContactEFCoreApp
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
