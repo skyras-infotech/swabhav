@@ -1,0 +1,7 @@
+<div style="height: 300px; background-color: aquamarine; padding: 20px;">
+    <h2>Enter Text Something</h2>
+    <input type="text" #data />
+    <br><br>
+    <button type="button" (click)="sendDataToParent(data.value)">Send Data To Parent</button>
+    <h2>The Parent Text is {{parentText}}</h2>
+</div>

@@ -1,0 +1,25 @@
+<!-- <div style="font-size: large;">
+<ul *ngFor="let contact of contacts">
+    <li>{{contact.name}}</li>
+    <li>{{contact.mobileNumber}}</li>
+    <ul *ngFor="let addr of contact.addresses">
+        <li>{{addr.city}}</li>
+    </ul>
+</ul>
+</div> -->
+<table border="1" style="font-size: large;" cellpadding="10" align="center">
+    <tr>
+        <td>Name</td>
+        <td>Mobile Number</td>
+        <td>Address</td>
+    </tr>
+    <tr *ngFor="let contact of contacts">
+        <td>{{contact.name}}</td>
+        <td>{{contact.mobileNumber}}</td>
+        <td>
+            <ul *ngFor="let addr of contact.addresses">
+                <li>{{addr.city}}</li>
+            </ul>
+        </td>
+    </tr>
+</table>

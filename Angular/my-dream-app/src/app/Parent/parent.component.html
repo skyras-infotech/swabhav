@@ -1,0 +1,8 @@
+<div style="height: 300px; background-color: burlywood; padding: 20px;">
+    <h2>Enter Text Something</h2>
+    <input type="text" name="parentdata" [(ngModel)] = "parentdata"/>
+    <br><br>
+    <h2>The Child Text is {{childdata}}</h2>
+</div>
+<br><br><br>
+<app-child [parentText]="parentdata" (childData)="setChildData($event)"></app-child>

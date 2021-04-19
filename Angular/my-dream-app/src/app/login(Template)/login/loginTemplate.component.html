@@ -1,7 +1,7 @@
 <form novalidate #f="ngForm">
-    USERNAME : <input type="text" name="username" [(ngModel)]="username" required>
-    <div style="color: red;" *ngIf="username.invalid"><p>Username is requied</p></div><br><br>
-    PASSWORD : <input type="password" name="password" [(ngModel)]="password" required>
-    <div style="color: red;" *ngIf="password.invalid"><p>Password is requied</p></div><br><br>
+    USERNAME : <input type="text" name="username" [(ngModel)]="username" #usernameTemVar="ngModel" required>
+    <div style="color: red;" *ngIf="usernameTemVar.invalid && (usernameTemVar.dirty || usernameTemVar.touched)"><p>Username is requied</p></div><br><br>
+    PASSWORD : <input type="password" name="password" [(ngModel)]="password" #passwordTempVar="ngModel" required>
+    <div style="color: red;" *ngIf="passwordTempVar.invalid && (passwordTempVar.dirty || passwordTempVar.touched)"><p>Password is requied</p></div><br><br>
     <button type="submit" (click)="login()">Submit</button>
 </form>
