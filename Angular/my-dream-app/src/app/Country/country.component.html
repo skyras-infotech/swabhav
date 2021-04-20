@@ -1,0 +1,13 @@
+<h2 align="center">Country List</h2>
+<table border="1" style="font-size: large;" cellpadding="10" align="center">
+    <tr>
+        <td>Country Name</td>
+        <td>Capital</td>
+        <td>Flag</td>
+    </tr>
+    <tr *ngFor="let country of countries">
+        <td>{{country.name}}</td>
+        <td>{{country.capital}}</td>
+        <td><img [src]="country.flag" width='200px' height='200px'></td>
+    </tr>
+</table>

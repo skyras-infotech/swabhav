@@ -20,6 +20,7 @@ import { ParentComponent } from './Parent/parent.component';
 import { ChildComponent } from './Child/child.component';
 import { ContactComponent } from './contact/contact.component';
 import { ContactService } from './Contact/contact.service';
+import { CountryComponent } from './Country/country.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ContactService } from './Contact/contact.service';
     ParentComponent,
     ChildComponent,
     ContactComponent,
+    CountryComponent
   ],
   imports: [
     BrowserModule,

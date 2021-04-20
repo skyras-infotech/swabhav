@@ -6,12 +6,20 @@ import { IContact } from './IContact';
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  providers:[ContactService]
+  providers: [ContactService]
 })
 export class ContactComponent implements OnInit {
 
-  contacts:IContact[];
-  constructor(private _contactService:ContactService) { }
+  contacts: IContact[];
+  
+  private _contactService: ContactService;
+  constructor(contactService: ContactService) {
+    this._contactService = contactService;
+  }
+
+  // ==========  OR ========
+
+  //constructor(private _contactService:ContactService) { }
 
   ngOnInit(): void {
     this._contactService.getContacts().then(data => this.contacts = data).catch(err => console.log(err));
