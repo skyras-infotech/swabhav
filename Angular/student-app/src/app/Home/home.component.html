@@ -1,0 +1,12 @@
+<table border="1" style="font-size: large;" cellpadding="10" align="center">
+    <tr>
+        <td>Name</td>
+        <td>Roll No</td>
+        <td>Age</td>
+    </tr>
+    <tr *ngFor="let student of students">
+        <td>{{student.name}}</td>
+        <td>{{student.rollNo}}</td>
+        <td>{{student.age}}</td>
+    </tr>
+</table>
