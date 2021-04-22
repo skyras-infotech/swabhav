@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="panel panel-primary" style="margin-top: 20px;">
+        <div class="panel-heading" style="font-size: larger;">Product List</div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <span style="margin-right: 80px;">Filter By:</span> <input type="text" name="searchText" class="form-control" [(ngModel)] = "searchText"/>
+                </div>
+            </form>
+            <table class="table">
+                <thead>
+                    <tr class="text-primary">
+                        <th scope="col"><button type="button" class="btn btn-primary mt-2" (click)="isImageHide()">Show
+                                Image</button></th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Available</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">5-Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of productList | searchProduct:searchText">
+                        <th>
+                            <div *ngIf="showImage;else blank">
+                                <img [src]="product.imageUrl" width="60px" height="60px" />
+                            </div>
+                            <div>
+                                <ng-template #blank></ng-template>
+                            </div>
+                        </th>
+                        <td class="text-info font-weight-bold" style="cursor: pointer;"><span
+                                (click)="productDetails(product)">{{product.productName}}</span></td>
+                        <td>{{product.productCode}}</td>
+                        <td>{{product.releaseDate}}</td>
+                        <td>${{product.price}}</td>
+                        <td>
+                            <app-star [ratingValue]="product.starRating"></app-star>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
