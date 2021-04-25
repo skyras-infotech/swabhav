@@ -10,6 +10,7 @@ using ContactApp.Domain;
 
 namespace AddressEFCoreApp.Controllers
 {
+    [Route("api/v1/tenant/{tenantID}/user/{userID}/contact/{contactID}/[controller]")]
     [ApiController]
     public class AddressController : ControllerBase
     {
@@ -19,26 +20,103 @@ namespace AddressEFCoreApp.Controllers
             this._repository = _contactRepository;
         }
 
-        [Route("api/v1/tenant/{tenantID}/user/{userID}/contact/{contactID}/[controller]")]
         [HttpPost]
-        public IActionResult PostAddress([FromBody] AddressDTO contactDTO, Guid contactID)
+        public IActionResult PostAddress([FromBody] AddressDTO contactDTO, Guid tenantID, Guid userID, Guid contactID)
         {
-            _repository.AddAddress(new Address { City = contactDTO.City,ContactID = contactID});
-            return Ok("New Address Added Successfully");
+            if (!_repository.DoesTenantExist(tenantID))
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            if (!_repository.DoesContactExist(contactID))
+                return BadRequest("Invalid contact id");
+
+            if (ModelState.IsValid)
+            {
+                _repository.AddAddress(new Address { City = contactDTO.City, ContactID = contactID });
+                return Created("", "New Address Added Successfully");
+            }
+            return BadRequest("Address not added properly");
+
         }
 
-        [Route("api/v1/tenant/{tenantID}/user/{userID}/contact/{contactID}/[controller]")]
-        [HttpGet]
-        public List<Address> GetAddresses(Guid tenantID, Guid userID,Guid contactID)
+        [HttpPut]
+        [Route("{addressID}")]
+        public ActionResult PutAddress([FromBody] AddressDTO addressDTO, Guid tenantID, Guid userID, Guid contactID, Guid addressID)
         {
+            if (!_repository.DoesTenantExist(tenantID))
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            if (!_repository.DoesContactExist(contactID))
+                return BadRequest("Invalid contact id");
+
+            if (!_repository.DoesAddressExist(addressID))
+                return BadRequest("Invalid address id");
+
+            if (ModelState.IsValid)
+            {
+                _repository.UpdateAddress(new Address { City = addressDTO.City }, addressID);
+                return Ok("Address Updated Successfully..");
+            }
+            return BadRequest("Address not updated properly");
+        }
+
+        [HttpDelete]
+        [Route("{addressID}")]
+        public ActionResult DeleteContact(Guid tenantID, Guid userID, Guid contactID, Guid addressID)
+        {
+            if (!_repository.DoesTenantExist(tenantID))
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            if (!_repository.DoesContactExist(contactID))
+                return BadRequest("Invalid contact id");
+
+            if (!_repository.DoesAddressExist(addressID))
+                return BadRequest("Invalid address id");
+
+            _repository.DeleteAddress(addressID);
+            return Ok("Address Deleted Successfully..");
+        }
+
+        [HttpGet]
+        public ActionResult<List<Address>> GetAddresses(Guid tenantID, Guid userID, Guid contactID)
+        {
+            if (!_repository.DoesTenantExist(tenantID))
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            if (!_repository.DoesContactExist(contactID))
+                return BadRequest("Invalid contact id");
+
             return _repository.GetAddresses(tenantID, userID, contactID).ToList();
         }
 
         [HttpGet]
-        [Route("api/v1/tenant/{tenantID}/user/{userID}/contact/{contactID}/[controller]/{addressID}")]
-        public Address GetAddress(Guid contactID, Guid userID, Guid tenantID,Guid addressID)
+        [Route("{addressID}")]
+        public ActionResult<Address> GetAddress(Guid contactID, Guid userID, Guid tenantID, Guid addressID)
         {
-            return _repository.GetAddress(addressID, tenantID, userID,contactID);
+            if (!_repository.DoesTenantExist(tenantID))
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            if (!_repository.DoesContactExist(contactID))
+                return BadRequest("Invalid contact id");
+
+            if (!_repository.DoesAddressExist(addressID))
+                return BadRequest("Invalid address id");
+
+            return _repository.GetAddress(addressID, tenantID, userID, contactID);
         }
     }
 }

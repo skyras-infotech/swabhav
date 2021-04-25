@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="isLoggedIn$ | async as isLoggedIn">
+    <a class="navbar-brand" href="#">{{currentUser.companyName}}</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <span class="mr-sm-2" style="color: white; font-size: larger;">Welcome {{currentUser.username}}</span>
+            <button class="btn btn-success my-2 my-sm-0" style="margin-left: 50px;" (click)="logout()"
+                type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+<div *ngIf="loadService.isLoading | async" class="load-spinner">
+    <mat-progress-spinner style="top: 45%; left: 45%;" mode="indeterminate"></mat-progress-spinner>
+</div>
+<router-outlet></router-outlet>
+<div align="center" *ngIf="isLoggedIn$ | async as isLoggedIn">
+    <footer class="card-footer bg-dark" style="margin-top:60px">
+        <p class="text-white mat-body">&copy; {{myDate}} - Contact App</p>
+    </footer>
+</div>

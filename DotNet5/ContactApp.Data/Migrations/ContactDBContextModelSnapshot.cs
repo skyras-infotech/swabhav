@@ -66,6 +66,9 @@ namespace ContactApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("CompanyStrength")
+                        .HasColumnType("int");
+
                     b.Property<string>("TenantName")
                         .HasColumnType("nvarchar(max)");
 
@@ -80,13 +83,19 @@ namespace ContactApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("TenantID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

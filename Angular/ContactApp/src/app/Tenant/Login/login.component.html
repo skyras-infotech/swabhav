@@ -1,0 +1,65 @@
+<div style="background-image: url('assets/contact-bg.jpg'); width: 100%; height: 100vh">
+    <div class="p-5">
+        <div class="row">
+            <div class="col-sm">
+                <img src="assets/onemonth.png" width="750px" height="600px" alt="Card image cap">
+                <div align="center">
+                    <button class="btn btn-danger btn-lg" (click)="register()">Try it Free</button>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card-transparent border-success"
+                    style="max-width: 60%; margin-left: 20px; margin-top: 70px;">
+                    <h1 class="mat-h1" align="center">User Login</h1>
+                    <div>
+                        <form #form="ngForm" (submit)="onSubmit()" novalidate class="needs-validation">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter Company Name *"
+                                    [(ngModel)]="user.companyName" (change)="onChangeEvent($event)"
+                                    #companyName="ngModel" name="companyName" required />
+                                <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                                    *ngIf="companyName.touched && companyName.errors?.required">
+                                    Please enter company name.
+                                </div>
+                                <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                                    *ngIf="companyName.touched && !exists">
+                                    Company does not exists.
+                                </div>
+                                <div class="invalid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" email [(ngModel)]="user.email" #email="ngModel"
+                                    name="email" placeholder="Enter Email *" required />
+                                <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                                    *ngIf="email.touched && email.errors?.required">
+                                    Please enter email.
+                                </div>
+                                <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                                    *ngIf="email.touched && email.errors?.email">
+                                    Please enter valid email.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" [(ngModel)]="user.password"
+                                    #password="ngModel" name="password" placeholder="Enter Password *" required />
+                                <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                                    *ngIf="password.touched && !password.valid">
+                                    Please enter password.
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top: 20px;" align="center">
+                                <button type="submit" class="btn btn-primary" [disabled]="btnDisable"
+                                    style="width: 200px;">Login</button>
+                            </div>
+                            <div class="form-group">
+                                <a href="#" class="ForgetPwd" style="color: black;">Forget Password?</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

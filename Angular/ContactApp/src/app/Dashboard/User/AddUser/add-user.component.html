@@ -1,0 +1,66 @@
+<div class="container mt-5" align="center">
+    <div class="card bg-light mb-3" style="max-width: 35rem;">
+        <div class="card-body">
+            <h1 class="mat-h1">Add New User</h1>
+            <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+                <div class="form-group" align="left">
+                    <label>User Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="user.username" #username="ngModel"
+                        name="username" placeholder="Enter Username *" required />
+                    <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                        *ngIf="username.touched && !username.valid">
+                        Please enter user name.
+                    </div>
+                </div>
+                <div class="form-group" align="left">
+                    <label>Email</label>
+                    <input type="text" class="form-control" email [(ngModel)]="user.email" #email="ngModel" name="email"
+                        placeholder="Enter Email *" required />
+                    <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                        *ngIf="email.touched && email.errors?.required">
+                        Please enter email.
+                    </div>
+                    <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                        *ngIf="email.touched && email.errors?.email">
+                        Please enter valid email.
+                    </div>
+                </div>
+                <div class="form-group" align="left">
+                    <label>Password</label>
+                    <input type="password" class="form-control" [(ngModel)]="user.password" #password="ngModel"
+                        name="password" placeholder="Enter Password *" required />
+                    <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                        *ngIf="password.touched && !password.valid">
+                        Please enter password.
+                    </div>
+                </div>
+                <div class="form-group" align="left">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" [(ngModel)]="user.confirmPassword"
+                        #confirmPassword="ngModel" name="confirmPassword " placeholder="Enter Confirm Password *"
+                        passwordValidator="password" required />
+                    <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                        *ngIf="confirmPassword.touched && confirmPassword.errors?.required">
+                        Please enter confirm password.
+                    </div>
+                    <div align="left" style="margin-top: 10px;" class="alert alert-danger"
+                        *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual">
+                        Password doesn't match
+                    </div>
+                </div>
+                <div class="form-group" align="left">
+                    <label>Select Role (*If not select any default role is Normal User)</label>
+                    <select name="role" class="form-control" [(ngModel)]="user.role">
+                        <option *ngFor="let rol of roleList" [value]="rol.role">{{rol.role}}</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-top: 20px;" align="center">
+                    <button type="submit" class="btn btn-primary" [disabled]="!form.valid" style="width: 200px;">Add
+                        User</button>
+                </div>
+            </form>
+        </div>
+        <div align="left" style="padding-left: 20px;"><button class="btn btn-dark mb-4" (click)="backToList()">Back to
+                List</button></div>
+    </div>
+</div>

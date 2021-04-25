@@ -11,6 +11,7 @@ using ContactEFCoreApp.ModelDTO;
 
 namespace ContactEFCoreApp.Controllers
 {
+    [Route("api/v1/tenant/{tenantID}/user/{userID}/[controller]")]
     [ApiController]
     public class ContactController : ControllerBase
     {
@@ -20,26 +21,100 @@ namespace ContactEFCoreApp.Controllers
             this._repository = _contactRepository;
         }
 
-        [Route("api/v1/tenant/{tenantID}/user/{userID}/[controller]")]
         [HttpPost]
-        public IActionResult PostContact([FromBody] ContactDTO contactDTO, Guid userID)
+        public ActionResult PostContact([FromBody] ContactDTO contactDTO, Guid userID, Guid tenantID)
         {
-            _repository.AddContact(new Contact { Name = contactDTO.Name, MobileNumber = contactDTO.MobileNumber, UserID = userID });
-            return Ok("New Contact Added Successfully");
+            if (!_repository.DoesTenantExist(tenantID)) 
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            if (ModelState.IsValid)
+            {
+                _repository.AddContact(new Contact { Name = contactDTO.Name, MobileNumber = contactDTO.MobileNumber, UserID = userID });
+                return Created("","New Contact Added Successfully");
+            }
+            return BadRequest("Contact not inserted properly");
         }
 
-        [Route("api/v1/tenant/{tenantID}/user/{userID}/[controller]")]
-        [HttpGet]
-        public List<Contact> GetContacts(Guid tenantID,Guid userID)
+        [HttpPut]
+        [Route("{contactID}")]
+        public ActionResult PutContact([FromBody] ContactDTO contactDTO, Guid contactID, Guid userID, Guid tenantID)
         {
-            return _repository.GetContacts(tenantID,userID).ToList();
+            if (!_repository.DoesTenantExist(tenantID))
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            if (!_repository.DoesContactExist(contactID))
+                return BadRequest("Invalid contact id");
+
+
+            if (ModelState.IsValid)
+            {
+                _repository.UpdateContact(new Contact { Name = contactDTO.Name, MobileNumber = contactDTO.MobileNumber }, contactID);
+                return Ok("Contact Updated Successfully..");
+            }
+            return BadRequest("Contact not updated properly");
+        }
+
+        [HttpDelete]
+        [Route("{contactID}")]
+        public ActionResult DeleteContact(Guid contactID, Guid userID, Guid tenantID)
+        {
+            if (!_repository.DoesTenantExist(tenantID))
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            if (!_repository.DoesContactExist(contactID))
+                return BadRequest("Invalid contact id");
+
+            _repository.DeleteContact(contactID);
+            return Ok("Contact Deleted Successfully..");
         }
 
         [HttpGet]
-        [Route("api/v1/tenant/{tenantID}/user/{userID}/[controller]/{contactID}")]
-        public Contact GetContact(Guid contactID, Guid userID,Guid tenantID)
+        public ActionResult<List<Contact>> GetContacts(Guid tenantID, Guid userID)
         {
+            if (!_repository.DoesTenantExist(tenantID))
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            return _repository.GetContacts(tenantID, userID).ToList();
+        }
+
+        [HttpGet]
+        [Route("{contactID}")]
+        public ActionResult<Contact> GetContact(Guid contactID, Guid userID, Guid tenantID)
+        {
+            if (!_repository.DoesTenantExist(tenantID))
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            if (!_repository.DoesContactExist(contactID))
+                return BadRequest("Invalid contact id");
+
             return _repository.GetContact(contactID, tenantID, userID);
         }
+
+
+       /* private BadRequestObjectResult DoesUserAndTenantExist(Guid tenantID, Guid userID)
+        {
+            if (!_repository.DoesTenantExist(tenantID))
+                return BadRequest("Invalid tenant id");
+
+            if (!_repository.DoesUserExist(userID))
+                return BadRequest("Invalid user id");
+
+            return null;
+        }*/
     }
 }

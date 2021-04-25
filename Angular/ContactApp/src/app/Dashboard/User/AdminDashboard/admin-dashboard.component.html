@@ -1,0 +1,34 @@
+<div class="container" align="center" style="margin-top: 50px;">
+    <div class="row row-cols-3">
+        <div class="col" style="cursor: pointer;">
+            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h2 class="card-title mat-h2">No of Users</h2>
+                    <fa-icon [icon]="faUsers" size="5x"></fa-icon>
+                    <h1 class="mat-h1 card-text" style="margin-top: 10px;">{{noOfUsers}}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col" style="cursor: pointer;">
+            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h2 class="card-title mat-h2">No of Contacts</h2>
+                    <fa-icon [icon]="faPhone" size="5x" rotate="90"></fa-icon>
+                    <h1 class="mat-h1 card-text" style="margin-top: 10px;">{{noOfContacts}}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col" (click)="userList()" style="cursor: pointer;">
+            <div class="card text-white bg-danger mb-2" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h2 class="card-title mat-h2" style="margin-bottom: 40px;">View and Add Users</h2>
+                    <fa-icon [icon]="faBible" size="6x" ></fa-icon>
+                    <h1 class="mat-h1 card-text" ></h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

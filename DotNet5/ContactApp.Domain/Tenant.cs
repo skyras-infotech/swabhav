@@ -10,6 +10,7 @@ namespace ContactApp.Domain
     {
         public Guid ID { get; set; }
         public string TenantName { get; set; }
+        public int CompanyStrength { get; set; }
         public List<User> Users { get; set; }
 
         public Tenant() 
