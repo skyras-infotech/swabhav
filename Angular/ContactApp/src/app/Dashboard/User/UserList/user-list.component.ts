@@ -12,20 +12,18 @@ import { UserService } from 'src/app/Services/user.service';
 export class UserListComponent implements OnInit {
 
   users: User[];
-
+  searchText:string;
   constructor(private _contactService: UserService, private _router: Router, private _aRoute: ActivatedRoute, private _toastr: ToastrService) {
   }
 
   ngOnInit(): void {
-    this._contactService.getAllUsersOfTenant(this._aRoute.snapshot.params.tenantID).subscribe(data => this.users = data);
+    this._contactService.getAllUsersOfTenant(localStorage.getItem("tenantID")).subscribe(data => {
+      this.users = data;
+    });
   }
 
   addUser() {
     this._router.navigateByUrl(localStorage.getItem("tenantID") + "/add-user");
-  }
-
-  contactList(user: User) {
-    this._router.navigateByUrl("contact-list/" + user.id);
   }
 
   deleteUser(user: User) {

@@ -1,9 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="isLoggedIn$ | async as isLoggedIn">
-    <a class="navbar-brand" href="#">{{currentUser.companyName}}</a>
+    <span class="navbar-brand">{{currentUser.companyName}}</span>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
+            <li class="nav-item active" [routerLinkActive]="['active']" *ngIf="currentUser.role == 'Admin'">
+                <a class="nav-link" routerLink={{adminHomeRoute}}>Home</a>
+            </li>
+            <li class="nav-item active" [routerLinkActive]="['active']" *ngIf="currentUser.role == 'Admin'">
+                <a class="nav-link" routerLink={{normalUserRoute}}>Contact-List</a>
+            </li>
+            <li class="nav-item active" [routerLinkActive]="['active']" *ngIf="currentUser.role == 'Normal User'">
+                <a class="nav-link" routerLink={{normalUserRoute}}>Home</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

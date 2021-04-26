@@ -14,6 +14,7 @@ namespace ContactApp.Data.Repository
         IQueryable<Contact> GetContacts(Guid tenantID, Guid userID);
         void UpdateContact(Contact contact, Guid id);
         void DeleteContact(Guid id);
+        Contact CheckMobileNoExist(long mobile);
 
         void AddAddress(Address address);
         Address GetAddress(Guid id, Guid tenantID, Guid userID, Guid contactID);
@@ -35,6 +36,7 @@ namespace ContactApp.Data.Repository
         void DeleteUser(Guid id);
         User LoginUser(string email, string password,Guid tenantID);
         int GetNoOfUsers(Guid tenantID);
+        User CheckEmailExist(string email);
 
         public bool DoesTenantExist(Guid id);
         public bool DoesAddressExist(Guid id);

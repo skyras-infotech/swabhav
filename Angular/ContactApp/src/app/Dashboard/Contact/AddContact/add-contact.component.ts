@@ -12,6 +12,7 @@ import { ContactService } from 'src/app/Services/contact.service';
 })
 export class AddContactComponent implements OnInit {
 
+  isMobileExist = false;
   contact: Contact = new Contact();
   constructor(private _contactService: ContactService, private _router: Router, private _toastr: ToastrService) { }
 
@@ -23,15 +24,20 @@ export class AddContactComponent implements OnInit {
     if (form.valid) {
       this._contactService.addContact(this.contact).subscribe(res => {
         console.log(res);
+        this.isMobileExist = false;
         this._toastr.success("Contact Added..");
         this._router.navigateByUrl("contact-list/" + localStorage.getItem("userID"));
-      }, err => console.log(err));
-    }
-
+      }, err => {
+        console.log(err);
+        this.isMobileExist = true;
+        this._toastr.error(err.error);
+    });
   }
 
-  backToList() {
-    this._router.navigateByUrl("contact-list/" + localStorage.getItem("userID"));
-  }
+}
+
+backToList() {
+  this._router.navigateByUrl("contact-list/" + localStorage.getItem("userID"));
+}
 
 }

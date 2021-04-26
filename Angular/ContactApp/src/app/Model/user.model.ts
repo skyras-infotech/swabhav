@@ -1,3 +1,5 @@
+import { Contact } from "./contact.model";
+
 export class User {
     id:string;
     tenantID:string;
@@ -8,4 +10,5 @@ export class User {
     companyName: string;
     companyStrength: number;
     role:string;
+    contacts:Contact[]
 }

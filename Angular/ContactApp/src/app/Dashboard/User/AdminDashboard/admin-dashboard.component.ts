@@ -20,7 +20,7 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.tenantID = this._aRoute.snapshot.params.tenantID;
-    this._userService.getNoOfContacts(this.tenantID).subscribe(res => this.noOfContacts = Number.parseInt(JSON.stringify(res)));
+    this._userService.getNoOfContacts(localStorage.getItem("tenantID")).subscribe(res => this.noOfContacts = Number.parseInt(JSON.stringify(res)));
     this._userService.getNoOfUsers(this.tenantID).subscribe(res => this.noOfUsers = Number.parseInt(JSON.stringify(res)));
   }
 

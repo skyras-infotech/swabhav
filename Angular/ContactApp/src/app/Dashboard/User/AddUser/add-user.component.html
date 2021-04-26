@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="form-group" align="left">
-                    <label>Select Role (*If not select any default role is Normal User)</label>
+                    <label>Select Role (*If not select any default role is Admin)</label>
                     <select name="role" class="form-control" [(ngModel)]="user.role">
                         <option *ngFor="let rol of roleList" [value]="rol.role">{{rol.role}}</option>
                     </select>

@@ -14,6 +14,8 @@ export class TenantRegistrationComponent implements OnInit {
 
   user: User = new User();
   tenant: any;
+  isTenantExist = false;
+  isEmailExist = false;
   constructor(private _userService: UserService, private _route: Router, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -26,12 +28,29 @@ export class TenantRegistrationComponent implements OnInit {
         this.tenant = JSON.parse(res);
         this._userService.registerUser(this.user, this.tenant.id).subscribe(res => {
           console.log(res);
+          this.isEmailExist = false;
           this._toastr.success("New Tenant Register Sucessfully");
           this._route.navigateByUrl("/home");
-        }, err => console.log(err));
+        }, err => {
+          console.log(err);
+          this.isEmailExist = true;
+          this._toastr.error(err.error);
+          this._userService.deleteTenant(this.tenant.id).subscribe(res => console.log(res),
+            err => console.log(err));
+        });
       }, err => console.log(err));
     }
   }
 
-
+  CheckCompanyExist(event) {
+    this._userService.checkTenantExist(event.target.value).subscribe(
+      res => {
+        this.isTenantExist = false;
+      },
+      err => {
+        this.isTenantExist = true;
+        this._toastr.error(err.error);
+      }
+    )
+  }
 }

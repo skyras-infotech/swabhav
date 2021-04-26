@@ -13,6 +13,7 @@ export class AddressListComponent implements OnInit {
 
   addresses: Address[];
   contactID: string;
+  searchText:string;
   constructor(private _addressService: AddressService, private _router: Router, private _activatedRoute: ActivatedRoute) {
   }
 

@@ -14,6 +14,9 @@ import { AddUserComponent } from './User/AddUser/add-user.component';
 import { CheckPasswordEqualityDirective } from '../Tenant/check-password.directive';
 import { AdminDashboardComponent } from './User/AdminDashboard/admin-dashboard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SearchContactFilter } from './search-contact.pipe';
+import { SearchUserFilter } from './search-user.pipe';
+import { SearchAddressFilter } from './search-address.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AddUserComponent,
     CheckPasswordEqualityDirective,
     AdminDashboardComponent,
-    
+    SearchContactFilter,
+    SearchUserFilter,
+    SearchAddressFilter
   ],
   imports: [
     CommonModule,

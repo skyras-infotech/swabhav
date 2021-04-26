@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContactApp.Data.Migrations
 {
     [DbContext(typeof(ContactDBContext))]
-    [Migration("20210423071208_v1CreateTables")]
+    [Migration("20210426041732_v1CreateTables")]
     partial class v1CreateTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,9 +72,13 @@ namespace ContactApp.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TenantName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("TenantName")
+                        .IsUnique()
+                        .HasFilter("[TenantName] IS NOT NULL");
 
                     b.ToTable("Tenants");
                 });
@@ -86,7 +90,7 @@ namespace ContactApp.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
@@ -101,6 +105,10 @@ namespace ContactApp.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
 
                     b.HasIndex("TenantID");
 

@@ -53,6 +53,11 @@ namespace ContactApp.Data.Repository
             return _dbContext.Contacts.Where(x => x.UserID == userID && x.User.TenantID == tenantID).Include(x => x.Addresses).AsQueryable();
         }
 
+        public Contact CheckMobileNoExist(long mobile) 
+        {
+            return _dbContext.Contacts.Where(x => x.MobileNumber == mobile).SingleOrDefault();    
+        }
+
         // CRUD for Address
         public void AddAddress(Address address)
         {
@@ -166,6 +171,11 @@ namespace ContactApp.Data.Repository
         public int GetNoOfUsers(Guid tenantID) 
         {
             return _dbContext.Users.Where(x => x.TenantID == tenantID).Count();
+        }
+
+        public User CheckEmailExist(string email) 
+        {
+            return _dbContext.Users.Where(x => x.Email == email).SingleOrDefault();   
         }
 
         // Check for existance

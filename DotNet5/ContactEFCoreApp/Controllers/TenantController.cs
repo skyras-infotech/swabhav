@@ -25,9 +25,11 @@ namespace ContactEFCoreApp.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 Tenant tenant = new Tenant { TenantName = tenantDTO.TenantName, CompanyStrength = tenantDTO.CompanyStrength };
                 _repository.AddTenent(tenant);
                 return Ok(tenant);
+
             }
             return BadRequest("Tenant not added properly");
         }
@@ -73,8 +75,24 @@ namespace ContactEFCoreApp.Controllers
             {
                 return Ok(tenant);
             }
-            else {
+            else
+            {
                 return BadRequest("Company not exist");
+            }
+        }
+
+        [HttpGet]
+        [Route("CheckTenantExistance/{tenantName}")]
+        public ActionResult<Tenant> CheckTenantExistance(string tenantName)
+        {
+            Tenant tenant = _repository.GetTenantByName(tenantName);
+            if (tenant != null)
+            {
+                return BadRequest("Company already exist");
+            }
+            else
+            {
+                return Ok();
             }
         }
 

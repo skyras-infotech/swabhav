@@ -12,14 +12,21 @@ export class ContactService {
   userID: string = localStorage.getItem("userID");
   baseURL: string = "https://localhost:44301/api/v1/tenant/" + this.tenantID + "/user/" + this.userID + "/Contact";
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {
+    console.log("Tenant ID " + this.tenantID);
+    console.log("User ID " + this.userID);
+  }
+
+  // getContacts(userID:string): Observable<Contact[]> {
+  //   return this._http.get<Contact[]>("https://localhost:44301/api/v1/tenant/" + this.tenantID + "/user/" + userID + "/Contact");
+  // }
 
   getContacts(): Observable<Contact[]> {
     return this._http.get<Contact[]>(this.baseURL);
   }
 
   addContact(contact: Contact) {
-    return this._http.post(this.baseURL, contact, { responseType: 'text'});
+    return this._http.post(this.baseURL, contact, { responseType: 'text' });
   }
 
   updateContact(contact: Contact) {

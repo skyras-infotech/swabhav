@@ -32,8 +32,16 @@ namespace ContactEFCoreApp.Controllers
 
             if (ModelState.IsValid)
             {
-                _repository.AddContact(new Contact { Name = contactDTO.Name, MobileNumber = contactDTO.MobileNumber, UserID = userID });
-                return Created("","New Contact Added Successfully");
+                Contact contact = _repository.CheckMobileNoExist(contactDTO.MobileNumber);
+                if (contact == null)
+                {
+                    _repository.AddContact(new Contact { Name = contactDTO.Name, MobileNumber = contactDTO.MobileNumber, UserID = userID });
+                    return Created("", "New Contact Added Successfully");
+                }
+                else 
+                {
+                    return BadRequest("Mobile number is already exist");
+                }
             }
             return BadRequest("Contact not inserted properly");
         }

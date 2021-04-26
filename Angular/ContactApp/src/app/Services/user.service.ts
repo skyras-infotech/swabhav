@@ -72,7 +72,7 @@ export class UserService {
         "username": user.username,
         "password": user.password,
         "email": user.email,
-        "role": user.role != null ? user.role : null
+        "role": user.role != null ? user.role : "Admin"
       }, { responseType: 'text' });
   }
 
@@ -80,11 +80,19 @@ export class UserService {
     return this._http.get(this.baseURL + "tenantName/" + tenantName);
   }
 
-  getNoOfUsers(tenantID:string) {
+  getNoOfUsers(tenantID: string) {
     return this._http.get(this.baseURL + tenantID + "/User/NoOfUsers");
   }
 
-  getNoOfContacts(tenantID:string) {
+  getNoOfContacts(tenantID: string) {
     return this._http.get(this.baseURL + tenantID + "/User/NoOfUsersContacts");
+  }
+
+  checkTenantExist(tenantName: string) {
+    return this._http.get(this.baseURL + "CheckTenantExistance/" + tenantName);
+  }
+
+  deleteTenant(tenantID: string) {
+    return this._http.delete(this.baseURL + tenantID,{ responseType: 'text' });
   }
 }

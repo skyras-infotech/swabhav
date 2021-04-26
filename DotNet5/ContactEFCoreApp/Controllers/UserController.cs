@@ -28,8 +28,16 @@ namespace ContactEFCoreApp.Controllers
 
             if (ModelState.IsValid)
             {
-                _repository.AddUser(new User { Username = userDTO.Username, Password = userDTO.Password, Email = userDTO.Email, TenantID = tenantID, Role = userDTO.Role ?? "Admin" });
-                return Created("", "New User Added Successfully");
+                User user = _repository.CheckEmailExist(userDTO.Email);
+                if (user == null)
+                {
+                    _repository.AddUser(new User { Username = userDTO.Username, Password = userDTO.Password, Email = userDTO.Email, TenantID = tenantID, Role = userDTO.Role });
+                    return Created("", "New User Added Successfully");
+                }
+                else
+                {
+                    return BadRequest("Email id is already exist");
+                }
             }
             return BadRequest("User is not added properly");
         }

@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
   isLoggedIn$: Observable<boolean>;
   currUser$: Observable<CurrentUser>;
   currentUser: CurrentUser = new CurrentUser();
+  adminHomeRoute: string;
+  normalUserRoute: string;
 
   constructor(public loadService: LoaderService, private _userService: UserService, private _router: Router) {
 
@@ -27,6 +29,8 @@ export class AppComponent implements OnInit {
     this.currUser$ = this._userService.getCurrentUser;
     this.currUser$.subscribe(x => {
       this.currentUser = x;
+      this.adminHomeRoute = localStorage.getItem("tenantID") + "/admin-home";
+      this.normalUserRoute = "contact-list/" + localStorage.getItem("userID");
     }, err => console.log(err));
   }
 
@@ -35,5 +39,8 @@ export class AppComponent implements OnInit {
     this._userService.setCurrentUser = null;
     localStorage.clear();
     this._router.navigateByUrl("");
+    setTimeout(function () {
+      location.reload();
+    }, 1000)
   }
 }

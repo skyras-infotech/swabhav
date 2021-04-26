@@ -12,7 +12,7 @@ namespace ContactApp.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenantName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TenantName = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CompanyStrength = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -26,7 +26,7 @@ namespace ContactApp.Data.Migrations
                 {
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TenantID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -90,6 +90,20 @@ namespace ContactApp.Data.Migrations
                 name: "IX_Contacts_UserID",
                 table: "Contacts",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tenants_TenantName",
+                table: "Tenants",
+                column: "TenantName",
+                unique: true,
+                filter: "[TenantName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_TenantID",

@@ -17,7 +17,9 @@ export class LoginComponent implements OnInit {
   btnDisable: boolean = true;
   exists: boolean = false;
   currentUser: CurrentUser = new CurrentUser();
-  constructor(private _userService: UserService, private _route: Router, private _toastr: ToastrService) { }
+  constructor(private _userService: UserService, private _route: Router, private _toastr: ToastrService) { 
+    
+  }
 
   ngOnInit(): void {
     if (localStorage.getItem("userID") != null || localStorage.getItem("userID") != null) {
@@ -25,6 +27,7 @@ export class LoginComponent implements OnInit {
     } else {
       this._route.navigateByUrl("");
     }
+    
   }
 
   register() {
