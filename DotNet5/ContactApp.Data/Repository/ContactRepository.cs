@@ -35,6 +35,7 @@ namespace ContactApp.Data.Repository
         {
             // In case AsNoTracking is used
             _dbContext.Entry(entity).State = EntityState.Modified;
+            //_dbContext.Set<T>().Update(entity);
             return _dbContext.SaveChangesAsync();
         }
 
@@ -44,12 +45,22 @@ namespace ContactApp.Data.Repository
             return _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<List<T>> GetAll()
         {
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate)
+        public async Task<List<T>> GetAllWithPreload(string include) 
+        {
+            return await _dbContext.Set<T>().Include(include).ToListAsync();
+        }
+
+        public async Task<List<T>> GetAllWithPreloadWhere(Expression<Func<T, bool>> predicate, string include) 
+        {
+            return await _dbContext.Set<T>().Where(predicate).Include(include).ToListAsync();
+        }
+
+        public async Task<List<T>> GetWhere(Expression<Func<T, bool>> predicate)
         {
             return await _dbContext.Set<T>().Where(predicate).ToListAsync();
         }

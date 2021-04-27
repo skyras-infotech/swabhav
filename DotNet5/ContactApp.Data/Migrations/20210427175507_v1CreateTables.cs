@@ -39,6 +39,7 @@ namespace ContactApp.Data.Migrations
                         column: x => x.TenantID,
                         principalTable: "Tenants",
                         principalColumn: "ID",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -59,6 +60,7 @@ namespace ContactApp.Data.Migrations
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -78,6 +80,7 @@ namespace ContactApp.Data.Migrations
                         column: x => x.ContactID,
                         principalTable: "Contacts",
                         principalColumn: "ID",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -85,6 +88,12 @@ namespace ContactApp.Data.Migrations
                 name: "IX_Addresses_ContactID",
                 table: "Addresses",
                 column: "ContactID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contacts_MobileNumber",
+                table: "Contacts",
+                column: "MobileNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_UserID",

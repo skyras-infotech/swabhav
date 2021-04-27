@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContactApp.Data.Migrations
 {
     [DbContext(typeof(ContactDBContext))]
-    [Migration("20210426041732_v1CreateTables")]
+    [Migration("20210427175507_v1CreateTables")]
     partial class v1CreateTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,6 +56,9 @@ namespace ContactApp.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("MobileNumber")
+                        .IsUnique();
 
                     b.HasIndex("UserID");
 

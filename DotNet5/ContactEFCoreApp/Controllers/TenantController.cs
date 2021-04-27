@@ -41,7 +41,7 @@ namespace ContactEFCoreApp.Controllers
 
             if (ModelState.IsValid)
             {
-                await _repository.Update(new Tenant { ID = tenantID, TenantName = tenantDTO.TenantName, CompanyStrength = tenantDTO.CompanyStrength });
+                await _repository.Update(new Tenant { TenantName = tenantDTO.TenantName, CompanyStrength = tenantDTO.CompanyStrength });
                 return Ok("Tenant Updated Successfully..");
             }
             return BadRequest("Tenant not updated properly");
@@ -59,7 +59,7 @@ namespace ContactEFCoreApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Tenant>> GetTenants()
+        public async Task<List<Tenant>> GetTenants()
         {
             return await _repository.GetAll();
         }
