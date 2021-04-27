@@ -10,20 +10,20 @@ using ContactApp.Domain;
 
 namespace ContactEFCoreApp.Controllers
 {
-    [Route("api/v1/tenant/{tenantID}/[controller]")]
+   /* [Route("api/v1/tenant/{tenantID}/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IContactRepository _repository;
-        public UserController(IContactRepository contactRepository)
+        private readonly IContactRepository<User> _repository;
+        public UserController(IContactRepository<User> contactRepository)
         {
             _repository = contactRepository;
         }
 
         [HttpPost]
-        public ActionResult PostUser([FromBody] UserDTO userDTO, Guid tenantID)
+        public async Task<ActionResult> PostUser([FromBody] UserDTO userDTO, Guid tenantID)
         {
-            if (!_repository.DoesTenantExist(tenantID))
+            if (await _repository.GetById(tenantID) == null)
                 return BadRequest("Invalid tenant id");
 
             if (ModelState.IsValid)
@@ -142,5 +142,5 @@ namespace ContactEFCoreApp.Controllers
             }
             return count;
         }
-    }
+    }*/
 }

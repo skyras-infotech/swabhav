@@ -39,7 +39,7 @@ namespace ContactEFCoreApp
             services.AddDbContext<ContactDBContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ContactConnection"))
                     .EnableSensitiveDataLogging()
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
-            services.AddTransient<IContactRepository, ContactRepository>();
+            services.AddTransient(typeof(IContactRepository<>), typeof(ContactRepository<>));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ContactEFCoreApp", Version = "v1" });

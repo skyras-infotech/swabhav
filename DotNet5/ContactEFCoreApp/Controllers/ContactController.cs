@@ -11,7 +11,7 @@ using ContactEFCoreApp.ModelDTO;
 
 namespace ContactEFCoreApp.Controllers
 {
-    [Route("api/v1/tenant/{tenantID}/user/{userID}/[controller]")]
+    /*[Route("api/v1/tenant/{tenantID}/user/{userID}/[controller]")]
     [ApiController]
     public class ContactController : ControllerBase
     {
@@ -114,7 +114,7 @@ namespace ContactEFCoreApp.Controllers
         }
 
 
-       /* private BadRequestObjectResult DoesUserAndTenantExist(Guid tenantID, Guid userID)
+       *//* private BadRequestObjectResult DoesUserAndTenantExist(Guid tenantID, Guid userID)
         {
             if (!_repository.DoesTenantExist(tenantID))
                 return BadRequest("Invalid tenant id");
@@ -123,6 +123,6 @@ namespace ContactEFCoreApp.Controllers
                 return BadRequest("Invalid user id");
 
             return null;
-        }*/
-    }
+        }*//*
+    }*/
 }

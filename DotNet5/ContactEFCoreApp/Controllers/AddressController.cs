@@ -10,7 +10,7 @@ using ContactApp.Domain;
 
 namespace AddressEFCoreApp.Controllers
 {
-    [Route("api/v1/tenant/{tenantID}/user/{userID}/contact/{contactID}/[controller]")]
+    /*[Route("api/v1/tenant/{tenantID}/user/{userID}/contact/{contactID}/[controller]")]
     [ApiController]
     public class AddressController : ControllerBase
     {
@@ -118,5 +118,5 @@ namespace AddressEFCoreApp.Controllers
 
             return _repository.GetAddress(addressID, tenantID, userID, contactID);
         }
-    }
+    }*/
 }

@@ -14,36 +14,34 @@ namespace ContactEFCoreApp.Controllers
     [ApiController]
     public class TenantController : ControllerBase
     {
-        private IContactRepository _repository;
-        public TenantController(IContactRepository contactRepository)
+        private readonly IContactRepository<Tenant> _repository;
+        public TenantController(IContactRepository<Tenant> contactRepository)
         {
             _repository = contactRepository;
         }
 
         [HttpPost]
-        public IActionResult PostTenant([FromBody] TenantDTO tenantDTO)
+        public async Task<ActionResult> PostTenant([FromBody] TenantDTO tenantDTO)
         {
             if (ModelState.IsValid)
             {
-
                 Tenant tenant = new Tenant { TenantName = tenantDTO.TenantName, CompanyStrength = tenantDTO.CompanyStrength };
-                _repository.AddTenent(tenant);
+                await _repository.Add(tenant);
                 return Ok(tenant);
-
             }
             return BadRequest("Tenant not added properly");
         }
 
         [HttpPut]
         [Route("{tenantID}")]
-        public ActionResult PutTenant([FromBody] TenantDTO tenantDTO, Guid tenantID)
+        public async Task<ActionResult> PutTenant([FromBody] TenantDTO tenantDTO, Guid tenantID)
         {
-            if (!_repository.DoesTenantExist(tenantID))
+            if (await _repository.GetById(tenantID) == null)
                 return BadRequest("Invalid tenant id");
 
             if (ModelState.IsValid)
             {
-                _repository.UpdateTenant(new Tenant { TenantName = tenantDTO.TenantName, CompanyStrength = tenantDTO.CompanyStrength }, tenantID);
+                await _repository.Update(new Tenant { ID = tenantID, TenantName = tenantDTO.TenantName, CompanyStrength = tenantDTO.CompanyStrength });
                 return Ok("Tenant Updated Successfully..");
             }
             return BadRequest("Tenant not updated properly");
@@ -51,26 +49,26 @@ namespace ContactEFCoreApp.Controllers
 
         [HttpDelete]
         [Route("{tenantID}")]
-        public ActionResult DeleteTenant(Guid tenantID)
+        public async Task<ActionResult> DeleteTenant(Guid tenantID)
         {
-            if (!_repository.DoesTenantExist(tenantID))
+            if (await _repository.GetById(tenantID) == null)
                 return BadRequest("Invalid tenant id");
 
-            _repository.DeleteTenant(tenantID);
+            await _repository.Remove(await _repository.GetById(tenantID));
             return Ok("Tenant Deleted Successfully..");
         }
 
         [HttpGet]
-        public ActionResult<List<Tenant>> GetTenants()
+        public async Task<IEnumerable<Tenant>> GetTenants()
         {
-            return _repository.GetTenants().ToList();
+            return await _repository.GetAll();
         }
 
         [HttpGet]
         [Route("tenantName/{tenantName}")]
-        public ActionResult<Tenant> GetTenant(string tenantName)
+        public async Task<ActionResult<Tenant>> GetTenant(string tenantName)
         {
-            Tenant tenant = _repository.GetTenantByName(tenantName);
+            Tenant tenant = await _repository.FirstOrDefault(x => x.TenantName == tenantName);
             if (tenant != null)
             {
                 return Ok(tenant);
@@ -83,9 +81,9 @@ namespace ContactEFCoreApp.Controllers
 
         [HttpGet]
         [Route("CheckTenantExistance/{tenantName}")]
-        public ActionResult<Tenant> CheckTenantExistance(string tenantName)
+        public async Task<ActionResult<Tenant>> CheckTenantExistance(string tenantName)
         {
-            Tenant tenant = _repository.GetTenantByName(tenantName);
+            Tenant tenant = await _repository.FirstOrDefault(x => x.TenantName == tenantName);
             if (tenant != null)
             {
                 return BadRequest("Company already exist");
@@ -98,12 +96,12 @@ namespace ContactEFCoreApp.Controllers
 
         [HttpGet]
         [Route("{tenantID}")]
-        public ActionResult<Tenant> GetTenant(Guid tenantID)
+        public async Task<ActionResult<Tenant>> GetTenant(Guid tenantID)
         {
-            if (!_repository.DoesTenantExist(tenantID))
+            if (await _repository.GetById(tenantID) == null)
                 return BadRequest("Invalid tenant id");
 
-            return _repository.GetTenant(tenantID);
+            return await _repository.GetById(tenantID);
         }
     }
 }

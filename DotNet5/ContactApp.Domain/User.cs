@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ContactApp.Domain
 {
-    public class User
+    public class User : BaseEntity
     {
-        public Guid ID { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string Role { get; set; }

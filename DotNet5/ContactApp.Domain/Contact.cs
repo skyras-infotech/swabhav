@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace ContactApp.Domain
 {
-    public class Contact
+    public class Contact : BaseEntity
     {
-        public Guid ID { get; set; }
         public string Name { get; set; }
         public long MobileNumber { get; set; }
         public List<Address> Addresses { get; set; }
