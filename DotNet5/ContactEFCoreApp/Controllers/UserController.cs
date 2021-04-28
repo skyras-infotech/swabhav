@@ -59,7 +59,12 @@ namespace ContactEFCoreApp.Controllers
             if (ModelState.IsValid)
             {
                 userDTO.Password = BC.HashPassword(userDTO.Password);
-                await _repository.Update(new User { ID = userID, Username = userDTO.Username, Password = userDTO.Password, Email = userDTO.Email, Role = userDTO.Role });
+                User user = await _repository.GetById(userID);
+                user.Username = userDTO.Username;
+                user.Password = userDTO.Password;
+                user.Role = userDTO.Role;
+                user.Email = userDTO.Email;
+                await _repository.Update(user);
                 return Ok("User Updated Successfully..");
             }
             return BadRequest("User not updated properly");
@@ -85,7 +90,7 @@ namespace ContactEFCoreApp.Controllers
             if (await _tenantRepo.GetById(tenantID) == null)
                 return BadRequest("Invalid tenant id");
 
-            return await _repository.GetWhere(x => x.TenantID == tenantID);
+            return await _repository.GetAllWithPreloadWhere(x => x.TenantID == tenantID,"Contacts");
         }
 
         [HttpGet]
@@ -117,7 +122,7 @@ namespace ContactEFCoreApp.Controllers
                     {
                         return Ok(user);
                     }
-                   
+
                 }
             }
             return BadRequest("Email or password is invalid");
@@ -140,7 +145,7 @@ namespace ContactEFCoreApp.Controllers
             if (await _tenantRepo.GetById(tenantID) == null)
                 return BadRequest("Invalid tenant id");
 
-            List<User> users = await _repository.GetAllWithPreloadWhere(x => x.TenantID == tenantID,"Contacts");
+            List<User> users = await _repository.GetAllWithPreloadWhere(x => x.TenantID == tenantID, "Contacts");
             int count = 0;
             foreach (var user in users)
             {

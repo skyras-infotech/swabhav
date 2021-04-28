@@ -41,7 +41,10 @@ namespace ContactEFCoreApp.Controllers
 
             if (ModelState.IsValid)
             {
-                await _repository.Update(new Tenant { TenantName = tenantDTO.TenantName, CompanyStrength = tenantDTO.CompanyStrength });
+                Tenant tenant = await _repository.GetById(tenantID);
+                tenant.TenantName = tenantDTO.TenantName;
+                tenant.CompanyStrength = tenantDTO.CompanyStrength;
+                await _repository.Update(tenant);
                 return Ok("Tenant Updated Successfully..");
             }
             return BadRequest("Tenant not updated properly");

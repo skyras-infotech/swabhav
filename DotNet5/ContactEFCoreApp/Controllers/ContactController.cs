@@ -42,7 +42,7 @@ namespace ContactEFCoreApp.Controllers
                     await _repository.Add(new Contact { Name = contactDTO.Name, MobileNumber = contactDTO.MobileNumber, UserID = userID });
                     return Created("", "New Contact Added Successfully");
                 }
-                else 
+                else
                 {
                     return BadRequest("Mobile number is already exist");
                 }
@@ -65,7 +65,10 @@ namespace ContactEFCoreApp.Controllers
 
             if (ModelState.IsValid)
             {
-                await _repository.Update(new Contact { ID = contactID, Name = contactDTO.Name, MobileNumber = contactDTO.MobileNumber });
+                Contact contact = await _repository.GetById(contactID);
+                contact.Name = contactDTO.Name;
+                contact.MobileNumber = contactDTO.MobileNumber;
+                await _repository.Update(contact);
                 return Ok("Contact Updated Successfully..");
             }
             return BadRequest("Contact not updated properly");
@@ -117,15 +120,15 @@ namespace ContactEFCoreApp.Controllers
         }
 
 
-       /* private BadRequestObjectResult DoesUserAndTenantExist(Guid tenantID, Guid userID)
-        {
-            if (!_repository.DoesTenantExist(tenantID))
-                return BadRequest("Invalid tenant id");
+        /* private BadRequestObjectResult DoesUserAndTenantExist(Guid tenantID, Guid userID)
+         {
+             if (!_repository.DoesTenantExist(tenantID))
+                 return BadRequest("Invalid tenant id");
 
-            if (!_repository.DoesUserExist(userID))
-                return BadRequest("Invalid user id");
+             if (!_repository.DoesUserExist(userID))
+                 return BadRequest("Invalid user id");
 
-            return null;
-        }*/
+             return null;
+         }*/
     }
 }

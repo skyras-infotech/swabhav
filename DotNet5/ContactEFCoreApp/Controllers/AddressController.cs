@@ -66,7 +66,9 @@ namespace AddressEFCoreApp.Controllers
 
             if (ModelState.IsValid)
             {
-                await _repository.Update(new Address { ID = addressID, City = addressDTO.City });
+                Address address = await _repository.GetById(addressID);
+                address.City = addressDTO.City;
+                await _repository.Update(address);
                 return Ok("Address Updated Successfully..");
             }
             return BadRequest("Address not updated properly");
