@@ -26,5 +26,6 @@ namespace ContactApp.Data
         public DbSet<Address> Addresses { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
+        public DbSet<SuperUser> SuperUsers { get; set; }
     }
 }

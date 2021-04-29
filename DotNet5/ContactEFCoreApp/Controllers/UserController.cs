@@ -8,6 +8,7 @@ using ContactApp.Data.Repository;
 using ContactEFCoreApp.ModelDTO;
 using ContactApp.Domain;
 using BC = BCrypt.Net.BCrypt;
+using ContactEFCoreApp.Token;
 
 namespace ContactEFCoreApp.Controllers
 {
@@ -17,10 +18,12 @@ namespace ContactEFCoreApp.Controllers
     {
         private readonly IContactRepository<User> _repository;
         private readonly IContactRepository<Tenant> _tenantRepo;
-        public UserController(IContactRepository<User> contactRepository, IContactRepository<Tenant> tenantRepo)
+        private readonly ICustomTokenManager _tokenManager;
+        public UserController(ICustomTokenManager tokenManager,IContactRepository<User> contactRepository, IContactRepository<Tenant> tenantRepo)
         {
             _repository = contactRepository;
             _tenantRepo = tenantRepo;
+            _tokenManager = tokenManager;
         }
 
         [HttpPost]
@@ -48,6 +51,7 @@ namespace ContactEFCoreApp.Controllers
 
         [HttpPut]
         [Route("{userID}")]
+        [JWTAuthorization]
         public async Task<ActionResult> PutUser([FromBody] UserDTO userDTO, Guid userID, Guid tenantID)
         {
             if (await _tenantRepo.GetById(tenantID) == null)
@@ -72,6 +76,7 @@ namespace ContactEFCoreApp.Controllers
 
         [HttpDelete]
         [Route("{userID}")]
+        [JWTAuthorization]
         public async Task<ActionResult> DeleteUser(Guid userID, Guid tenantID)
         {
             if (await _tenantRepo.GetById(tenantID) == null)
@@ -85,6 +90,7 @@ namespace ContactEFCoreApp.Controllers
         }
 
         [HttpGet]
+        [JWTAuthorization]
         public async Task<ActionResult<List<User>>> GetUsers(Guid tenantID)
         {
             if (await _tenantRepo.GetById(tenantID) == null)
@@ -95,6 +101,7 @@ namespace ContactEFCoreApp.Controllers
 
         [HttpGet]
         [Route("{userID}")]
+        [JWTAuthorization]
         public async Task<ActionResult<User>> GetUser(Guid tenantID, Guid userID)
         {
             if (await _tenantRepo.GetById(tenantID) == null)
@@ -120,9 +127,9 @@ namespace ContactEFCoreApp.Controllers
                 {
                     if (BC.Verify(loginDTO.Password, user.Password))
                     {
-                        return Ok(user);
+                        var token = _tokenManager.CreateToken(user); 
+                        return Ok(token);
                     }
-
                 }
             }
             return BadRequest("Email or password is invalid");
@@ -130,6 +137,7 @@ namespace ContactEFCoreApp.Controllers
 
         [HttpGet]
         [Route("NoOfUsers")]
+        [JWTAuthorization]
         public async Task<ActionResult<int>> GetCountOfUsers(Guid tenantID)
         {
             if (await _tenantRepo.GetById(tenantID) == null)
@@ -140,6 +148,7 @@ namespace ContactEFCoreApp.Controllers
 
         [HttpGet]
         [Route("NoOfUsersContacts")]
+        [JWTAuthorization]
         public async Task<ActionResult<int>> GetCountOfUsersContacts(Guid tenantID)
         {
             if (await _tenantRepo.GetById(tenantID) == null)

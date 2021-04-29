@@ -17,7 +17,9 @@ export class AddContactComponent implements OnInit {
   constructor(private _contactService: ContactService, private _router: Router, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-
+    if (sessionStorage.getItem('user-info') == null) {
+      this._router.navigateByUrl("");
+    }
   }
 
   onSubmit(form: NgForm) {
@@ -26,18 +28,18 @@ export class AddContactComponent implements OnInit {
         console.log(res);
         this.isMobileExist = false;
         this._toastr.success("Contact Added..");
-        this._router.navigateByUrl("contact-list/" + localStorage.getItem("userID"));
+        this._router.navigateByUrl("contact-list/" + JSON.parse(sessionStorage.getItem("currentUser"))?.userID);
       }, err => {
         console.log(err);
         this.isMobileExist = true;
         this._toastr.error(err.error);
-    });
+      });
+    }
+
   }
 
-}
-
-backToList() {
-  this._router.navigateByUrl("contact-list/" + localStorage.getItem("userID"));
-}
+  backToList() {
+    this._router.navigateByUrl("contact-list/" + JSON.parse(sessionStorage.getItem("currentUser"))?.userID);
+  }
 
 }

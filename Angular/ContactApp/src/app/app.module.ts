@@ -15,13 +15,16 @@ import { DashboardModule } from './Dashboard/dashboard.module';
 import { LoginComponent } from './Tenant/Login/login.component';
 import { TenantRegistrationComponent } from './Tenant/Register/reg-tenant.component';
 import { CheckPasswordEquality } from './Tenant/check-passsword.directive';
+import { LoaderService } from './Loader/loader.service';
+import { SuperUserLoginComponent } from './SuperUserLogin/super-user-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     TenantRegistrationComponent,
-    CheckPasswordEquality
+    CheckPasswordEquality,
+    SuperUserLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { CheckPasswordEquality } from './Tenant/check-passsword.directive';
     useClass: InterceptorService,
     multi: true,
   },
+  LoaderService
   ],
   bootstrap: [AppComponent]
 })

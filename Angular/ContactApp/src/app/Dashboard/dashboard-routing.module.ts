@@ -6,6 +6,7 @@ import { UpdateAddressComponent } from './Address/UpdateAddress/update-address.c
 import { AddContactComponent } from './Contact/AddContact/add-contact.component';
 import { ContactListComponent } from './Contact/ContactList/contact-list.component';
 import { UpdateContactComponent } from './Contact/UpdateContact/update-contact.component';
+import { TenantListComponent } from './SuperUser/tenant-list.component';
 import { AddUserComponent } from './User/AddUser/add-user.component';
 import { AdminDashboardComponent } from './User/AdminDashboard/admin-dashboard.component';
 import { UserListComponent } from './User/UserList/user-list.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: ":contactID/edit-address/:addressID", component: UpdateAddressComponent },
   { path: "users-list/:tenantID", component: UserListComponent },
   { path: ":tenantID/add-user", component: AddUserComponent },
-  { path: ":tenantID/admin-home", component: AdminDashboardComponent }
+  { path: ":tenantID/admin-home", component: AdminDashboardComponent },
+  { path: "tenant-list", component: TenantListComponent }
 ];
 
 @NgModule({

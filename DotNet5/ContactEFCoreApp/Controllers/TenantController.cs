@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ContactApp.Data.Repository;
 using ContactEFCoreApp.ModelDTO;
 using ContactApp.Domain;
+using ContactEFCoreApp.Token;
 
 namespace ContactEFCoreApp.Controllers
 {
@@ -52,6 +53,7 @@ namespace ContactEFCoreApp.Controllers
 
         [HttpDelete]
         [Route("{tenantID}")]
+        [JWTAuthorization]
         public async Task<ActionResult> DeleteTenant(Guid tenantID)
         {
             if (await _repository.GetById(tenantID) == null)
@@ -62,9 +64,10 @@ namespace ContactEFCoreApp.Controllers
         }
 
         [HttpGet]
+        [JWTAuthorization]
         public async Task<List<Tenant>> GetTenants()
         {
-            return await _repository.GetAll();
+            return await _repository.GetAllWithPreload("Users");
         }
 
         [HttpGet]

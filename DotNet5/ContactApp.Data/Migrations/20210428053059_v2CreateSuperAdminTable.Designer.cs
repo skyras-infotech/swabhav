@@ -4,14 +4,16 @@ using ContactApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContactApp.Data.Migrations
 {
     [DbContext(typeof(ContactDBContext))]
-    partial class ContactDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210428053059_v2CreateSuperAdminTable")]
+    partial class v2CreateSuperAdminTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

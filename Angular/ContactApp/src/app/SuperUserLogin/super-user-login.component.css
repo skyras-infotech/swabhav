@@ -1,0 +1,17 @@
+input.ng-invalid.ng-touched
+{
+    border: 2px solid red;
+}
+input.ng-valid
+{
+    border: 2px solid green;
+}
+.div-center
+{
+    position: absolute;
+    top: 50%;
+    margin:auto;
+    left:50%;
+    width:400px;
+    transform: translate(-50%, -50%);
+}

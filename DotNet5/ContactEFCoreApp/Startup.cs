@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using ContactApp.Data;
 using ContactApp.Data.Repository;
 using Microsoft.EntityFrameworkCore;
+using ContactEFCoreApp.Token;
 
 namespace ContactEFCoreApp
 {
@@ -30,7 +31,8 @@ namespace ContactEFCoreApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSingleton<ICustomTokenManager, JWTTokenManager>();
+            services.AddScoped<JWTAuthorization>();
             services.AddCors(
                 c => c.AddPolicy(MyAllowSpecificOrigins,
                 options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader())

@@ -16,16 +16,16 @@ export class AdminDashboardComponent implements OnInit {
   faPhone = faPhone;
   faBible = faBible;
   tenantID: string;
-  constructor(private _userService: UserService, private _route: Router, private _aRoute: ActivatedRoute) { }
+  constructor(private _userService: UserService, private _route: Router) { }
 
   ngOnInit(): void {
-    this.tenantID = this._aRoute.snapshot.params.tenantID;
-    this._userService.getNoOfContacts(localStorage.getItem("tenantID")).subscribe(res => this.noOfContacts = Number.parseInt(JSON.stringify(res)));
+    this.tenantID = JSON.parse(sessionStorage.getItem("currentUser"))?.tenantID;
+    this._userService.getNoOfContacts(this.tenantID).subscribe(res => this.noOfContacts = Number.parseInt(JSON.stringify(res)));
     this._userService.getNoOfUsers(this.tenantID).subscribe(res => this.noOfUsers = Number.parseInt(JSON.stringify(res)));
   }
 
   userList() {
-    this._route.navigateByUrl("users-list/" + localStorage.getItem("tenantID"));
+    this._route.navigateByUrl("users-list/" + this.tenantID);
   }
 
 }

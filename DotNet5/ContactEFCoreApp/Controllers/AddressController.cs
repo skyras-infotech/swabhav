@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using ContactApp.Data.Repository;
 using ContactEFCoreApp.ModelDTO;
 using ContactApp.Domain;
+using ContactEFCoreApp.Token;
 
 namespace AddressEFCoreApp.Controllers
 {
     [Route("api/v1/tenant/{tenantID}/user/{userID}/contact/{contactID}/[controller]")]
     [ApiController]
+    [JWTAuthorization]
     public class AddressController : ControllerBase
     {
         private readonly IContactRepository<Address> _repository;

@@ -4,6 +4,3 @@ input.ng-invalid.ng-touched{
 input.ng-valid{
     border: 2px solid green;
 }
-small{
-    color: red;
-}

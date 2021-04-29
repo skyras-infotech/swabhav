@@ -17,6 +17,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SearchContactFilter } from './search-contact.pipe';
 import { SearchUserFilter } from './search-user.pipe';
 import { SearchAddressFilter } from './search-address.pipe';
+import { TenantListComponent } from './SuperUser/tenant-list.component';
+import { SearchTenantFilter } from './search-tenant.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { SearchAddressFilter } from './search-address.pipe';
     AdminDashboardComponent,
     SearchContactFilter,
     SearchUserFilter,
-    SearchAddressFilter
+    SearchAddressFilter,
+    TenantListComponent,
+    SearchTenantFilter
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="isLoggedIn$ | async as isLoggedIn">
-    <span class="navbar-brand">{{currentUser.companyName}}</span>
+    <span class="navbar-brand" *ngIf="currentUser">{{currentUser.companyName}}</span>
+    <span class="navbar-brand" *ngIf="superUserName">Super User</span>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto" *ngIf="currentUser">
             <li class="nav-item active" [routerLinkActive]="['active']" *ngIf="currentUser.role == 'Admin'">
                 <a class="nav-link" routerLink={{adminHomeRoute}}>Home</a>
             </li>
@@ -12,8 +13,14 @@
                 <a class="nav-link" routerLink={{normalUserRoute}}>Home</a>
             </li>
         </ul>
+        <ul class="navbar-nav mr-auto" *ngIf="superUserName">
+
+        </ul>
         <form class="form-inline my-2 my-lg-0">
-            <span class="mr-sm-2" style="color: white; font-size: larger;">Welcome {{currentUser.username}}</span>
+            <span class="mr-sm-2" style="color: white; font-size: larger;" *ngIf="currentUser">Welcome
+                {{currentUser.username}}</span>
+            <span class="mr-sm-2" style="color: white; font-size: larger;" *ngIf="superUserName">Welcome
+                {{superUserName}}</span>
             <button class="btn btn-success my-2 my-sm-0" style="margin-left: 50px;" (click)="logout()"
                 type="submit">Logout</button>
         </form>

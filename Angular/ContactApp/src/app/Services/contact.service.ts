@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { Contact } from '../Model/contact.model';
 
@@ -8,20 +8,16 @@ import { Contact } from '../Model/contact.model';
 })
 export class ContactService {
 
-  tenantID: string = localStorage.getItem("tenantID");
-  userID: string = localStorage.getItem("userID");
+  tenantID: string = JSON.parse(sessionStorage.getItem("currentUser"))?.tenantID;
+  userID: string = JSON.parse(sessionStorage.getItem("currentUser"))?.userID;
   baseURL: string = "https://localhost:44301/api/v1/tenant/" + this.tenantID + "/user/" + this.userID + "/Contact";
+  token: string = sessionStorage.getItem("user-info");
 
   constructor(private _http: HttpClient) {
-    console.log("Tenant ID " + this.tenantID);
-    console.log("User ID " + this.userID);
   }
 
-  // getContacts(userID:string): Observable<Contact[]> {
-  //   return this._http.get<Contact[]>("https://localhost:44301/api/v1/tenant/" + this.tenantID + "/user/" + userID + "/Contact");
-  // }
-
   getContacts(): Observable<Contact[]> {
+
     return this._http.get<Contact[]>(this.baseURL);
   }
 
