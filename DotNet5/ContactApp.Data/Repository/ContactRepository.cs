@@ -14,9 +14,9 @@ namespace ContactApp.Data.Repository
 
         private readonly ContactDBContext _dbContext;
 
-        public ContactRepository(ContactDBContext contactDB)
+        public ContactRepository(ContactDBContext contactDb)
         {
-            _dbContext = contactDB;
+            _dbContext = contactDb;
         }
 
         public async Task<T> GetById(Guid id) => await _dbContext.Set<T>().FindAsync(id);

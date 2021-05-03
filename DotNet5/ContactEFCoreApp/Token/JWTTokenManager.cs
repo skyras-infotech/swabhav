@@ -32,11 +32,11 @@ namespace ContactEFCoreApp.Token
                 Subject = new ClaimsIdentity(
                     new Claim[]
                     {
-                        new Claim("id", user.ID.ToString()),
+                        new Claim("id", user.Id.ToString()),
                         new Claim("username", user.Username),
                         new Claim("email", user.Email),
                         new Claim("role", user.Role),
-                        new Claim("tenantID", user.TenantID.ToString())
+                        new Claim("tenantID", user.TenantId.ToString())
                     }
                 ),
                 Expires = DateTime.UtcNow.AddMinutes(30),
@@ -57,8 +57,10 @@ namespace ContactEFCoreApp.Token
                 Subject = new ClaimsIdentity(
                     new Claim[]
                     {
-                        new Claim("id", user.ID.ToString()),
+                        new Claim("id", user.Id.ToString()),
                         new Claim("username", user.Username),
+                        new Claim("email", user.Email),
+                        new Claim("role", user.Role)
                     }
                 ),
                 Expires = DateTime.UtcNow.AddMinutes(30),
@@ -76,7 +78,7 @@ namespace ContactEFCoreApp.Token
         {
             if (string.IsNullOrWhiteSpace(token)) return null;
             var jwtToken = _tokenHandler.ReadToken(token.Replace("\"", string.Empty)) as JwtSecurityToken;
-            var claim = jwtToken.Claims.FirstOrDefault(x => x.Type == "id");
+            var claim = jwtToken.Claims.FirstOrDefault(x => x.Type == "role");
             if (claim != null) return claim.Value;
             return null;
         }

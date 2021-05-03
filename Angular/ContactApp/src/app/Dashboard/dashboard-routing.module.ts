@@ -5,6 +5,7 @@ import { AddressListComponent } from './Address/AddressList/address-list.compone
 import { UpdateAddressComponent } from './Address/UpdateAddress/update-address.component';
 import { AddContactComponent } from './Contact/AddContact/add-contact.component';
 import { ContactListComponent } from './Contact/ContactList/contact-list.component';
+import { FavouriteContactListComponent } from './Contact/FavouriteContactList/favourite-contact-list.component';
 import { UpdateContactComponent } from './Contact/UpdateContact/update-contact.component';
 import { TenantListComponent } from './SuperUser/tenant-list.component';
 import { AddUserComponent } from './User/AddUser/add-user.component';
@@ -13,6 +14,7 @@ import { UserListComponent } from './User/UserList/user-list.component';
 
 const routes: Routes = [
   { path: "contact-list/:userID", component: ContactListComponent },
+  { path: "favourite-contact-list/:userID", component: FavouriteContactListComponent },
   { path: ":userID/add-contact", component: AddContactComponent },
   { path: "edit-contact/:contactID", component: UpdateContactComponent },
   { path: "address-list/:contactID", component: AddressListComponent },

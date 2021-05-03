@@ -12,7 +12,7 @@ using ContactEFCoreApp.Token;
 
 namespace ContactEFCoreApp.Controllers
 {
-    [Route("api/v1/tenant/{tenantID}/[controller]")]
+    [Route("api/v1/tenant/{tenantId:guid}/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -27,143 +27,116 @@ namespace ContactEFCoreApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostUser([FromBody] UserDTO userDTO, Guid tenantID)
+        public async Task<ActionResult> PostUser([FromBody] UserDTO userDto, Guid tenantId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (ModelState.IsValid)
-            {
-                User user = await _repository.FirstOrDefault(x => x.Email == userDTO.Email);
-                if (user == null)
-                {
-                    userDTO.Password = BC.HashPassword(userDTO.Password);
-                    await _repository.Add(new User { Username = userDTO.Username, Password = userDTO.Password, Email = userDTO.Email, TenantID = tenantID, Role = userDTO.Role });
-                    return Created("", "New User Added Successfully");
-                }
-                else
-                {
-                    return BadRequest("Email id is already exist");
-                }
-            }
-            return BadRequest("User is not added properly");
+            if (!ModelState.IsValid) return BadRequest("User is not added properly");
+            User user = await _repository.FirstOrDefault(x => x.Email == userDto.Email);
+            if (user != null) return BadRequest("Email id is already exist");
+            userDto.Password = BC.HashPassword(userDto.Password);
+            await _repository.Add(new User { Username = userDto.Username, Password = userDto.Password, Email = userDto.Email, TenantId = tenantId, Role = userDto.Role });
+            return Created("", "New User Added Successfully");
         }
 
         [HttpPut]
-        [Route("{userID}")]
+        [Route("{userId:guid}")]
         [JWTAuthorization]
-        public async Task<ActionResult> PutUser([FromBody] UserDTO userDTO, Guid userID, Guid tenantID)
+        public async Task<ActionResult> PutUser([FromBody] UserDTO userDto, Guid userId, Guid tenantId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _repository.GetById(userID) == null)
+            if (await _repository.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            if (ModelState.IsValid)
-            {
-                userDTO.Password = BC.HashPassword(userDTO.Password);
-                User user = await _repository.GetById(userID);
-                user.Username = userDTO.Username;
-                user.Password = userDTO.Password;
-                user.Role = userDTO.Role;
-                user.Email = userDTO.Email;
-                await _repository.Update(user);
-                return Ok("User Updated Successfully..");
-            }
-            return BadRequest("User not updated properly");
+            if (!ModelState.IsValid) return BadRequest("User not updated properly");
+            userDto.Password = BC.HashPassword(userDto.Password);
+            User user = await _repository.GetById(userId);
+            user.Username = userDto.Username;
+            user.Password = userDto.Password;
+            user.Role = userDto.Role;
+            user.Email = userDto.Email;
+            await _repository.Update(user);
+            return Ok("User Updated Successfully..");
         }
 
         [HttpDelete]
-        [Route("{userID}")]
-        [JWTAuthorization]
-        public async Task<ActionResult> DeleteUser(Guid userID, Guid tenantID)
+        [Route("{userId:guid}")]
+        [JWTAuthorization(Role = "Admin")]
+        public async Task<ActionResult> DeleteUser(Guid userId, Guid tenantId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _repository.GetById(userID) == null)
+            if (await _repository.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            await _repository.Remove(await _repository.GetById(userID));
+            await _repository.Remove(await _repository.GetById(userId));
             return Ok("User Deleted Successfully..");
         }
 
         [HttpGet]
-        [JWTAuthorization]
-        public async Task<ActionResult<List<User>>> GetUsers(Guid tenantID)
+        [JWTAuthorization(Role = "Admin")]
+        public async Task<ActionResult<List<User>>> GetUsers(Guid tenantId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            return await _repository.GetAllWithPreloadWhere(x => x.TenantID == tenantID,"Contacts");
+            return await _repository.GetAllWithPreloadWhere(x => x.TenantId == tenantId,"Contacts");
         }
 
         [HttpGet]
-        [Route("{userID}")]
-        [JWTAuthorization]
-        public async Task<ActionResult<User>> GetUser(Guid tenantID, Guid userID)
+        [Route("{userId:guid}")]
+        [JWTAuthorization(Role = "Admin")]
+        public async Task<ActionResult<User>> GetUser(Guid tenantId, Guid userId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _repository.GetById(userID) == null)
+            if (await _repository.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            return await _repository.FirstOrDefault(x => x.ID == userID && x.TenantID == tenantID);
+            return await _repository.FirstOrDefault(x => x.Id == userId && x.TenantId == tenantId);
         }
 
         [HttpPost]
         [Route("loginIsUnique")]
-        public async Task<ActionResult<User>> UserLogin([FromBody] LoginDTO loginDTO, Guid tenantID)
+        public async Task<ActionResult<User>> UserLogin([FromBody] LoginDTO loginDto, Guid tenantId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (ModelState.IsValid)
-            {
-                User user = await _repository.FirstOrDefault(x => x.Email == loginDTO.Email && x.TenantID == tenantID);
-                if (user != null)
-                {
-                    if (BC.Verify(loginDTO.Password, user.Password))
-                    {
-                        var token = _tokenManager.CreateToken(user); 
-                        return Ok(token);
-                    }
-                }
-            }
-            return BadRequest("Email or password is invalid");
+            if (!ModelState.IsValid) return BadRequest("Email or password is invalid");
+            User user = await _repository.FirstOrDefault(x => x.Email == loginDto.Email && x.TenantId == tenantId);
+            if (user == null) return BadRequest("Email or password is invalid");
+            if (!BC.Verify(loginDto.Password, user.Password)) return BadRequest("Email or password is invalid");
+            var token = _tokenManager.CreateToken(user); 
+            return Ok(token);
         }
 
         [HttpGet]
         [Route("NoOfUsers")]
-        [JWTAuthorization]
-        public async Task<ActionResult<int>> GetCountOfUsers(Guid tenantID)
+        [JWTAuthorization(Role = "Admin")]
+        public async Task<ActionResult<int>> GetCountOfUsers(Guid tenantId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            return await _repository.CountWhere(x => x.TenantID == tenantID);
+            return await _repository.CountWhere(x => x.TenantId == tenantId);
         }
 
         [HttpGet]
         [Route("NoOfUsersContacts")]
-        [JWTAuthorization]
-        public async Task<ActionResult<int>> GetCountOfUsersContacts(Guid tenantID)
+        [JWTAuthorization(Role = "Admin")]
+        public async Task<ActionResult<int>> GetCountOfUsersContacts(Guid tenantId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            List<User> users = await _repository.GetAllWithPreloadWhere(x => x.TenantID == tenantID, "Contacts");
-            int count = 0;
-            foreach (var user in users)
-            {
-                foreach (var contact in user.Contacts)
-                {
-                    count += 1;
-                }
-            }
-            return count;
+            List<User> users = await _repository.GetAllWithPreloadWhere(x => x.TenantId == tenantId, "Contacts");
+            return users.SelectMany(user => user.Contacts).Count();
         }
     }
 }

@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace ContactEFCoreApp.Token
 {
@@ -30,13 +32,23 @@ namespace ContactEFCoreApp.Token
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             _tokenManager = (ICustomTokenManager)context.HttpContext.RequestServices.GetService(typeof(ICustomTokenManager));
-            if (context != null) 
+            if (context != null)
             {
                 var token = context.HttpContext.Request.Headers["token"].ToString();
-                
-                if (IsValidToken(token) && _tokenManager.GetUserInfoByToken(token) != null) 
+                string tokenRole = _tokenManager.GetUserInfoByToken(token);
+                if (IsValidToken(token) && tokenRole != null)
                 {
-                    return;
+                    if (Role != null)
+                    {
+                        if (Role == tokenRole)
+                        {
+                            return;
+                        }
+                    }
+                    else 
+                    {
+                        return;
+                    }
                 }
 
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;

@@ -105,7 +105,7 @@ export class UserService {
   }
 
   checkTenantExist(tenantName: string) {
-    return this._http.get(this.baseURL + "CheckTenantExistance/" + tenantName);
+    return this._http.get(this.baseURL + "CheckTenantExistence/" + tenantName);
   }
 
   deleteTenant(tenantID: string) {

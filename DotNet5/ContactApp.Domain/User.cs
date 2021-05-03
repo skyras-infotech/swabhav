@@ -14,7 +14,7 @@ namespace ContactApp.Domain
         public string Password { get; set; }
         public List<Contact> Contacts { get; set; }
         public Tenant Tenant { get; set; }
-        public Guid TenantID { get; set; }
+        public Guid TenantId { get; set; }
 
         public User() 
         {

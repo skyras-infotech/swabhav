@@ -21,28 +21,31 @@ namespace ContactApp.Data.Migrations
 
             modelBuilder.Entity("ContactApp.Domain.Address", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ContactID")
+                    b.Property<Guid>("ContactId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ContactID");
+                    b.HasIndex("ContactId");
 
                     b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("ContactApp.Domain.Contact", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsFavorite")
+                        .HasColumnType("bit");
 
                     b.Property<long>("MobileNumber")
                         .HasColumnType("bigint");
@@ -50,39 +53,45 @@ namespace ContactApp.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserID")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("MobileNumber")
                         .IsUnique();
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("ContactApp.Domain.SuperUser", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("SuperUsers");
                 });
 
             modelBuilder.Entity("ContactApp.Domain.Tenant", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -92,7 +101,7 @@ namespace ContactApp.Data.Migrations
                     b.Property<string>("TenantName")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("TenantName")
                         .IsUnique()
@@ -103,7 +112,7 @@ namespace ContactApp.Data.Migrations
 
             modelBuilder.Entity("ContactApp.Domain.User", b =>
                 {
-                    b.Property<Guid>("ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -116,19 +125,19 @@ namespace ContactApp.Data.Migrations
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("TenantID")
+                    b.Property<Guid>("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
 
-                    b.HasIndex("TenantID");
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Users");
                 });
@@ -137,7 +146,7 @@ namespace ContactApp.Data.Migrations
                 {
                     b.HasOne("ContactApp.Domain.Contact", "Contacts")
                         .WithMany("Addresses")
-                        .HasForeignKey("ContactID")
+                        .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -148,7 +157,7 @@ namespace ContactApp.Data.Migrations
                 {
                     b.HasOne("ContactApp.Domain.User", "User")
                         .WithMany("Contacts")
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -159,7 +168,7 @@ namespace ContactApp.Data.Migrations
                 {
                     b.HasOne("ContactApp.Domain.Tenant", "Tenant")
                         .WithMany("Users")
-                        .HasForeignKey("TenantID")
+                        .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

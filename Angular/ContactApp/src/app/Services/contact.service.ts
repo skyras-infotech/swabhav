@@ -17,8 +17,11 @@ export class ContactService {
   }
 
   getContacts(): Observable<Contact[]> {
-
     return this._http.get<Contact[]>(this.baseURL);
+  }
+
+  getFavouriteContacts(): Observable<Contact[]> {
+    return this._http.get<Contact[]>(this.baseURL + "/favorite-list");
   }
 
   addContact(contact: Contact) {

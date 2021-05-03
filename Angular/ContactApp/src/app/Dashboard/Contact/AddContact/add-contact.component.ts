@@ -23,6 +23,7 @@ export class AddContactComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    console.log(this.contact);
     if (form.valid) {
       this._contactService.addContact(this.contact).subscribe(res => {
         console.log(res);
@@ -35,7 +36,6 @@ export class AddContactComponent implements OnInit {
         this._toastr.error(err.error);
       });
     }
-
   }
 
   backToList() {

@@ -4,21 +4,20 @@ import { Contact } from 'src/app/Model/contact.model';
 import { ContactService } from 'src/app/Services/contact.service';
 
 @Component({
-  selector: 'app-contact-list',
-  templateUrl: './contact-list.component.html',
+  selector: 'app-favourite-contact-list',
+  templateUrl: './favourite-contact-list.component.html',
 })
-export class ContactListComponent implements OnInit {
+export class FavouriteContactListComponent implements OnInit {
 
   userID: string;
   contacts: Contact[];
   searchText: string;
-  favorite: string = "assets/unstar.png";
 
   constructor(private _contactService: ContactService, private _router: Router) {
   }
 
   ngOnInit(): void {
-    this._contactService.getContacts().subscribe(data => this.contacts = data);
+    this._contactService.getFavouriteContacts().subscribe(data => this.contacts = data);
   }
 
   addContact() {

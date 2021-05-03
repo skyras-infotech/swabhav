@@ -12,7 +12,7 @@ using ContactEFCoreApp.Token;
 
 namespace ContactEFCoreApp.Controllers
 {
-    [Route("api/v1/tenant/{tenantID}/user/{userID}/[controller]")]
+    [Route("api/v1/tenant/{tenantId:guid}/user/{userId:guid}/[controller]")]
     [ApiController]
     [JWTAuthorization]
     public class ContactController : ControllerBase
@@ -28,97 +28,100 @@ namespace ContactEFCoreApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostContact([FromBody] ContactDTO contactDTO, Guid userID, Guid tenantID)
+        public async Task<ActionResult> PostContact([FromBody] ContactDTO contactDto, Guid userId, Guid tenantId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _userRepo.GetById(userID) == null)
+            if (await _userRepo.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            if (ModelState.IsValid)
-            {
-                Contact contact = await _repository.FirstOrDefault(x => x.MobileNumber == contactDTO.MobileNumber);
-                if (contact == null)
-                {
-                    await _repository.Add(new Contact { Name = contactDTO.Name, MobileNumber = contactDTO.MobileNumber, UserID = userID });
-                    return Created("", "New Contact Added Successfully");
-                }
-                else
-                {
-                    return BadRequest("Mobile number is already exist");
-                }
-            }
-            return BadRequest("Contact not inserted properly");
+            if (!ModelState.IsValid) return BadRequest("Contact not inserted properly");
+            Contact contact = await _repository.FirstOrDefault(x => x.MobileNumber == contactDto.MobileNumber);
+            if (contact != null) return BadRequest("Mobile number is already exist");
+            await _repository.Add(new Contact { Name = contactDto.Name, MobileNumber = contactDto.MobileNumber, UserId = userId, IsFavorite = contactDto.IsFavorite });
+            return Created("", "New Contact Added Successfully");
+
         }
 
         [HttpPut]
-        [Route("{contactID}")]
-        public async Task<ActionResult> PutContact([FromBody] ContactDTO contactDTO, Guid contactID, Guid userID, Guid tenantID)
+        [Route("{contactId:guid}")]
+        public async Task<ActionResult> PutContact([FromBody] ContactDTO contactDto, Guid contactId, Guid userId, Guid tenantId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _userRepo.GetById(userID) == null)
+            if (await _userRepo.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _repository.GetById(contactID) == null)
+            if (await _repository.GetById(contactId) == null)
                 return BadRequest("Invalid contact id");
 
-            if (ModelState.IsValid)
-            {
-                Contact contact = await _repository.GetById(contactID);
-                contact.Name = contactDTO.Name;
-                contact.MobileNumber = contactDTO.MobileNumber;
-                await _repository.Update(contact);
-                return Ok("Contact Updated Successfully..");
-            }
-            return BadRequest("Contact not updated properly");
+            if (!ModelState.IsValid) return BadRequest("Contact not updated properly");
+            Contact contact = await _repository.GetById(contactId);
+            contact.Name = contactDto.Name;
+            contact.MobileNumber = contactDto.MobileNumber;
+            contact.IsFavorite = contactDto.IsFavorite;
+            await _repository.Update(contact);
+            return Ok("Contact Updated Successfully..");
         }
 
         [HttpDelete]
-        [Route("{contactID}")]
-        public async Task<ActionResult> DeleteContact(Guid contactID, Guid userID, Guid tenantID)
+        [Route("{contactId:guid}")]
+        public async Task<ActionResult> DeleteContact(Guid contactId, Guid userId, Guid tenantId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _userRepo.GetById(userID) == null)
+            if (await _userRepo.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _repository.GetById(contactID) == null)
+            if (await _repository.GetById(contactId) == null)
                 return BadRequest("Invalid contact id");
 
-            await _repository.Remove(await _repository.GetById(contactID));
+            await _repository.Remove(await _repository.GetById(contactId));
             return Ok("Contact Deleted Successfully..");
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Contact>>> GetContacts(Guid tenantID, Guid userID)
+        public async Task<ActionResult<List<Contact>>> GetContacts(Guid tenantId, Guid userId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _userRepo.GetById(userID) == null)
+            if (await _userRepo.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            return await _repository.GetWhere(x => x.User.TenantID == tenantID && x.UserID == userID);
+            return await _repository.GetWhere(x => x.User.TenantId == tenantId && x.UserId == userId);
         }
 
         [HttpGet]
-        [Route("{contactID}")]
-        public async Task<ActionResult<Contact>> GetContact(Guid contactID, Guid userID, Guid tenantID)
+        [Route("favorite-list")]
+        public async Task<ActionResult<List<Contact>>> GetFavoriteContacts(Guid tenantId, Guid userId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _userRepo.GetById(userID) == null)
+            if (await _userRepo.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _repository.GetById(contactID) == null)
+            return await _repository.GetWhere(x => x.User.TenantId == tenantId && x.UserId == userId && x.IsFavorite == true);
+        }
+
+        [HttpGet]
+        [Route("{contactId:guid}")]
+        public async Task<ActionResult<Contact>> GetContact(Guid contactId, Guid userId, Guid tenantId)
+        {
+            if (await _tenantRepo.GetById(tenantId) == null)
+                return BadRequest("Invalid tenant id");
+
+            if (await _userRepo.GetById(userId) == null)
+                return BadRequest("Invalid user id");
+
+            if (await _repository.GetById(contactId) == null)
                 return BadRequest("Invalid contact id");
 
-            return await _repository.FirstOrDefault(x => x.User.TenantID == tenantID && x.UserID == userID && x.ID == contactID);
+            return await _repository.FirstOrDefault(x => x.User.TenantId == tenantId && x.UserId == userId && x.Id == contactId);
         }
 
 

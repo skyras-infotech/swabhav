@@ -7,6 +7,6 @@ namespace ContactApp.Domain
     {
         public string City { get; set; }
         public Contact Contacts { get; set; }
-        public Guid ContactID { get; set; }
+        public Guid ContactId { get; set; }
     }
 }

@@ -6,4 +6,5 @@ export class Contact
     name:string;
     mobileNumber:number;
     addresses:Address[];
+    isFavorite:boolean;
 }

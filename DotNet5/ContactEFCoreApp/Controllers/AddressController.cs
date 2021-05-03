@@ -1,17 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ContactApp.Data.Repository;
-using ContactEFCoreApp.ModelDTO;
 using ContactApp.Domain;
+using ContactEFCoreApp.ModelDTO;
 using ContactEFCoreApp.Token;
+using Microsoft.AspNetCore.Mvc;
 
-namespace AddressEFCoreApp.Controllers
+namespace ContactEFCoreApp.Controllers
 {
-    [Route("api/v1/tenant/{tenantID}/user/{userID}/contact/{contactID}/[controller]")]
+    [Route("api/v1/tenant/{tenantId:guid}/user/{userId:guid}/contact/{contactId:guid}/[controller]")]
     [ApiController]
     [JWTAuthorization]
     public class AddressController : ControllerBase
@@ -30,104 +28,98 @@ namespace AddressEFCoreApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAddress([FromBody] AddressDTO contactDTO, Guid tenantID, Guid userID, Guid contactID)
+        public async Task<IActionResult> PostAddress([FromBody] AddressDTO contactDto, Guid tenantId, Guid userId, Guid contactId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _userRepo.GetById(userID) == null)
+            if (await _userRepo.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _contactRepo.GetById(contactID) == null)
+            if (await _contactRepo.GetById(contactId) == null)
                 return BadRequest("Invalid user id");
 
-            if (ModelState.IsValid)
-            {
-                await _repository.Add(new Address { City = contactDTO.City, ContactID = contactID });
-                return Created("", "New Address Added Successfully");
-            }
-            return BadRequest("Address not added properly");
+            if (!ModelState.IsValid) return BadRequest("Address not added properly");
+            await _repository.Add(new Address { City = contactDto.City, ContactId = contactId });
+            return Created("", "New Address Added Successfully");
 
         }
 
         [HttpPut]
-        [Route("{addressID}")]
-        public async Task<ActionResult> PutAddress([FromBody] AddressDTO addressDTO, Guid tenantID, Guid userID, Guid contactID, Guid addressID)
+        [Route("{addressId:guid}")]
+        public async Task<ActionResult> PutAddress([FromBody] AddressDTO addressDto, Guid tenantId, Guid userId, Guid contactId, Guid addressId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _userRepo.GetById(userID) == null)
+            if (await _userRepo.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _contactRepo.GetById(contactID) == null)
+            if (await _contactRepo.GetById(contactId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _repository.GetById(addressID) == null)
+            if (await _repository.GetById(addressId) == null)
                 return BadRequest("Invalid address id");
 
-            if (ModelState.IsValid)
-            {
-                Address address = await _repository.GetById(addressID);
-                address.City = addressDTO.City;
-                await _repository.Update(address);
-                return Ok("Address Updated Successfully..");
-            }
-            return BadRequest("Address not updated properly");
+            if (!ModelState.IsValid) return BadRequest("Address not updated properly");
+            Address address = await _repository.GetById(addressId);
+            address.City = addressDto.City;
+            await _repository.Update(address);
+            return Ok("Address Updated Successfully..");
         }
 
         [HttpDelete]
-        [Route("{addressID}")]
-        public async Task<ActionResult> DeleteContact(Guid tenantID, Guid userID, Guid contactID, Guid addressID)
+        [Route("{addressId:guid}")]
+        public async Task<ActionResult> DeleteContact(Guid tenantId, Guid userId, Guid contactId, Guid addressId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _userRepo.GetById(userID) == null)
+            if (await _userRepo.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _contactRepo.GetById(contactID) == null)
+            if (await _contactRepo.GetById(contactId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _repository.GetById(addressID) == null)
+            if (await _repository.GetById(addressId) == null)
                 return BadRequest("Invalid address id");
 
-            await _repository.Remove(await _repository.GetById(addressID));
+            await _repository.Remove(await _repository.GetById(addressId));
             return Ok("Address Deleted Successfully..");
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Address>>> GetAddresses(Guid tenantID, Guid userID, Guid contactID)
+        public async Task<ActionResult<List<Address>>> GetAddresses(Guid tenantId, Guid userId, Guid contactId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _userRepo.GetById(userID) == null)
+            if (await _userRepo.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _contactRepo.GetById(contactID) == null)
+            if (await _contactRepo.GetById(contactId) == null)
                 return BadRequest("Invalid user id");
 
-            return await _repository.GetWhere(x => x.ContactID == contactID && x.Contacts.UserID == userID && x.Contacts.User.TenantID == tenantID);
+            return await _repository.GetWhere(x => x.ContactId == contactId && x.Contacts.UserId == userId && x.Contacts.User.TenantId == tenantId);
         }
 
         [HttpGet]
-        [Route("{addressID}")]
-        public async Task<ActionResult<Address>> GetAddress(Guid contactID, Guid userID, Guid tenantID, Guid addressID)
+        [Route("{addressId:guid}")]
+        public async Task<ActionResult<Address>> GetAddress(Guid contactId, Guid userId, Guid tenantId, Guid addressId)
         {
-            if (await _tenantRepo.GetById(tenantID) == null)
+            if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            if (await _userRepo.GetById(userID) == null)
+            if (await _userRepo.GetById(userId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _contactRepo.GetById(contactID) == null)
+            if (await _contactRepo.GetById(contactId) == null)
                 return BadRequest("Invalid user id");
 
-            if (await _repository.GetById(addressID) == null)
+            if (await _repository.GetById(addressId) == null)
                 return BadRequest("Invalid address id");
 
-            return await _repository.FirstOrDefault(x => x.ID == addressID && x.ContactID == contactID && x.Contacts.UserID == userID && x.Contacts.User.TenantID == tenantID);
+            return await _repository.FirstOrDefault(x => x.Id == addressId && x.ContactId == contactId && x.Contacts.UserId == userId && x.Contacts.User.TenantId == tenantId);
         }
     }
 }

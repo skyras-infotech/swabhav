@@ -19,6 +19,7 @@ import { SearchUserFilter } from './search-user.pipe';
 import { SearchAddressFilter } from './search-address.pipe';
 import { TenantListComponent } from './SuperUser/tenant-list.component';
 import { SearchTenantFilter } from './search-tenant.pipe';
+import { FavouriteContactListComponent } from './Contact/FavouriteContactList/favourite-contact-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SearchTenantFilter } from './search-tenant.pipe';
     SearchUserFilter,
     SearchAddressFilter,
     TenantListComponent,
-    SearchTenantFilter
+    SearchTenantFilter,
+    FavouriteContactListComponent
   ],
   imports: [
     CommonModule,

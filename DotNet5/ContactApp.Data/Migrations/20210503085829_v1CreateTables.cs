@@ -8,38 +8,52 @@ namespace ContactApp.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "SuperUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SuperUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tenants",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TenantName = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CompanyStrength = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tenants", x => x.ID);
+                    table.PrimaryKey("PK_Tenants", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TenantID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TenantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.ID);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Tenants_TenantID",
-                        column: x => x.TenantID,
+                        name: "FK_Users_Tenants_TenantId",
+                        column: x => x.TenantId,
                         principalTable: "Tenants",
-                        principalColumn: "ID",
-                        onUpdate: ReferentialAction.Cascade,
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -47,20 +61,20 @@ namespace ContactApp.Data.Migrations
                 name: "Contacts",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MobileNumber = table.Column<long>(type: "bigint", nullable: false),
-                    UserID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    IsFavorite = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contacts", x => x.ID);
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contacts_Users_UserID",
-                        column: x => x.UserID,
+                        name: "FK_Contacts_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "ID",
-                        onUpdate: ReferentialAction.Cascade,
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -68,26 +82,25 @@ namespace ContactApp.Data.Migrations
                 name: "Addresses",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ContactId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Addresses", x => x.ID);
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Addresses_Contacts_ContactID",
-                        column: x => x.ContactID,
+                        name: "FK_Addresses_Contacts_ContactId",
+                        column: x => x.ContactId,
                         principalTable: "Contacts",
-                        principalColumn: "ID",
-                        onUpdate: ReferentialAction.Cascade,
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Addresses_ContactID",
+                name: "IX_Addresses_ContactId",
                 table: "Addresses",
-                column: "ContactID");
+                column: "ContactId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_MobileNumber",
@@ -96,9 +109,9 @@ namespace ContactApp.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contacts_UserID",
+                name: "IX_Contacts_UserId",
                 table: "Contacts",
-                column: "UserID");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tenants_TenantName",
@@ -115,15 +128,18 @@ namespace ContactApp.Data.Migrations
                 filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_TenantID",
+                name: "IX_Users_TenantId",
                 table: "Users",
-                column: "TenantID");
+                column: "TenantId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "SuperUsers");
 
             migrationBuilder.DropTable(
                 name: "Contacts");

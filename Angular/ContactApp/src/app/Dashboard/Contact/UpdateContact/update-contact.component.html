@@ -25,11 +25,19 @@
                         Mobile Number should be 10 digit only.
                     </div>
                 </div>
+                <div class="form-check" align="left">
+                    <input class="form-check-input" type="checkbox" name="isFavorite"
+                        [(ngModel)]="contact.isFavorite">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Add to Favourite
+                    </label>
+                </div>
                 <div class="mt-3">
                     <button class="btn btn-primary" type="submit">Update Contact</button>
                 </div>
             </form>
         </div>
-        <div align="left" style="padding-left: 20px;"><button class="btn btn-dark mb-4" (click)="backToList()">Back to List</button></div>
+        <div align="left" style="padding-left: 20px;"><button class="btn btn-dark mb-4" (click)="backToList()">Back to
+                List</button></div>
     </div>
 </div>

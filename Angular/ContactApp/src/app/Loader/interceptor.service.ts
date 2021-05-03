@@ -4,13 +4,14 @@ import { Observable, throwError } from 'rxjs';
 import { LoaderService } from './loader.service';
 import { catchError, finalize } from "rxjs/operators";
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptorService implements HttpInterceptor {
 
-  constructor(public loaderService: LoaderService, private _route: Router) { }
+  constructor(public loaderService: LoaderService, private _route: Router, private _toastr: ToastrService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.loaderService.isLoading.next(true);
@@ -34,7 +35,11 @@ export class InterceptorService implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401) {
-          this._route.navigateByUrl("");
+          if (sessionStorage.getItem('user-info') != null) {
+            this._toastr.error("Sorry you are not authorized to access this");
+          } else {
+            this._route.navigateByUrl("");
+          }
         }
         return throwError(err);
       }),

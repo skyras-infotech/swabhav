@@ -8,6 +8,6 @@ namespace ContactApp.Domain
 {
     public class BaseEntity
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
     }
 }

@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   currentUser: CurrentUser = new CurrentUser();
   adminHomeRoute: string;
   normalUserRoute: string;
+  favouriteContactRoute: string;
   superUser$: Observable<string>;
   superUserName: string;
 
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
       if (this.currentUser != null) {
         this.adminHomeRoute = this.currentUser.tenantID + "/admin-home";
         this.normalUserRoute = "contact-list/" + this.currentUser.userID;
+        this.favouriteContactRoute = "favourite-contact-list/" + this.currentUser.userID;
       }
     }, err => console.log(err));
   }

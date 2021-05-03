@@ -12,5 +12,6 @@ namespace ContactEFCoreApp.ModelDTO
         public string Name { get; set; }
         [Required]
         public long MobileNumber { get; set; }
+        public bool IsFavorite { get; set; }
     }
 }
