@@ -50,6 +50,6 @@ export class AppComponent implements OnInit {
     this._router.navigateByUrl("");
     setTimeout(function () {
       location.reload();
-    }, 1500)
+    }, 1000)
   }
 }
