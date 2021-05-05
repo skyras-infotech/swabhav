@@ -11,7 +11,7 @@ export class AddressService {
 
   tenantID: string = JSON.parse(sessionStorage.getItem("currentUser"))?.tenantID;
   userID: string = JSON.parse(sessionStorage.getItem("currentUser"))?.userID;
-  baseURL: string = "https://localhost:44301/api/v1/tenant/" + this.tenantID + "/user/" + this.userID + "/Contact";
+  baseURL: string = "https://sumit-contact-api.azurewebsites.net/api/v1/tenant/" + this.tenantID + "/user/" + this.userID + "/Contact";
 
   constructor(private _http: HttpClient) {
 

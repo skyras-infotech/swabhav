@@ -11,7 +11,7 @@ namespace ContactApp.Domain
         public List<Address> Addresses { get; set; }
         public User User { get; set; }
         public Guid UserId { get; set; }
-        public Contact() 
+        public Contact()
         {
             Addresses = new List<Address>();
         }

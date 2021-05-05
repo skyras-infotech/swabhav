@@ -1,10 +1,8 @@
-﻿using System;
+﻿using ContactApp.Domain;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using ContactApp.Domain;
 
 namespace ContactApp.Data.Repository
 {
@@ -19,7 +17,7 @@ namespace ContactApp.Data.Repository
 
         Task<List<T>> GetAll();
         Task<List<T>> GetAllWithPreload(string include);
-        Task<List<T>> GetAllWithPreloadWhere(Expression<Func<T, bool>> predicate,string include);
+        Task<List<T>> GetAllWithPreloadWhere(Expression<Func<T, bool>> predicate, string include);
         Task<List<T>> GetWhere(Expression<Func<T, bool>> predicate);
 
         Task<int> CountAll();

@@ -1,12 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using ContactApp.Domain;
+﻿using ContactApp.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactApp.Data
 {
     public class ContactDBContext : DbContext
     {
-        public ContactDBContext(DbContextOptions<ContactDBContext> options) :base(options)
+        public ContactDBContext(DbContextOptions<ContactDBContext> options) : base(options)
         {
         }
 

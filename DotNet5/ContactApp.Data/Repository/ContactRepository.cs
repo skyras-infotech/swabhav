@@ -2,10 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using BC = BCrypt.Net.BCrypt;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactApp.Data.Repository
 {
@@ -47,12 +46,12 @@ namespace ContactApp.Data.Repository
             return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public async Task<List<T>> GetAllWithPreload(string include) 
+        public async Task<List<T>> GetAllWithPreload(string include)
         {
             return await _dbContext.Set<T>().Include(include).ToListAsync();
         }
 
-        public async Task<List<T>> GetAllWithPreloadWhere(Expression<Func<T, bool>> predicate, string include) 
+        public async Task<List<T>> GetAllWithPreloadWhere(Expression<Func<T, bool>> predicate, string include)
         {
             return await _dbContext.Set<T>().Where(predicate).Include(include).ToListAsync();
         }

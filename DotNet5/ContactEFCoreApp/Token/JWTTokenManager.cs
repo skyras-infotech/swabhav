@@ -1,14 +1,11 @@
 ﻿using ContactApp.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.IdentityModel.Tokens.Jwt;
-using System.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
-using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
+using System.Text;
 
 namespace ContactEFCoreApp.Token
 {

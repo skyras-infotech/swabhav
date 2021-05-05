@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ContactApp.Data.Repository;
+using ContactApp.Domain;
+using ContactEFCoreApp.ModelDTO;
+using ContactEFCoreApp.Token;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ContactApp.Data.Repository;
-using ContactEFCoreApp.ModelDTO;
-using ContactApp.Domain;
 using BC = BCrypt.Net.BCrypt;
-using ContactEFCoreApp.Token;
 
 namespace ContactEFCoreApp.Controllers
 {
@@ -19,7 +18,7 @@ namespace ContactEFCoreApp.Controllers
         private readonly IContactRepository<User> _repository;
         private readonly IContactRepository<Tenant> _tenantRepo;
         private readonly ICustomTokenManager _tokenManager;
-        public UserController(ICustomTokenManager tokenManager,IContactRepository<User> contactRepository, IContactRepository<Tenant> tenantRepo)
+        public UserController(ICustomTokenManager tokenManager, IContactRepository<User> contactRepository, IContactRepository<Tenant> tenantRepo)
         {
             _repository = contactRepository;
             _tenantRepo = tenantRepo;
@@ -84,7 +83,7 @@ namespace ContactEFCoreApp.Controllers
             if (await _tenantRepo.GetById(tenantId) == null)
                 return BadRequest("Invalid tenant id");
 
-            return await _repository.GetAllWithPreloadWhere(x => x.TenantId == tenantId,"Contacts");
+            return await _repository.GetAllWithPreloadWhere(x => x.TenantId == tenantId, "Contacts");
         }
 
         [HttpGet]
@@ -112,7 +111,7 @@ namespace ContactEFCoreApp.Controllers
             User user = await _repository.FirstOrDefault(x => x.Email == loginDto.Email && x.TenantId == tenantId);
             if (user == null) return BadRequest("Email or password is invalid");
             if (!BC.Verify(loginDto.Password, user.Password)) return BadRequest("Email or password is invalid");
-            var token = _tokenManager.CreateToken(user); 
+            var token = _tokenManager.CreateToken(user);
             return Ok(token);
         }
 

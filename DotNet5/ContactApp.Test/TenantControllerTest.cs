@@ -1,13 +1,13 @@
-using System;
-using Xunit;
 using ContactApp.Data.Repository;
-using ContactEFCoreApp.Controllers;
-using Moq;
 using ContactApp.Domain;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using ContactEFCoreApp.Controllers;
 using ContactEFCoreApp.ModelDTO;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Moq;
+using Xunit;
 
 namespace ContactApp.Test
 {
@@ -30,7 +30,7 @@ namespace ContactApp.Test
             _tenantMock.Setup(x => x.GetAllWithPreload(preload)).ReturnsAsync(tenants);
 
             //Act
-            var tenantList =  await _tenantController.GetTenants();
+            var tenantList = await _tenantController.GetTenants();
 
             //Assert
             Assert.Equal(tenantList.Count, tenants.Count);
@@ -40,17 +40,17 @@ namespace ContactApp.Test
         public async Task PostTenant_ShouldReturnNewTenant()
         {
             //Arrange
-            var tenantDto = new TenantDTO 
-            { 
+            var tenantDto = new TenantDTO
+            {
                 TenantName = "Swabhav",
                 CompanyStrength = 65
             };
             _tenantMock.Setup(x => x.Add(new Tenant
-                {TenantName = tenantDto.TenantName, CompanyStrength = tenantDto.CompanyStrength}));
+            { TenantName = tenantDto.TenantName, CompanyStrength = tenantDto.CompanyStrength }));
 
             //Act
             var tenant = await _tenantController.PostTenant(tenantDto);
-            
+
             //Assert
             Assert.IsType<OkObjectResult>(tenant);
         }
@@ -85,7 +85,7 @@ namespace ContactApp.Test
             var tenant1 = await _tenantController.GetTenant(tenantId);
 
             //Assert
-            Assert.Equal(tenant,tenant1.Value);
+            Assert.Equal(tenant, tenant1.Value);
         }
     }
 }

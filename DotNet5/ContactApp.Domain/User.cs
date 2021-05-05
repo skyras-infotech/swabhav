@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContactApp.Domain
 {
@@ -16,7 +13,7 @@ namespace ContactApp.Domain
         public Tenant Tenant { get; set; }
         public Guid TenantId { get; set; }
 
-        public User() 
+        public User()
         {
             Contacts = new List<Contact>();
         }

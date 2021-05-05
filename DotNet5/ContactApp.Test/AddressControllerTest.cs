@@ -1,14 +1,13 @@
-using System;
-using Xunit;
 using ContactApp.Data.Repository;
-using ContactEFCoreApp.Controllers;
-using Moq;
 using ContactApp.Domain;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using ContactEFCoreApp.Controllers;
 using ContactEFCoreApp.ModelDTO;
-using ContactEFCoreApp.Token;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Moq;
+using Xunit;
 
 namespace ContactApp.Test
 {
@@ -68,7 +67,7 @@ namespace ContactApp.Test
             _tenantMock.Setup(x => x.GetById(tenantId)).ReturnsAsync(tenant);
             _userMock.Setup(x => x.GetById(userId)).ReturnsAsync(user);
             _contactMock.Setup(x => x.GetById(contactId)).ReturnsAsync(contact);
-            _addressMock.Setup(x => x.Add(new Address {City = addressDto.City, ContactId = contactId}));
+            _addressMock.Setup(x => x.Add(new Address { City = addressDto.City, ContactId = contactId }));
 
             //Act
             var address = await _addressController.PostAddress(addressDto, tenantId, userId, contactId);
@@ -91,7 +90,7 @@ namespace ContactApp.Test
             _tenantMock.Setup(x => x.GetById(tenantId)).ReturnsAsync(tenant);
             _userMock.Setup(x => x.GetById(userId)).ReturnsAsync(user);
             _contactMock.Setup(x => x.GetById(contactId)).ReturnsAsync(contact);
-            _addressMock.Setup(x => x.Add(new Address {City = addressDto.City, ContactId = contactId}));
+            _addressMock.Setup(x => x.Add(new Address { City = addressDto.City, ContactId = contactId }));
             _addressController.ModelState.AddModelError("City", "City is Required");
 
             //Act

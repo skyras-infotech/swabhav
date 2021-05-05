@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ContactApp.Data.Repository;
+﻿using ContactApp.Data.Repository;
 using ContactApp.Domain;
 using ContactEFCoreApp.ModelDTO;
-using BC = BCrypt.Net.BCrypt;
 using ContactEFCoreApp.Token;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using BC = BCrypt.Net.BCrypt;
 
 namespace ContactEFCoreApp.Controllers
 {
@@ -50,7 +46,7 @@ namespace ContactEFCoreApp.Controllers
             if (ModelState.IsValid)
             {
                 superLogin.Password = BC.HashPassword(superLogin.Password);
-                await _repository.Add(new SuperUser { Username = superLogin.Username, Password = superLogin.Password,Role = "Super Admin",Email =superLogin.Email });
+                await _repository.Add(new SuperUser { Username = superLogin.Username, Password = superLogin.Password, Role = "Super Admin", Email = superLogin.Email });
                 return Created("", "New Super User Created Sucessfully");
             }
             return BadRequest("Super user not added properly");

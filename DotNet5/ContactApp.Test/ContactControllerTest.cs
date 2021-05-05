@@ -1,14 +1,13 @@
-using System;
-using Xunit;
 using ContactApp.Data.Repository;
-using ContactEFCoreApp.Controllers;
-using Moq;
 using ContactApp.Domain;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using ContactEFCoreApp.Controllers;
 using ContactEFCoreApp.ModelDTO;
-using ContactEFCoreApp.Token;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Moq;
+using Xunit;
 
 namespace ContactApp.Test
 {
@@ -21,7 +20,7 @@ namespace ContactApp.Test
 
         public ContactControllerTest()
         {
-            _contactController = new ContactController(_contactMock.Object,_userMock.Object,_tenantMock.Object);
+            _contactController = new ContactController(_contactMock.Object, _userMock.Object, _tenantMock.Object);
         }
 
         [Fact]
@@ -38,7 +37,7 @@ namespace ContactApp.Test
             _contactMock.Setup(x => x.GetWhere(y => y.User.TenantId == tenantId && y.UserId == userId)).ReturnsAsync(contacts);
 
             //Act
-            var contactList =  await _contactController.GetContacts(tenantId,userId);
+            var contactList = await _contactController.GetContacts(tenantId, userId);
 
             //Assert
             Assert.Equal(contacts, contactList.Value);
@@ -50,8 +49,8 @@ namespace ContactApp.Test
             //Arrange
             var tenantId = Guid.NewGuid();
             var userId = Guid.NewGuid();
-            var contactDto = new ContactDTO() 
-            { 
+            var contactDto = new ContactDTO()
+            {
                 Name = "Ravi Singh",
                 MobileNumber = 9646959155
             };
@@ -59,11 +58,11 @@ namespace ContactApp.Test
             var user = new User();
             _tenantMock.Setup(x => x.GetById(tenantId)).ReturnsAsync(tenant);
             _userMock.Setup(x => x.GetById(userId)).ReturnsAsync(user);
-            _contactMock.Setup(x => x.Add(new Contact{MobileNumber = contactDto.MobileNumber,Name = contactDto.Name,UserId = userId}));
+            _contactMock.Setup(x => x.Add(new Contact { MobileNumber = contactDto.MobileNumber, Name = contactDto.Name, UserId = userId }));
 
             //Act
-            var contact = await _contactController.PostContact(contactDto,userId,tenantId);
-            
+            var contact = await _contactController.PostContact(contactDto, userId, tenantId);
+
             //Assert
             Assert.IsType<CreatedResult>(contact);
         }
@@ -83,7 +82,7 @@ namespace ContactApp.Test
             var user = new User();
             _tenantMock.Setup(x => x.GetById(tenantId)).ReturnsAsync(tenant);
             _userMock.Setup(x => x.GetById(userId)).ReturnsAsync(user);
-            _contactMock.Setup(x => x.Add(new Contact {Name = contactDto.Name, UserId = userId }));
+            _contactMock.Setup(x => x.Add(new Contact { Name = contactDto.Name, UserId = userId }));
             _contactController.ModelState.AddModelError("MobileNumber", "Mobile Number is Required");
 
             //Act
@@ -109,10 +108,10 @@ namespace ContactApp.Test
             _contactMock.Setup(x => x.FirstOrDefault(x => x.User.TenantId == tenantId && x.UserId == userId && x.Id == contactId)).ReturnsAsync(contact);
 
             //Act
-            var contact1 = await _contactController.GetContact(contactId,userId,tenantId);
+            var contact1 = await _contactController.GetContact(contactId, userId, tenantId);
 
             //Assert
-            Assert.Equal(contact,contact1.Value);
+            Assert.Equal(contact, contact1.Value);
         }
     }
 }

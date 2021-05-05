@@ -24,7 +24,7 @@ export class UserService {
   }
 
 
-  baseURL: string = "https://localhost:44301/api/v1/tenant/";
+  baseURL: string = "https://sumit-contact-api.azurewebsites.net/api/v1/tenant/";
 
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private currentUser: BehaviorSubject<CurrentUser> = new BehaviorSubject<CurrentUser>(null);
@@ -113,7 +113,7 @@ export class UserService {
   }
 
   superLogin(username: string, pwd: string) {
-    return this._http.post("https://localhost:44301/api/SuperUser/login",
+    return this._http.post("https://sumit-contact-api.azurewebsites.net/api/SuperUser/login",
       {
         "username": username,
         "password": pwd

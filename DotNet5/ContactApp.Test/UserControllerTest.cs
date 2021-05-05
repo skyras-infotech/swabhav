@@ -1,14 +1,14 @@
-using System;
-using Xunit;
 using ContactApp.Data.Repository;
-using ContactEFCoreApp.Controllers;
-using Moq;
 using ContactApp.Domain;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using ContactEFCoreApp.Controllers;
 using ContactEFCoreApp.ModelDTO;
 using ContactEFCoreApp.Token;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Moq;
+using Xunit;
 
 namespace ContactApp.Test
 {
@@ -21,7 +21,7 @@ namespace ContactApp.Test
 
         public UserControllerTest()
         {
-            _userController = new UserController(_tokenManagerMock.Object, _userMock.Object,_tenantMock.Object);
+            _userController = new UserController(_tokenManagerMock.Object, _userMock.Object, _tenantMock.Object);
         }
 
         [Fact]
@@ -34,10 +34,10 @@ namespace ContactApp.Test
             var users = new List<User>();
             var tenant = new Tenant();
             _tenantMock.Setup(x => x.GetById(tenantId)).ReturnsAsync(tenant);
-            _userMock.Setup(x => x.GetAllWithPreloadWhere(y => y.TenantId == tenantId,preload)).ReturnsAsync(users);
+            _userMock.Setup(x => x.GetAllWithPreloadWhere(y => y.TenantId == tenantId, preload)).ReturnsAsync(users);
 
             //Act
-            var userList =  await _userController.GetUsers(tenantId);
+            var userList = await _userController.GetUsers(tenantId);
 
             //Assert
             Assert.Equal(users, userList.Value);
@@ -48,8 +48,8 @@ namespace ContactApp.Test
         {
             //Arrange
             var tenantId = Guid.NewGuid();
-            var userDto = new UserDTO 
-            { 
+            var userDto = new UserDTO
+            {
                 Username = "Sumit Gupta",
                 Email = "skgskg@gmail.com",
                 Password = "123456",
@@ -57,11 +57,11 @@ namespace ContactApp.Test
             };
             var tenant = new Tenant();
             _tenantMock.Setup(x => x.GetById(tenantId)).ReturnsAsync(tenant);
-            _userMock.Setup(x => x.Add(new User{Username = userDto.Username,Email = userDto.Email,Password = userDto.Password,Role = userDto.Role,TenantId = tenantId}));
+            _userMock.Setup(x => x.Add(new User { Username = userDto.Username, Email = userDto.Email, Password = userDto.Password, Role = userDto.Role, TenantId = tenantId }));
 
             //Act
-            var user1 = await _userController.PostUser(userDto,tenantId);
-            
+            var user1 = await _userController.PostUser(userDto, tenantId);
+
             //Assert
             Assert.IsType<CreatedResult>(user1);
         }
@@ -80,7 +80,7 @@ namespace ContactApp.Test
             _userController.ModelState.AddModelError("Username", "User Name Required");
 
             //Act
-            var user1 = await _userController.PostUser(userDto,tenantId);
+            var user1 = await _userController.PostUser(userDto, tenantId);
 
             //Assert
             Assert.IsType<BadRequestObjectResult>(user1);
@@ -99,10 +99,10 @@ namespace ContactApp.Test
             _userMock.Setup(x => x.FirstOrDefault(y => y.Id == userId && y.TenantId == tenantId)).ReturnsAsync(user);
 
             //Act
-            var user1 = await _userController.GetUser(tenantId,userId);
+            var user1 = await _userController.GetUser(tenantId, userId);
 
             //Assert
-            Assert.Equal(user,user1.Value);
+            Assert.Equal(user, user1.Value);
         }
     }
 }

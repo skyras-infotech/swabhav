@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ContactApp.Data.Repository;
+﻿using ContactApp.Data.Repository;
 using ContactApp.Domain;
 using ContactEFCoreApp.ModelDTO;
 using ContactEFCoreApp.Token;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ContactEFCoreApp.Controllers
 {

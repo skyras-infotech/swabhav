@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ContactApp.Data.Repository;
+using ContactApp.Domain;
+using ContactEFCoreApp.ModelDTO;
+using ContactEFCoreApp.Token;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using ContactApp.Domain;
-using ContactApp.Data;
-using ContactApp.Data.Repository;
-using ContactEFCoreApp.ModelDTO;
-using ContactEFCoreApp.Token;
 
 namespace ContactEFCoreApp.Controllers
 {
