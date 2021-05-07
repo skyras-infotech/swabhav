@@ -24,13 +24,13 @@ export class UpdateContactComponent implements OnInit {
       this._contactService.updateContact(this.contact).subscribe(res => {
         console.log(res)
         this._toastr.success("Contact Updated..");
-        this._router.navigateByUrl("contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userID);
+        this._router.navigateByUrl("/contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userId);
       }, err => console.log(err));
     }
   }
 
   backToList() {
-    this._router.navigateByUrl("contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userID);
+    this._router.navigateByUrl("/contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userId);
   }
 
 }

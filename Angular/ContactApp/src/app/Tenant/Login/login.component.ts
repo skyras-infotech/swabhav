@@ -52,22 +52,24 @@ export class LoginComponent implements OnInit {
       if (res != null) {
         sessionStorage.setItem("user-info", res);
         var payload = jwt_decode<User>(res);
+
+        console.log(payload);
         this._toastr.success("Login Sucess");
         this._userService.setIsLoggedIn = true;
         this.currentUser.email = payload.email;
         this.currentUser.role = payload.role;
         this.currentUser.username = payload.username;
-        this.currentUser.userID = payload.id;
-        this.currentUser.tenantID = payload.tenantID;
+        this.currentUser.userId = payload.id;
+        this.currentUser.tenantId = payload.tenantId;
         this.currentUser.companyName = this.tenantDetails.tenantName.toString();
         this.currentUser.companyStrength = this.tenantDetails.companyStrength.toString();
         sessionStorage.setItem("currentUser", JSON.stringify(this.currentUser));
         this._userService.setCurrentUser = this.currentUser;
         if (payload.role == "Admin") {
-          this._route.navigateByUrl(payload.tenantID + "/admin-home");
+          this._route.navigateByUrl("/"+payload.tenantId + "/admin-home");
 
         } else {
-          this._route.navigateByUrl("contact-list/" + payload.id);
+          this._route.navigateByUrl("/contact-list/" + payload.id);
         }
       }
     }, (err: any) => {

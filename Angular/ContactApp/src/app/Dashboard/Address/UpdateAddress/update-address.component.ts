@@ -26,12 +26,12 @@ export class UpdateAddressComponent implements OnInit {
     this._addressService.updateAddress(this.address, this.contactID).subscribe(res => {
       console.log(res);
       this._toastr.success("Address Updated..");
-      this._router.navigateByUrl("address-list/" + this.contactID);
+      this._router.navigateByUrl("/address-list/" + this.contactID);
     }, err => console.log(err));
   }
 
   backToList() {
-    this._router.navigateByUrl("address-list/" + this.contactID);
+    this._router.navigateByUrl("/address-list/" + this.contactID);
   }
 
 }

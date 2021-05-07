@@ -29,7 +29,7 @@ export class AddContactComponent implements OnInit {
         console.log(res);
         this.isMobileExist = false;
         this._toastr.success("Contact Added..");
-        this._router.navigateByUrl("contact-list/" + JSON.parse(sessionStorage.getItem("currentUser"))?.userID);
+        this._router.navigateByUrl("/contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userId);
       }, err => {
         console.log(err);
         this.isMobileExist = true;
@@ -39,7 +39,7 @@ export class AddContactComponent implements OnInit {
   }
 
   backToList() {
-    this._router.navigateByUrl("contact-list/" + JSON.parse(sessionStorage.getItem("currentUser"))?.userID);
+    this._router.navigateByUrl("/contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userId);
   }
 
 }

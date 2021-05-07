@@ -21,7 +21,7 @@ export class FavouriteContactListComponent implements OnInit {
   }
 
   addContact() {
-    this._router.navigateByUrl(JSON.parse(sessionStorage.getItem("currentUser")).userID + "/add-contact");
+    this._router.navigateByUrl("/"+JSON.parse(sessionStorage.getItem("currentUser")).userId + "/add-contact");
   }
 
   updateContact(contact: Contact) {
@@ -29,7 +29,7 @@ export class FavouriteContactListComponent implements OnInit {
   }
 
   addressList(contact: Contact) {
-    this._router.navigateByUrl("address-list/" + contact.id);
+    this._router.navigateByUrl("/address-list/" + contact.id);
   }
 
   deleteContact(contact: Contact) {
@@ -37,7 +37,7 @@ export class FavouriteContactListComponent implements OnInit {
       console.log(res);
       this._router.routeReuseStrategy.shouldReuseRoute = () => false;
       this._router.onSameUrlNavigation = 'reload';
-      this._router.navigateByUrl("contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userID);
+      this._router.navigateByUrl("/contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userId);
     }, err => console.log(err));
   }
 

@@ -2,7 +2,7 @@ import { Contact } from "./contact.model";
 
 export class User {
     id:string;
-    tenantID:string;
+    tenantId:string;
     email: string;
     username: string;
     password: string;

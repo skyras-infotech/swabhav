@@ -4,6 +4,6 @@ export class CurrentUser{
     email:string;
     username:string;
     role:string;
-    userID:string;
-    tenantID:string;
+    userId:string;
+    tenantId:string;
 }

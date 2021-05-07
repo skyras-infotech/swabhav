@@ -9,8 +9,8 @@ import { Address } from '../Model/address.model';
 })
 export class AddressService {
 
-  tenantID: string = JSON.parse(sessionStorage.getItem("currentUser"))?.tenantID;
-  userID: string = JSON.parse(sessionStorage.getItem("currentUser"))?.userID;
+  tenantID: string = JSON.parse(sessionStorage.getItem("currentUser"))?.tenantId;
+  userID: string = JSON.parse(sessionStorage.getItem("currentUser"))?.userId;
   baseURL: string = "https://sumit-contact-api.azurewebsites.net/api/v1/tenant/" + this.tenantID + "/user/" + this.userID + "/Contact";
 
   constructor(private _http: HttpClient) {

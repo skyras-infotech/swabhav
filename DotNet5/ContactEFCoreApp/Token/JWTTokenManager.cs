@@ -33,7 +33,7 @@ namespace ContactEFCoreApp.Token
                         new Claim("username", user.Username),
                         new Claim("email", user.Email),
                         new Claim("role", user.Role),
-                        new Claim("tenantID", user.TenantId.ToString())
+                        new Claim("tenantId", user.TenantId.ToString())
                     }
                 ),
                 Expires = DateTime.UtcNow.AddMinutes(30),

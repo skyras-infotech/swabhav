@@ -25,13 +25,13 @@ export class AddAddressComponent implements OnInit {
       this._addressService.addAddress(this.address, this.contactID).subscribe(res => {
         console.log(res);
         this._toastr.success("Address Added..");
-        this._router.navigateByUrl("address-list/" + this.contactID);
+        this._router.navigateByUrl("/address-list/" + this.contactID);
       }, err => console.log(err));
     }
   }
 
   backToList() {
-    this._router.navigateByUrl("address-list/" + this.contactID);
+    this._router.navigateByUrl("/address-list/" + this.contactID);
   }
 
 }

@@ -36,9 +36,9 @@ export class AppComponent implements OnInit {
     this.currUser$.subscribe(x => {
       this.currentUser = x;
       if (this.currentUser != null) {
-        this.adminHomeRoute = this.currentUser.tenantID + "/admin-home";
-        this.normalUserRoute = "contact-list/" + this.currentUser.userID;
-        this.favouriteContactRoute = "favourite-contact-list/" + this.currentUser.userID;
+        this.adminHomeRoute = "/" + this.currentUser.tenantId + "/admin-home";
+        this.normalUserRoute = "/contact-list/" + this.currentUser.userId;
+        this.favouriteContactRoute = "/favourite-contact-list/" + this.currentUser.userId;
       }
     }, err => console.log(err));
   }

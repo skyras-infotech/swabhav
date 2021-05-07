@@ -21,7 +21,7 @@ export class AddUserComponent implements OnInit {
   constructor(private _userService: UserService, private _router: Router, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.tenantID = JSON.parse(sessionStorage.getItem("currentUser"))?.tenantID;
+    this.tenantID = JSON.parse(sessionStorage.getItem("currentUser"))?.tenantId;
   }
 
   onSubmit(form: NgForm) {
@@ -30,13 +30,13 @@ export class AddUserComponent implements OnInit {
       this._userService.registerUser(this.user, this.tenantID).subscribe(res => {
         console.log(res);
         this._toastr.success("User Added..");
-        this._router.navigateByUrl("users-list/" + this.tenantID);
+        this._router.navigateByUrl("/users-list/" + this.tenantID);
       }, err => console.log(err));
     }
   }
 
   backToList() {
-    this._router.navigateByUrl("users-list/" + this.tenantID);
+    this._router.navigateByUrl("/users-list/" + this.tenantID);
   }
 
 }

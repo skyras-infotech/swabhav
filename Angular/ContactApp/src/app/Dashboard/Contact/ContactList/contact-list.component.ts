@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Contact } from 'src/app/Model/contact.model';
 import { ContactService } from 'src/app/Services/contact.service';
 
@@ -14,7 +15,8 @@ export class ContactListComponent implements OnInit {
   searchText: string;
   favorite: string = "assets/unstar.png";
 
-  constructor(private _contactService: ContactService, private _router: Router) {
+  constructor(private _contactService: ContactService, private _router: Router,private _toastr:ToastrService) {
+
   }
 
   ngOnInit(): void {
@@ -22,7 +24,7 @@ export class ContactListComponent implements OnInit {
   }
 
   addContact() {
-    this._router.navigateByUrl(JSON.parse(sessionStorage.getItem("currentUser")).userID + "/add-contact");
+    this._router.navigateByUrl("/"+JSON.parse(sessionStorage.getItem("currentUser")).userId + "/add-contact");
   }
 
   updateContact(contact: Contact) {
@@ -30,15 +32,16 @@ export class ContactListComponent implements OnInit {
   }
 
   addressList(contact: Contact) {
-    this._router.navigateByUrl("address-list/" + contact.id);
+    this._router.navigateByUrl("/address-list/" + contact.id);
   }
 
   deleteContact(contact: Contact) {
     this._contactService.deleteContact(contact).subscribe(res => {
       console.log(res);
+      this._toastr.success("Contact Deleted..");
       this._router.routeReuseStrategy.shouldReuseRoute = () => false;
       this._router.onSameUrlNavigation = 'reload';
-      this._router.navigateByUrl("contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userID);
+      this._router.navigateByUrl("/contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userId);
     }, err => console.log(err));
   }
 

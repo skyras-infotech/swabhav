@@ -79,7 +79,7 @@ export class UserService {
   }
 
   deleteUser(user: User) {
-    return this._http.delete(this.baseURL + user.tenantID + "/user/" + user.id, { responseType: 'text' });
+    return this._http.delete(this.baseURL + user.tenantId + "/user/" + user.id, { responseType: 'text' });
   }
 
   registerUser(user: User, tenantID: string) {

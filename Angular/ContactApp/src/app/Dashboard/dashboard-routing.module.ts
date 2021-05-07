@@ -13,7 +13,7 @@ import { AdminDashboardComponent } from './User/AdminDashboard/admin-dashboard.c
 import { UserListComponent } from './User/UserList/user-list.component';
 
 const routes: Routes = [
-  { path: "contact-list/:userID", component: ContactListComponent },
+  { path: "contact-list/:userID", component: ContactListComponent},
   { path: "favourite-contact-list/:userID", component: FavouriteContactListComponent },
   { path: ":userID/add-contact", component: AddContactComponent },
   { path: "edit-contact/:contactID", component: UpdateContactComponent },
