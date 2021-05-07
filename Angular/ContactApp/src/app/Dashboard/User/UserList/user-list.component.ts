@@ -29,14 +29,14 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(user: User) {
-    console.log(user);
+    (user);
     this._contactService.deleteUser(user).subscribe(res => {
-      console.log(res);
+      
       this._toastr.success("User Deleted..");
       this._router.routeReuseStrategy.shouldReuseRoute = () => false;
       this._router.onSameUrlNavigation = 'reload';
       this._router.navigateByUrl("/users-list/" + this.tenantID);
-    }, err => console.log(err));
+    }, err => this._toastr.error(err.error));
   }
 
 }

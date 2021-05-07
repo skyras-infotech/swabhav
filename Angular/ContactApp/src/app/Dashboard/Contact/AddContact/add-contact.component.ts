@@ -23,15 +23,15 @@ export class AddContactComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(this.contact);
+    (this.contact);
     if (form.valid) {
       this._contactService.addContact(this.contact).subscribe(res => {
-        console.log(res);
+        
         this.isMobileExist = false;
         this._toastr.success("Contact Added..");
         this._router.navigateByUrl("/contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userId);
       }, err => {
-        console.log(err);
+        this._toastr.error(err.error);
         this.isMobileExist = true;
         this._toastr.error(err.error);
       });

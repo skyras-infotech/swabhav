@@ -26,12 +26,12 @@ export class AddUserComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      console.log(this.user);
+      (this.user);
       this._userService.registerUser(this.user, this.tenantID).subscribe(res => {
-        console.log(res);
+        
         this._toastr.success("User Added..");
         this._router.navigateByUrl("/users-list/" + this.tenantID);
-      }, err => console.log(err));
+      }, err => this._toastr.error(err.error));
     }
   }
 

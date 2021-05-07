@@ -37,12 +37,12 @@ export class ContactListComponent implements OnInit {
 
   deleteContact(contact: Contact) {
     this._contactService.deleteContact(contact).subscribe(res => {
-      console.log(res);
+      
       this._toastr.success("Contact Deleted..");
       this._router.routeReuseStrategy.shouldReuseRoute = () => false;
       this._router.onSameUrlNavigation = 'reload';
       this._router.navigateByUrl("/contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userId);
-    }, err => console.log(err));
+    }, err => this._toastr.error(err.error));
   }
 
 }

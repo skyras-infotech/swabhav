@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { LoaderService } from './Loader/loader.service';
 import { CurrentUser } from './Model/current-user.model';
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit {
   superUser$: Observable<string>;
   superUserName: string;
 
-  constructor(public loadService: LoaderService, private _userService: UserService, private _router: Router) {
+  constructor(public loadService: LoaderService, private _userService: UserService, private _router: Router,private _toastr:ToastrService) {
 
   }
   ngOnInit(): void {
@@ -40,7 +41,7 @@ export class AppComponent implements OnInit {
         this.normalUserRoute = "/contact-list/" + this.currentUser.userId;
         this.favouriteContactRoute = "/favourite-contact-list/" + this.currentUser.userId;
       }
-    }, err => console.log(err));
+    }, err => this._toastr.error(err.error));
   }
 
   logout() {

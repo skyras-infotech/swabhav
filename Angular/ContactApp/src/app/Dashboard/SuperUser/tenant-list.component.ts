@@ -15,7 +15,7 @@ export class TenantListComponent implements OnInit {
 
   ngOnInit(): void {
     this._userService.getAllTenant().subscribe(res => {
-      console.log(res);
+      
       this.tenants = res;
     });
   }

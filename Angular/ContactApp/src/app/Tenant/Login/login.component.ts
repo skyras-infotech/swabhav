@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       if (res != null) {
         this.tenantDetails = JSON.parse(JSON.stringify(res));
         this._userService.setTenantID(this.tenantDetails.id);
-        console.log(this.tenantDetails);
+        (this.tenantDetails);
         this.btnDisable = false;
         this.exists = true;
       }
@@ -52,8 +52,6 @@ export class LoginComponent implements OnInit {
       if (res != null) {
         sessionStorage.setItem("user-info", res);
         var payload = jwt_decode<User>(res);
-
-        console.log(payload);
         this._toastr.success("Login Sucess");
         this._userService.setIsLoggedIn = true;
         this.currentUser.email = payload.email;
@@ -74,7 +72,7 @@ export class LoginComponent implements OnInit {
       }
     }, (err: any) => {
       this._toastr.error(err.error);
-      console.log(err);
+      this._toastr.error(err.error);
     });
   }
 

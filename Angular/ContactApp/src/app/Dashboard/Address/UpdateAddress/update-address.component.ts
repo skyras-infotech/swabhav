@@ -24,10 +24,10 @@ export class UpdateAddressComponent implements OnInit {
 
   onSubmit() {
     this._addressService.updateAddress(this.address, this.contactID).subscribe(res => {
-      console.log(res);
+      
       this._toastr.success("Address Updated..");
       this._router.navigateByUrl("/address-list/" + this.contactID);
-    }, err => console.log(err));
+    }, err => this._toastr.error(err.error));
   }
 
   backToList() {

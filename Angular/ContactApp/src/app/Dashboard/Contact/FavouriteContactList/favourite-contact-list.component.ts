@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Contact } from 'src/app/Model/contact.model';
 import { ContactService } from 'src/app/Services/contact.service';
 
@@ -13,7 +14,7 @@ export class FavouriteContactListComponent implements OnInit {
   contacts: Contact[];
   searchText: string;
 
-  constructor(private _contactService: ContactService, private _router: Router) {
+  constructor(private _contactService: ContactService, private _router: Router,private _toastr:ToastrService) {
   }
 
   ngOnInit(): void {
@@ -34,11 +35,11 @@ export class FavouriteContactListComponent implements OnInit {
 
   deleteContact(contact: Contact) {
     this._contactService.deleteContact(contact).subscribe(res => {
-      console.log(res);
+      
       this._router.routeReuseStrategy.shouldReuseRoute = () => false;
       this._router.onSameUrlNavigation = 'reload';
       this._router.navigateByUrl("/contact-list/" + JSON.parse(sessionStorage.getItem("currentUser")).userId);
-    }, err => console.log(err));
+    }, err => this._toastr.error(err.error));
   }
 
 }

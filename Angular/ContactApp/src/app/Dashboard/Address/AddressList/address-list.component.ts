@@ -33,12 +33,12 @@ export class AddressListComponent implements OnInit {
 
   deleteAddress(address: Address) {
     this._addressService.deleteAddress(address, this.contactID).subscribe(res => {
-      console.log(res);
+      
       this._toastr.success("Address Deleted..");
       this._router.routeReuseStrategy.shouldReuseRoute = () => false;
       this._router.onSameUrlNavigation = 'reload';
       this._router.navigateByUrl("/address-list/" + this.contactID);
-    }, err => console.log(err));
+    }, err => this._toastr.error(err.error));
   }
 
   backToList() {

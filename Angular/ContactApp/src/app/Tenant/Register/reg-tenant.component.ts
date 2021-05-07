@@ -23,22 +23,21 @@ export class TenantRegistrationComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      console.log(this.user);
       this._userService.addTenant(this.user).subscribe(res => {
         this.tenant = JSON.parse(res);
         this._userService.registerUser(this.user, this.tenant.id).subscribe(res => {
-          console.log(res);
+          
           this.isEmailExist = false;
           this._toastr.success("New Tenant Register Sucessfully");
           this._route.navigateByUrl("/home");
         }, err => {
-          console.log(err);
+          this._toastr.error(err.error);
           this.isEmailExist = true;
           this._toastr.error(err.error);
           this._userService.deleteTenant(this.tenant.id).subscribe(res => console.log(res),
-            err => console.log(err));
+            err => this._toastr.error(err.error));
         });
-      }, err => console.log(err));
+      }, err => this._toastr.error(err.error));
     }
   }
 

@@ -22,9 +22,9 @@ export class SuperUserLoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.superUser);
+    (this.superUser);
     this._userService.superLogin(this.superUser.username, this.superUser.password).subscribe(res => {
-      console.log(res);
+      
       sessionStorage.setItem("super-user-info", res);
       var payload = jwt_decode(res);
       sessionStorage.setItem("superUser", JSON.parse(JSON.stringify(payload)).username);
