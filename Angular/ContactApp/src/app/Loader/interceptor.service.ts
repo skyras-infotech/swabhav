@@ -37,9 +37,13 @@ export class InterceptorService implements HttpInterceptor {
         if (err.status === 401) {
           if (sessionStorage.getItem('user-info') != null) {
             this._toastr.error("Sorry you are not authorized to access this");
+            console.log(this._route.url);
           } else {
             this._route.navigateByUrl("");
           }
+        }
+        if (err.status === 404) {
+          this._route.navigateByUrl("");
         }
         return throwError(err);
       }),

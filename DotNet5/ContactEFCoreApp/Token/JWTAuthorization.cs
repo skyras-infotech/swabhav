@@ -25,22 +25,24 @@ namespace ContactEFCoreApp.Token
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             _tokenManager = (ICustomTokenManager)context.HttpContext.RequestServices.GetService(typeof(ICustomTokenManager));
-            if (context != null)
             {
                 var token = context.HttpContext.Request.Headers["token"].ToString();
-                string tokenRole = _tokenManager.GetUserInfoByToken(token);
-                if (IsValidToken(token) && tokenRole != null)
+                if (_tokenManager != null)
                 {
-                    if (Role != null)
+                    var tokenRole = _tokenManager.GetUserInfoByToken(token);
+                    if (IsValidToken(token) && tokenRole != null)
                     {
-                        if (Role == tokenRole)
+                        if (Role != null)
+                        {
+                            if (Role == tokenRole)
+                            {
+                                return;
+                            }
+                        }
+                        else
                         {
                             return;
                         }
-                    }
-                    else
-                    {
-                        return;
                     }
                 }
 
